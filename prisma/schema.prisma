@@ -1,0 +1,354 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum roles {
+  ADMIN
+  USER
+}
+
+model User {
+  id            String   @id @default(cuid())
+  firstname     String
+  lastname      String
+  middleInitial String?
+  email         String   @unique
+  image         String?
+  role          roles?
+  superAdmin    Boolean? @default(false)
+  password      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model College {
+  id                  String              @id @default(cuid())
+  name                String
+  description         String?
+  Centers             Center[]
+  GradSchoolFaculties GradSchoolFaculty[]
+  Partnerships        Partnership[]
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+}
+
+model Center {
+  id           String         @id @default(cuid())
+  name         String
+  college      College        @relation(fields: [collegeId], references: [id])
+  collegeId    String
+  Projects     Presentation[]
+  Utilizations Utilization[]
+  Publications Publication[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model Faculty {
+  id                  String              @id @default(cuid())
+  firstname           String
+  lastname            String
+  middleInitial       String?
+  position            String
+  suffix              String?
+  GradSchoolFaculties GradSchoolFaculty[]
+  TechnicalServices   TechnicalService[]
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+}
+
+model FacultyEngagement {
+  id                  String              @id @default(cuid())
+  letter              String
+  description         String
+  GradSchoolFaculties GradSchoolFaculty[]
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+}
+
+enum Semester {
+  FIRST
+  SECOND
+}
+
+model GradSchoolFaculty {
+  id                  String            @id @default(cuid())
+  facultyId           String
+  faculty             Faculty           @relation(fields: [facultyId], references: [id])
+  collegeId           String
+  college             College           @relation(fields: [collegeId], references: [id])
+  facultyEngagement   FacultyEngagement @relation(fields: [facultyEngagementId], references: [id])
+  facultyEngagementId String
+  schoolYear          String
+  semester            Semester
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+}
+
+model TechnicalService {
+  id         String   @id @default(cuid())
+  training   Training @relation(fields: [trainingId], references: [id])
+  trainingId String
+  venue      String
+  dateStart  String?
+  dateEnd    String?
+  organizer  String
+  faculty    String
+  proofLink  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Faculty    Faculty? @relation(fields: [facultyId], references: [id])
+  facultyId  String?
+}
+
+enum ProjectType {
+  RESEARCH
+  EXTENSION
+}
+
+enum ProjectStatus {
+  ONGOING
+  COMPLETED
+}
+
+model Project {
+  id                        String         @id @default(cuid())
+  type                      ProjectType?
+  title                     String
+  dateStart                 String?
+  dateCompleted             String?
+  dateExtension             String?
+  status                    ProjectStatus
+  fundingAgency             String
+  coopAgency                String
+  projectLeader             String
+  researchWorkers           String
+  approvedProjectCost       String
+  supportingDocs            String
+  projectReport             String
+  mandatedProgram           String
+  beneficiaries             String
+  movSignedBudgetAllocation Boolean        @default(false)
+  movSingedReports          Boolean        @default(false)
+  movNotarizedMoa           Boolean        @default(false)
+  movBoardResolution        Boolean        @default(false)
+  Awards                    Award[]
+  Presentations             Presentation[]
+  Trainings                 Training[]
+  Utilizations              Utilization[]
+  Publications              Publication[]
+  Citations                 Citation[]
+  Partnership               Partnership[]
+  createdAt                 DateTime       @default(now())
+  updatedAt                 DateTime       @updatedAt
+}
+
+// model ExtensionProject {
+//   id                        String        @id @default(cuid())
+//   projectName               String?
+//   projectId                 String?
+//   project                   Project?      @relation(fields: [projectId], references: [id])
+//   collegeId                 String?
+//   college                   College?      @relation(fields: [collegeId], references: [id])
+//   mandatedProgram           String?
+//   dateStarted               String?
+//   dateEnded                 String?
+//   beneficiaries             String?
+//   supportingDocs            String?
+//   docDescription            String?
+//   movSignedBudgetAllocation Boolean?
+//   movSingedReports          Boolean?
+//   movNotarizedMoa           Boolean?
+//   movBoardResolution        Boolean?
+//   Trainings                 Training[]
+//   Partnerships              Partnership[]
+//   createdAt                 DateTime      @default(now())
+//   updatedAt                 DateTime      @updatedAt
+// }
+
+enum AwardType {
+  NATIONAL
+  INTERNATIONAL
+  REGIONAL
+}
+
+model Award {
+  id            String    @id @default(cuid())
+  researchers   String
+  projectId     String
+  project       Project   @relation(fields: [projectId], references: [id])
+  yearPublished String
+  publisher     String
+  type          AwardType
+  certOrProgram String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum PresentationType {
+  NATIONAL
+  INTERNATIONAL
+  REGIONAL
+}
+
+enum PresentationStatus {
+  ONGOING
+  COMPLETED
+}
+
+model Presentation {
+  id                   String             @id @default(cuid())
+  projectId            String
+  project              Project            @relation(fields: [projectId], references: [id])
+  status               PresentationStatus
+  startedDate          String?
+  completedDate        String?
+  articleTitle         String
+  keywords             String
+  researchers          String
+  forumTitle           String
+  venue                String
+  type                 PresentationType
+  date                 String
+  supportingDocs       String
+  centerId             String
+  center               Center             @relation(fields: [centerId], references: [id])
+  movAbstract          Boolean            @default(false)
+  movCertOfAppearance  Boolean            @default(false)
+  movConferenceProgram Boolean            @default(false)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+}
+
+enum TrainingDurationType {
+  LESS_THAN_EIGHT_HOUR
+  EIGHT_HOURS
+  TWO_DAYS
+  THREE_TO_FOUR_DAYS
+  FIVE_DAYS_OR_MORE
+}
+
+model Training {
+  id                             String                @id @default(cuid())
+  projectId                      String
+  project                        Project               @relation(fields: [projectId], references: [id])
+  venue                          String
+  dateStarted                    String?
+  dateEnded                      String?
+  duration                       TrainingDurationType?
+  traineesCount                  String
+  traineesWeighted               String
+  traineesSurveyedCount          String
+  ratePoor                       String
+  rateFair                       String
+  rateSatisfactory               String
+  rateVerySatisfactory           String
+  rateExcellent                  String
+  rateTimelinessPoor             String
+  rateTimelinessFair             String
+  rateTimelinessSatisfactory     String
+  rateTimelinessVerySatisfactory String
+  rateTimelinessExcellent        String
+  supportingDocs                 String
+  movReportAndActivityProgram    Boolean               @default(false)
+  movSummaryOfEvaluation         Boolean               @default(false)
+  movSurverForm                  Boolean               @default(false)
+  movAttendance                  Boolean               @default(false)
+  TechnicalServices              TechnicalService[]
+  createdAt                      DateTime              @default(now())
+  updatedAt                      DateTime              @updatedAt
+}
+
+model Partnership {
+  id                     String   @id @default(cuid())
+  collegeId              String
+  college                College  @relation(fields: [collegeId], references: [id])
+  partner                String
+  project                Project  @relation(fields: [projectId], references: [id])
+  projectId              String
+  dateStarted            String?
+  dateEnded              String?
+  implementor            String
+  supportingDocs         String
+  movReport              Boolean  @default(false)
+  movMoa                 Boolean  @default(false)
+  movAgencyCertification Boolean  @default(false)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+}
+
+model Utilization {
+  id             String   @id @default(cuid())
+  projectId      String
+  project        Project  @relation(fields: [projectId], references: [id])
+  centerId       String
+  center         Center   @relation(fields: [centerId], references: [id])
+  proof          String
+  benificiary    String
+  supportingDocs String
+  movMoa         Boolean  @default(false)
+  movReport      Boolean  @default(false)
+  movUtilization Boolean  @default(false)
+  movPhotos      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+enum PublicationStatus {
+  ONGOING
+  COMPLETED
+}
+
+model Publication {
+  id                  String            @id @default(cuid())
+  projectId           String
+  project             Project           @relation(fields: [projectId], references: [id])
+  centerId            String
+  center              Center            @relation(fields: [centerId], references: [id])
+  status              PublicationStatus
+  startedDate         String?
+  completedDate       String?
+  article             String
+  keywords            String
+  authors             String
+  publicationDate     String
+  journalTitle        String
+  issueNo             String
+  issnOrIsbn          String
+  index               String
+  supportingDocs      String
+  movAbstract         Boolean           @default(false)
+  movJournalTitlePage Boolean           @default(false)
+  movTableOfContents  Boolean           @default(false)
+  movFullPaper        Boolean           @default(false)
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+}
+
+model Citation {
+  id               String   @id @default(cuid())
+  project          Project  @relation(fields: [projectId], references: [id])
+  projectId        String
+  keywords         String
+  researchers      String
+  yearPublished    String
+  index            String
+  journalTitle     String
+  vol              String
+  yearPublishedTwo String
+  publisherName    String
+  scholarLink      String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
