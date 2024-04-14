@@ -97,19 +97,19 @@ model GradSchoolFaculty {
 }
 
 model TechnicalService {
-  id         String   @id @default(cuid())
-  training   Training @relation(fields: [trainingId], references: [id])
-  trainingId String
-  venue      String
-  dateStart  String?
-  dateEnd    String?
-  organizer  String
-  faculty    String
-  proofLink  String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  Faculty    Faculty? @relation(fields: [facultyId], references: [id])
-  facultyId  String?
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  venue     String
+  dateStart String?
+  dateEnd   String?
+  organizer String
+  faculty   String
+  proofLink String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Faculty   Faculty? @relation(fields: [facultyId], references: [id])
+  facultyId String?
 }
 
 enum ProjectType {
@@ -123,7 +123,7 @@ enum ProjectStatus {
 }
 
 model Project {
-  id                        String         @id @default(cuid())
+  id                        String             @id @default(cuid())
   type                      ProjectType?
   title                     String
   dateStart                 String?
@@ -139,10 +139,10 @@ model Project {
   projectReport             String
   mandatedProgram           String
   beneficiaries             String
-  movSignedBudgetAllocation Boolean        @default(false)
-  movSingedReports          Boolean        @default(false)
-  movNotarizedMoa           Boolean        @default(false)
-  movBoardResolution        Boolean        @default(false)
+  movSignedBudgetAllocation Boolean            @default(false)
+  movSingedReports          Boolean            @default(false)
+  movNotarizedMoa           Boolean            @default(false)
+  movBoardResolution        Boolean            @default(false)
   Awards                    Award[]
   Presentations             Presentation[]
   Trainings                 Training[]
@@ -150,8 +150,9 @@ model Project {
   Publications              Publication[]
   Citations                 Citation[]
   Partnership               Partnership[]
-  createdAt                 DateTime       @default(now())
-  updatedAt                 DateTime       @updatedAt
+  TechnicalServices         TechnicalService[]
+  createdAt                 DateTime           @default(now())
+  updatedAt                 DateTime           @updatedAt
 }
 
 // model ExtensionProject {
@@ -265,7 +266,6 @@ model Training {
   movSummaryOfEvaluation         Boolean               @default(false)
   movSurverForm                  Boolean               @default(false)
   movAttendance                  Boolean               @default(false)
-  TechnicalServices              TechnicalService[]
   createdAt                      DateTime              @default(now())
   updatedAt                      DateTime              @updatedAt
 }

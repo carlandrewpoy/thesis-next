@@ -1,58 +1,77 @@
 "use server";
-import { prisma } from "@/lib/utils";
+
+import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
-export const createCitations = async (college: string, formData: FormData) => {
+export const createCitation = async (state: any, formData: FormData) => {
   const res = await prisma.citation.create({
     data: {
-      collegeId: college as string,
-      authorsWhoCited: formData.get("authorsWhoCited") as string,
+      projectId: formData.get("projectId") as string,
       index: formData.get("index") as string,
-      issueNo: formData.get("issueNo") as string,
       journalTitle: formData.get("journalTitle") as string,
       keywords: formData.get("keywords") as string,
+      vol: formData.get("vol") as string,
       publisherName: formData.get("publisherName") as string,
       researchers: formData.get("researchers") as string,
-      researchWasCited: formData.get("researchWasCited") as string,
-      scholarProfileLink: formData.get("scholarProfileLink") as string,
+      scholarLink: formData.get("scholarLink") as string,
       yearPublished: formData.get("yearPublished") as string,
+      yearPublishedTwo: formData.get("yearPublishedTwo") as string,
     },
   });
-  revalidatePath("/citations");
+  if (res.id) {
+    revalidatePath("/citation");
+    return {
+      message: "Added successfully",
+    };
+  }
 };
 
-export const updateCitations = async (
-  collegeId: string,
+export const updateCitation = async (
   id: string,
+  state: any,
   formData: FormData
 ) => {
-  //   console.log(college);
   const res = await prisma.citation.update({
     where: {
       id: id,
     },
     data: {
-      collegeId: collegeId as string,
-      authorsWhoCited: formData.get("authorsWhoCited") as string,
+      projectId: formData.get("projectId") as string,
       index: formData.get("index") as string,
-      issueNo: formData.get("issueNo") as string,
       journalTitle: formData.get("journalTitle") as string,
       keywords: formData.get("keywords") as string,
+      vol: formData.get("vol") as string,
       publisherName: formData.get("publisherName") as string,
       researchers: formData.get("researchers") as string,
-      researchWasCited: formData.get("researchWasCited") as string,
-      scholarProfileLink: formData.get("scholarProfileLink") as string,
+      scholarLink: formData.get("scholarLink") as string,
       yearPublished: formData.get("yearPublished") as string,
+      yearPublishedTwo: formData.get("yearPublishedTwo") as string,
     },
   });
-  revalidatePath("/citations");
+  if (!res.id) {
+    return {
+      error: "Error updating",
+    };
+  }
+  revalidatePath("/citation");
+  return {
+    message: "Updated successfully",
+  };
 };
 
-export const deleteCitations = async (id: string, formData: FormData) => {
-  const deleteUser = await prisma.citation.delete({
+export const deleteCitation = async (state: any, formData: FormData) => {
+  const res = await prisma.citation.delete({
     where: {
-      id: id,
+      id: formData.get("id") as string,
     },
   });
-  revalidatePath("/citations");
+  if (!res.id) {
+    return {
+      error: "Error deleting",
+    };
+  }
+  revalidatePath("/citation");
+  return {
+    message: "Deleted successfully",
+  };
 };
