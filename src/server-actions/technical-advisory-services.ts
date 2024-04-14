@@ -1,53 +1,77 @@
 "use server";
-import { prisma } from "@/lib/utils";
-import { PresentationType, ProjectStatus } from "@prisma/client";
+
+import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
-export const createTechnicalAdvisoryServices = async (formData: FormData) => {
-  const res = await prisma.technicalServices.create({
-    data: {
-      title: formData.get("title") as string,
-      venue: formData.get("venue") as string,
-      fromDate: formData.get("fromDate") as string,
-      toDate: formData.get("toDate") as string,
-      invitedFaculty: formData.get("invitedFaculty") as string,
-      organizer: formData.get("organizer") as string,
-      supportingDocs: formData.get("supportingDocs") as string,
-    },
-  });
-  revalidatePath("/technical-advisory-services");
-};
-
-export const updateTechnicalAdvisoryServices = async (
-  id: string,
+export const createTechnicalServices = async (
+  state: any,
   formData: FormData
 ) => {
-  //   console.log(college);
-  const res = await prisma.technicalServices.update({
+  const res = await prisma.technicalService.create({
+    data: {
+      projectId: formData.get("projectId") as string,
+      venue: formData.get("venue") as string,
+      faculty: formData.get("faculty") as string,
+      organizer: formData.get("organizer") as string,
+      proofLink: formData.get("proofLink") as string,
+      dateStart: formData.get("dateStart") as string,
+      dateEnd: formData.get("dateEnd") as string,
+    },
+  });
+  if (res.id) {
+    revalidatePath("/technical-advisory-services");
+    return {
+      message: "Added successfully",
+    };
+  }
+};
+
+export const updateTechnicalServices = async (
+  id: string,
+  state: any,
+  formData: FormData
+) => {
+  const res = await prisma.technicalService.update({
     where: {
       id: id,
     },
     data: {
-      title: formData.get("title") as string,
+      projectId: formData.get("projectId") as string,
       venue: formData.get("venue") as string,
-      fromDate: formData.get("fromDate") as string,
-      toDate: formData.get("toDate") as string,
-      invitedFaculty: formData.get("invitedFaculty") as string,
+      faculty: formData.get("faculty") as string,
       organizer: formData.get("organizer") as string,
-      supportingDocs: formData.get("supportingDocs") as string,
+      proofLink: formData.get("proofLink") as string,
+      dateStart: formData.get("dateStart") as string,
+      dateEnd: formData.get("dateEnd") as string,
     },
   });
+  if (!res.id) {
+    return {
+      error: "Error updating",
+    };
+  }
   revalidatePath("/technical-advisory-services");
+  return {
+    message: "Updated successfully",
+  };
 };
 
-export const deleteTechnicalAdvisoryServices = async (
-  id: string,
+export const deleteTechnicalServices = async (
+  state: any,
   formData: FormData
 ) => {
-  const deleteUser = await prisma.technicalServices.delete({
+  const res = await prisma.technicalService.delete({
     where: {
-      id: id,
+      id: formData.get("id") as string,
     },
   });
+  if (!res.id) {
+    return {
+      error: "Error deleting",
+    };
+  }
   revalidatePath("/technical-advisory-services");
+  return {
+    message: "Deleted successfully",
+  };
 };

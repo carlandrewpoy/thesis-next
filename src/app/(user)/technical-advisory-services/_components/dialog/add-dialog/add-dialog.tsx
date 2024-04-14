@@ -31,7 +31,7 @@ export function AddDialog() {
                 {/* <ScrollArea className="max-h-screen"> */}
                 {/* <div className="bg-slate-600 h-[80%]"> */}
                 <DialogHeader>
-                    <DialogTitle>Add Citation</DialogTitle>
+                    <DialogTitle>Add Technical Advisory-Service</DialogTitle>
                     <DialogDescription>
                         Remember to save your data after completing the form.
                     </DialogDescription>

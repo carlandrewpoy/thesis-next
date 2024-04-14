@@ -7,7 +7,7 @@ import { FacultyEngagement, GradSchoolFaculty, Prisma } from "@prisma/client";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-export type CitationWithOther = Prisma.CitationGetPayload<{
+export type TechnicalServiceWithOther = Prisma.TechnicalServiceGetPayload<{
   include: {
     project: {
       select: {
@@ -17,55 +17,10 @@ export type CitationWithOther = Prisma.CitationGetPayload<{
   }
 }>
 
-export const columns: ColumnDef<CitationWithOther>[] = [
-  {
-    accessorKey: "Title of Research Output",
-    header: "Project Title",
-    cell: ({ row }) => {
-      return <div className="w-52">
-        {row.original.project.title}
-      </div>;
-    }
-  },
-  {
-    accessorKey: "keywords",
-    header: "Keywords",
-    cell: ({ row }) => {
-      return <div className="w-20">
-        {row.original.keywords}
-      </div>;
-    }
-  },
-  {
-    accessorKey: "researchers",
-    header: "Researcher(s)",
-    cell: ({ row }) => {
-      return <div className="w-52">
-        {row.original.researchers}
-      </div>;
-    }
-  },
-  {
-    accessorKey: "yearPublished",
-    header: "Year Published",
-  },
-  {
-    accessorKey: "index",
-    header: "Index",
-  },
-  {
-    accessorKey: "researchers",
-    header: "Author(s) Who Cited the Research Output",
-    cell: ({ row }) => {
-      return <div className="w-52">
-        {row.original.researchers}
-      </div>;
-    }
-  },
-
+export const columns: ColumnDef<TechnicalServiceWithOther>[] = [
   {
     accessorKey: "project.title",
-    header: "Title of Article Where the Research Output Was Cited",
+    header: "Training Title",
     cell: ({ row }) => {
       return <div className="w-52">
         {row.original.project.title}
@@ -73,31 +28,50 @@ export const columns: ColumnDef<CitationWithOther>[] = [
     }
   },
   {
-    accessorKey: "journalTitle",
-    header: "Journal Title",
-  },
-  {
-    accessorKey: "vol",
-    header: "Vol. / Issue / Page No.",
-  },
-  {
-    accessorKey: "yearPublishedTwo",
-    header: "TRAINEES SURVEYED",
+    accessorKey: "venue",
+    header: "Venue/Place",
     cell: ({ row }) => {
       return <div className="w-20">
-        {row.original.yearPublishedTwo}
+        {row.original.venue}
       </div>;
     }
   },
   {
-    accessorKey: "publisherName",
-    header: "Publisher Name",
+    accessorKey: "dateStart",
+    header: "Date Start",
+    cell: ({ row }) => {
+      return <div className="w-32">
+        {row.original.dateStart}
+      </div>;
+    }
   },
   {
-    accessorKey: "scholarLink",
-    header: "Scholar Link",
+    accessorKey: "dateEnd",
+    header: "Date End",
+  },
+  {
+    accessorKey: "organizer",
+    header: "Organizer",
+  },
+  {
+    accessorKey: "faculty",
+    header: "Name of the faculty who invited",
+    cell: ({ row }) => {
+      return <div className="w-52">
+        {row.original.faculty}
+      </div>;
+    }
   },
 
+  {
+    accessorKey: "proofLink",
+    header: "Certificate/Invitation/Program/Evaluation",
+    cell: ({ row }) => {
+      return <div className="w-52">
+        {row.original.project.title}
+      </div>;
+    }
+  },
   {
     id: "actions",
     header: () => <div>Actions</div>,

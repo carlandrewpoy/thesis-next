@@ -63,7 +63,6 @@ model Faculty {
   position            String
   suffix              String?
   GradSchoolFaculties GradSchoolFaculty[]
-  TechnicalServices   TechnicalService[]
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @updatedAt
 }
@@ -108,8 +107,6 @@ model TechnicalService {
   proofLink String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Faculty   Faculty? @relation(fields: [facultyId], references: [id])
-  facultyId String?
 }
 
 enum ProjectType {

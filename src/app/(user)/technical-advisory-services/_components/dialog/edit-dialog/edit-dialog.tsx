@@ -15,11 +15,12 @@ import EditForm from "./edit-form"
 import { Row } from "@tanstack/react-table"
 import { Center, Citation, College, GradSchoolFaculty, Training, User, Utilization } from "@prisma/client"
 import { Edit } from "lucide-react"
+import { TechnicalServiceWithOther } from "../../columns"
 
 export function EditDialog({
     row,
 }: {
-    row: Row<Citation>
+    row: Row<TechnicalServiceWithOther>
 }) {
     const [openDialog, setOpenDialog] = useState(false)
     const handleChange = () => {

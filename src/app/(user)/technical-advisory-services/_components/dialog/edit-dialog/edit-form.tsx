@@ -3,21 +3,18 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from '@/components/ui/button'
 import { Row } from '@tanstack/react-table'
-import { Citation, Training, Utilization } from '@prisma/client'
 import { toast } from '@/components/ui/use-toast'
 import { useFormState } from 'react-dom'
 import { useFormStatus } from 'react-dom'
-import { Checkbox } from '@/components/ui/checkbox'
 import { ProjectSelect } from '@/components/select/project-select'
-import { DurationSelect } from '@/components/select/duration-select'
-import { updateTraining } from '@/server-actions/trainings'
-import { updateCitation } from '@/server-actions/citations'
+import { TechnicalServiceWithOther } from '../../columns'
+import { updateTechnicalServices } from '@/server-actions/technical-advisory-services'
 
 const EditForm = ({ row, close }: {
-    row: Row<Citation>
+    row: Row<TechnicalServiceWithOther>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
-    const updateWithId = updateCitation.bind(null, row.original.id)
+    const updateWithId = updateTechnicalServices.bind(null, row.original.id)
     const [state, formAction] = useFormState(updateWithId, null)
 
     if (state?.message) {
@@ -48,70 +45,48 @@ const EditForm = ({ row, close }: {
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Researchers</Label>
+                <Label className="col-span-9 text-xs font-extralight">Venue/Place</Label>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={row.original.researchers} name='researchers' />
+                    <Input defaultValue={row.original.venue} name='venue' />
                 </div>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Keywords</Label>
-            </div>
-            <div className="grid grid-cols-9 items-center gap-4 ">
-                <div className='col-span-9'>
-                    <Input defaultValue={row.original.keywords} name='keywords' />
-                </div>
-            </div>
-
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
-                <Label className="col-span-3 text-xs font-extralight">Year Published</Label>
-                <Label className="col-span-3 text-xs font-extralight">Index</Label>
+                <Label className="col-span-3 text-xs font-extralight">From</Label>
+                <Label className="col-span-3 text-xs font-extralight">To</Label>
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
 
                 <div className="col-span-3">
-                    <Input defaultValue={row.original.yearPublished} type='date' name='yearPublished' />
+                    <Input defaultValue={row.original.dateStart ?? ''} type='date' name='dateStart' />
                 </div>
                 <div className="col-span-3">
-                    <Input defaultValue={row.original.index} name='index' />
+                    <Input defaultValue={row.original.dateStart ?? ''} type='date' name='dateEnd' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Journal Title</Label>
+                <Label className="col-span-9 text-xs font-extralight">Organizer</Label>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={row.original.journalTitle} name='journalTitle' />
-                </div>
-            </div>
-            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
-                <Label className="col-span-3 text-xs font-extralight">Year Published</Label>
-                <Label className="col-span-3 text-xs font-extralight">Vol. / Issue / Page No.</Label>
-            </div>
-            <div className="grid grid-cols-6 items-center gap-4 ">
-
-                <div className="col-span-3">
-                    <Input defaultValue={row.original.yearPublishedTwo} type='date' name='yearPublishedTwo' />
-                </div>
-                <div className="col-span-3">
-                    <Input defaultValue={row.original.vol} name='vol' />
+                    <Input defaultValue={row.original.organizer} name='organizer' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Name of Publisher</Label>
+                <Label className="col-span-9 text-xs font-extralight">Name of the faculty who invited</Label>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={row.original.publisherName} name='publisherName' />
+                    <Input defaultValue={row.original.faculty} name='faculty' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Scholar Link</Label>
+                <Label className="col-span-9 text-xs font-extralight">Certificate/Invitation/Program/Evaluation</Label>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={row.original.scholarLink} name='scholarLink' />
+                    <Input defaultValue={row.original.proofLink} name='proofLink' />
                 </div>
             </div>
             <div className='flex justify-end'>

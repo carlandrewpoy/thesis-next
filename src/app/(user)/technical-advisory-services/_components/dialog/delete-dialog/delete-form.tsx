@@ -11,12 +11,14 @@ import { deleteGradSchoolFaculty } from '@/server-actions/grad-school-faculty'
 import { deleteUtilization } from '@/server-actions/utilization'
 import { deleteTraining } from '@/server-actions/trainings'
 import { deleteCitation } from '@/server-actions/citations'
+import { TechnicalServiceWithOther } from '../../columns'
+import { deleteTechnicalServices } from '@/server-actions/technical-advisory-services'
 
 const DeleteForm = ({ row, close }: {
-    row: Row<Citation>
+    row: Row<TechnicalServiceWithOther>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
-    const [state, formAction] = useFormState(deleteCitation, null)
+    const [state, formAction] = useFormState(deleteTechnicalServices, null)
     if (state?.message) {
         close(false)
         toast({

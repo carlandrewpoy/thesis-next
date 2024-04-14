@@ -17,13 +17,14 @@ import { ReloadIcon } from '@radix-ui/react-icons'
 import { AutoFill } from '@/api/autofill'
 import { link } from 'fs'
 import { createCitation } from '@/server-actions/citations'
+import { createTechnicalServices } from '@/server-actions/technical-advisory-services'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
 }
 ) => {
 
-    const [state, formAction] = useFormState(createCitation, null)
+    const [state, formAction] = useFormState(createTechnicalServices, null)
     if (state?.message) {
         close(false)
         toast({
@@ -43,70 +44,48 @@ const AddForm = ({ close }: {
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Researchers</Label>
+                <Label className="col-span-9 text-xs font-extralight">Venue/Place</Label>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='researchers' />
+                    <Input name='venue' />
                 </div>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Keywords</Label>
-            </div>
-            <div className="grid grid-cols-9 items-center gap-4 ">
-                <div className='col-span-9'>
-                    <Input name='keywords' />
-                </div>
-            </div>
-
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
-                <Label className="col-span-3 text-xs font-extralight">Year Published</Label>
-                <Label className="col-span-3 text-xs font-extralight">Index</Label>
+                <Label className="col-span-3 text-xs font-extralight">From</Label>
+                <Label className="col-span-3 text-xs font-extralight">To</Label>
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
 
                 <div className="col-span-3">
-                    <Input type='date' name='yearPublished' />
+                    <Input type='date' name='dateStart' />
                 </div>
                 <div className="col-span-3">
-                    <Input name='index' />
+                    <Input type='date' name='dateEnd' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Journal Title</Label>
+                <Label className="col-span-9 text-xs font-extralight">Organizer</Label>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='journalTitle' />
-                </div>
-            </div>
-            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
-                <Label className="col-span-3 text-xs font-extralight">Year Published</Label>
-                <Label className="col-span-3 text-xs font-extralight">Vol. / Issue / Page No.</Label>
-            </div>
-            <div className="grid grid-cols-6 items-center gap-4 ">
-
-                <div className="col-span-3">
-                    <Input type='date' name='yearPublishedTwo' />
-                </div>
-                <div className="col-span-3">
-                    <Input name='vol' />
+                    <Input name='organizer' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Name of Publisher</Label>
+                <Label className="col-span-9 text-xs font-extralight">Name of the faculty who invited</Label>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='publisherName' />
+                    <Input name='faculty' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Scholar Link</Label>
+                <Label className="col-span-9 text-xs font-extralight">Certificate/Invitation/Program/Evaluation</Label>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='scholarLink' />
+                    <Input name='proofLink' />
                 </div>
             </div>
             <div className='flex justify-end'>
