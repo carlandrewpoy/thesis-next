@@ -12,17 +12,21 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { CenterSelect } from '@/components/select/center-select'
 import { ProjectSelect } from '@/components/select/project-select'
 import { updateUtilization } from '@/server-actions/utilization'
+import { PresentationWithOthers } from '../../columns'
+import { ProjectStatusSelect } from '@/components/select/project-status-select'
+import { PresentationTypeSelect } from '@/components/select/presentation-type-select'
+import { updatePresentation } from '@/server-actions/presentation'
 
 const EditForm = ({ row, close }: {
-    row: Row<Utilization>
+    row: Row<PresentationWithOthers>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
-    const updateWithId = updateUtilization.bind(null, row.original.id)
+    const updateWithId = updatePresentation.bind(null, row.original.id)
     const [state, formAction] = useFormState(updateWithId, null)
-    const [mov1, setmov1] = useState(row.original.movMoa)
-    const [mov2, setmov2] = useState(row.original.movReport)
-    const [mov3, setmov3] = useState(row.original.movUtilization)
-    const [mov4, setmov4] = useState(row.original.movPhotos)
+    const [mov1, setmov1] = useState(row.original.movAbstract)
+    const [mov2, setmov2] = useState(row.original.movCertOfAppearance)
+    const [mov3, setmov3] = useState(row.original.movConferenceProgram)
+
 
     const handleChangeMov1 = (checked: boolean) => {
         setmov1(checked)
@@ -34,9 +38,6 @@ const EditForm = ({ row, close }: {
         setmov3(checked)
     };
 
-    const handleChangeMov4 = (checked: boolean) => {
-        setmov4(checked)
-    };
     if (state?.message) {
         close(false)
         toast({
@@ -55,7 +56,7 @@ const EditForm = ({ row, close }: {
         })
     }
     return (
-        <form className="grid gap-4 p-4" action={formAction}>
+        <form className="grid gap-4" action={formAction} >
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
                 <Label className="col-span-9 text-xs font-extralight">Project</Label>
             </div>
@@ -72,41 +73,87 @@ const EditForm = ({ row, close }: {
                     <CenterSelect defaultValue={row.original.centerId} />
                 </div>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Proof/Description/Documentation</Label>
+
+            <div className="grid grid-cols-6 items-center gap-2-mb-3">
+                <Label className="col-span-2 text-xs font-extralight">Start</Label>
+                <Label className="col-span-2 text-xs font-extralight">Completed</Label>
+                <Label className="col-span-2 text-xs font-extralight">Status</Label>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 ">
-                <div className='col-span-9'>
-                    <Input name='proof' defaultValue={row.original.proof} />
+            <div className="grid grid-cols-6 items-center gap-2 ">
+                <div className="col-span-2">
+                    <Input defaultValue={row.original.startedDate ?? ''} type='date' name="startedDate" />
+                </div>
+                <div className="col-span-2">
+                    <Input defaultValue={row.original.completedDate ?? ''} type='date' name="completedDate" />
+                </div>
+                <div className="col-span-2">
+                    <ProjectStatusSelect defaultValue={row.original.status} />
                 </div>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Beneficiary</Label>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Article/Title</Label>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 ">
-                <div className='col-span-9'>
-                    <Input name='benificiary' defaultValue={row.original.benificiary} />
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input defaultValue={row.original.articleTitle} name="articleTitle" className="col-span-12" />
+
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Keywords</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input defaultValue={row.original.keywords} name="keywords" className="col-span-12" />
+
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Researchers</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input defaultValue={row.original.researchers} name="researchers" className="col-span-12" />
+
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Forum Title</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input defaultValue={row.original.forumTitle} name="forumTitle" className="col-span-12" />
+
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Venue</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input defaultValue={row.original.venue} name="venue" className="col-span-12" />
+
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-3 text-xs font-extralight">Type</Label>
+                <Label className="col-span-3 text-xs font-extralight">Date</Label>
+            </div>
+            <div className="grid grid-cols-6 items-center gap-2 ">
+                <div className='col-span-3'>
+                    <PresentationTypeSelect defaultValue={row.original.type} />
                 </div>
+                <Input defaultValue={row.original.date} type='date' name="date" className="col-span-3" />
+
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Supporting Docs</Label>
+
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Supporting Document</Label>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 ">
-                <div className='col-span-9'>
-                    <Input name='supportingDocs' defaultValue={row.original.supportingDocs} />
-                </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input defaultValue={row.original.supportingDocs} name="supportingDocs" className="col-span-12" />
+
             </div>
-            <div className="grid grid-cols-8 items-center gap-4 -mb-3">
-                <Label className="col-span-2 text-xs font-extralight">Notarized Moa</Label>
-                <Label className="col-span-2 text-xs font-extralight">Report</Label>
-                <Label className="col-span-2 text-xs font-extralight">Certificate of Utilization</Label>
-                <Label className="col-span-2 text-xs font-extralight">Photos of Actual Product</Label>
+
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-2 text-xs font-extralight">ABSTRACT</Label>
+                <Label className="col-span-2 text-xs font-extralight">CERT OF APPEARANCE / PARTICIPATION</Label>
+                <Label className="col-span-2 text-xs font-extralight">Conference Proceeding/Program</Label>
             </div>
-            <div className="grid grid-cols-8 items-center gap-4 ">
-                <Checkbox checked={mov1} onCheckedChange={handleChangeMov1} name="movMoa" className="col-span-2" />
-                <Checkbox checked={mov2} onCheckedChange={handleChangeMov2} name="movReport" className="col-span-2" />
-                <Checkbox checked={mov3} onCheckedChange={handleChangeMov3} name="movUtilization" className="col-span-2" />
-                <Checkbox checked={mov4} onCheckedChange={handleChangeMov4} name="movPhotos" className="col-span-2" />
+            <div className="grid grid-cols-6 items-center gap-4 ">
+                <Checkbox checked={mov1} onCheckedChange={handleChangeMov1} name="movAbstract" className="col-span-2" />
+                <Checkbox checked={mov2} onCheckedChange={handleChangeMov2} name="movCertOfAppearance" className="col-span-2" />
+                <Checkbox checked={mov3} onCheckedChange={handleChangeMov3} name="movConferenceProgram" className="col-span-2" />
             </div>
 
             <div className='flex justify-end'>

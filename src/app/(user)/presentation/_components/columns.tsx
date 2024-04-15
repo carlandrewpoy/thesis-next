@@ -7,34 +7,73 @@ import { FacultyEngagement, GradSchoolFaculty, Prisma } from "@prisma/client";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-export type UtilizationWithOther = Prisma.UtilizationGetPayload<{
+export type PresentationWithOthers = Prisma.PresentationGetPayload<{
   include: {
-    project: true,
-    center: true,
+    project: {
+      select: {
+        title: true
+      }
+    },
+    center: {
+      select: {
+        name: true
+      }
+    },
   }
 }>
 
-export const columns: ColumnDef<UtilizationWithOther>[] = [
+export const columns: ColumnDef<PresentationWithOthers>[] = [
   {
     accessorKey: "project.title",
     header: "Project Title",
+    cell: ({ row }) => {
+      return <h1 className="w-52">{row.original.project.title}</h1>
+    }
   },
-  {
-    accessorKey: "proof",
-    header: "PROOF/DESCRIPTION/DOCUMENTATION",
-  },
-  {
-    accessorKey: "benificiary",
-    header: "Benificiary",
-  },
-  {
-    accessorKey: "supportingDocs",
-    header: "Supporting Docs",
-  },
-
   {
     accessorKey: "center.name",
     header: "Center",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
+    accessorKey: "startedDate",
+    header: "Started Date",
+  },
+  {
+    accessorKey: "completedDate",
+    header: "Completed Date",
+  },
+
+  {
+    accessorKey: "articleTitle",
+    header: "Article/Title",
+  },
+  {
+    accessorKey: "keywords",
+    header: "Keywords",
+  },
+  {
+    accessorKey: "researchers",
+    header: "Researchers",
+  },
+  {
+    accessorKey: "forumTitle",
+    header: "Forum Title",
+  },
+  {
+    accessorKey: "venue",
+    header: "Venue",
+  },
+  {
+    accessorKey: "type",
+    header: "Type",
+  },
+  {
+    accessorKey: "date",
+    header: "Date",
   },
 
   {
@@ -43,10 +82,9 @@ export const columns: ColumnDef<UtilizationWithOther>[] = [
     cell: ({ row }) => {
       return <div className="flex flex-col w-52">
 
-        {row.original.movMoa ? <h1>✔Notarized MOA</h1> : ""}
-        {row.original.movReport ? <h1>✔Signed Reports</h1> : ""}
-        {row.original.movUtilization ? <h1>✔Certificate of Utilization</h1> : ""}
-        {row.original.movPhotos ? <h1>✔Photos of Actual Product</h1> : ""}
+        {row.original.movAbstract ? <h1>✔ABSTRACT</h1> : ""}
+        {row.original.movCertOfAppearance ? <h1>✔CERT OF APPEARANCE/PARTICIPATION</h1> : ""}
+        {row.original.movConferenceProgram ? <h1>✔Conference Proceeding/Program</h1> : ""}
       </div>;
     }
   },

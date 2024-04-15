@@ -9,9 +9,10 @@ import { useFormStatus } from 'react-dom'
 import { DialogClose } from '@/components/ui/dialog'
 import { deleteGradSchoolFaculty } from '@/server-actions/grad-school-faculty'
 import { deleteUtilization } from '@/server-actions/utilization'
+import { UtilizationWithOther } from '../../columns'
 
 const DeleteForm = ({ row, close }: {
-    row: Row<Utilization>
+    row: Row<UtilizationWithOther>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
     const [state, formAction] = useFormState(deleteUtilization, null)

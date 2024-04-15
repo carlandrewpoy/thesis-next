@@ -50,6 +50,9 @@ export const columns: ColumnDef<GradSchoolFacultyWithOwner>[] = [
   {
     accessorKey: "semester",
     header: "Semester",
+    cell: ({ row }) => {
+      return <div>{row.original.semester === 'FIRST' ? '1st' : row.original.semester === 'SECOND' ? '2nd' : null}</div>
+    }
   },
 
 

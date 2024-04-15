@@ -1,78 +1,90 @@
 "use server";
-import { prisma } from "@/lib/utils";
-import {
-  PresentationStatus,
-  PresentationType,
-  ProjectStatus,
-} from "@prisma/client";
+
+import prisma from "@/lib/prisma";
+import { PresentationStatus, PresentationType } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-export const createPresentation = async (
-  projectId: string,
-  centerId: string,
-  status: PresentationStatus,
-  type: PresentationType,
-  formData: FormData
-) => {
+export const createPresentation = async (state: any, formData: FormData) => {
   const res = await prisma.presentation.create({
     data: {
-      projectId: projectId as string,
-      centerId: centerId as string,
-      status: status as PresentationStatus,
-      type: type as PresentationType,
-      startDate: formData.get("startDate") as string,
-      endDate: formData.get("endDate") as string,
+      projectId: formData.get("projectId") as string,
+      centerId: formData.get("centerId") as string,
       articleTitle: formData.get("articleTitle") as string,
-      keywords: formData.get("keywords") as string,
-      researchers: formData.get("researchers") as string,
-      forumTitle: formData.get("forumTitle") as string,
-      venue: formData.get("venue") as string,
+      completedDate: formData.get("completedDate") as string,
+      startedDate: formData.get("startedDate") as string,
       date: formData.get("date") as string,
       supportingDocs: formData.get("supportingDocs") as string,
-      docsLinkType: formData.get("docsLinkType") as string,
+      forumTitle: formData.get("forumTitle") as string,
+      keywords: formData.get("keywords") as string,
+      researchers: formData.get("researchers") as string,
+      status: formData.get("status") as PresentationStatus,
+      type: formData.get("type") as PresentationType,
+      venue: formData.get("venue") as string,
+      movAbstract: !!formData.get("movAbstract") as boolean,
+      movCertOfAppearance: !!formData.get("movCertOfAppearance") as boolean,
+      movConferenceProgram: !!formData.get("movConferenceProgram") as boolean,
     },
   });
-  revalidatePath("/presentation");
+  if (res.id) {
+    revalidatePath("/presentation");
+    return {
+      message: "Added successfully",
+    };
+  }
 };
 
 export const updatePresentation = async (
-  projectId: string,
-  centerId: string,
-  status: PresentationStatus,
-  type: PresentationType,
   id: string,
+  state: any,
   formData: FormData
 ) => {
-  //   console.log(college);
   const res = await prisma.presentation.update({
     where: {
       id: id,
     },
     data: {
-      projectId: projectId as string,
-      centerId: centerId as string,
-      status: status as PresentationStatus,
-      type: type as PresentationType,
-      startDate: formData.get("startDate") as string,
-      endDate: formData.get("endDate") as string,
+      projectId: formData.get("projectId") as string,
+      centerId: formData.get("centerId") as string,
       articleTitle: formData.get("articleTitle") as string,
-      keywords: formData.get("keywords") as string,
-      researchers: formData.get("researchers") as string,
-      forumTitle: formData.get("forumTitle") as string,
-      venue: formData.get("venue") as string,
+      completedDate: formData.get("completedDate") as string,
+      startedDate: formData.get("startedDate") as string,
       date: formData.get("date") as string,
       supportingDocs: formData.get("supportingDocs") as string,
-      docsLinkType: formData.get("docsLinkType") as string,
+      forumTitle: formData.get("forumTitle") as string,
+      keywords: formData.get("keywords") as string,
+      researchers: formData.get("researchers") as string,
+      status: formData.get("status") as PresentationStatus,
+      type: formData.get("type") as PresentationType,
+      venue: formData.get("venue") as string,
+      movAbstract: !!formData.get("movAbstract") as boolean,
+      movCertOfAppearance: !!formData.get("movCertOfAppearance") as boolean,
+      movConferenceProgram: !!formData.get("movConferenceProgram") as boolean,
     },
   });
+  if (!res.id) {
+    return {
+      error: "Error updating",
+    };
+  }
   revalidatePath("/presentation");
+  return {
+    message: "Updated successfully",
+  };
 };
 
-export const deletePresentation = async (id: string, formData: FormData) => {
-  const deleteUser = await prisma.presentation.delete({
+export const deletePresentation = async (state: any, formData: FormData) => {
+  const res = await prisma.presentation.delete({
     where: {
-      id: id,
+      id: formData.get("id") as string,
     },
   });
+  if (!res.id) {
+    return {
+      error: "Error deleting",
+    };
+  }
   revalidatePath("/presentation");
+  return {
+    message: "Deleted successfully",
+  };
 };

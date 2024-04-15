@@ -26,7 +26,7 @@ import {
 
 export const adminControlsLinks = [
   {
-    title: "Records",
+    title: "Dashboard",
     href: "/admin",
   },
   {
@@ -53,8 +53,8 @@ export const adminControlsLinks = [
 
 export const userSideNavLinks = [
   {
-    title: "Dashboard",
-    icon: LayoutDashboard,
+    title: "Home",
+    icon: Home,
     href: "/",
   },
   {
@@ -116,8 +116,8 @@ export const userSideNavLinks = [
 
 export const adminSideNavLinks = [
   {
-    title: "Dashboard",
-    icon: LayoutDashboard,
+    title: "Home",
+    icon: Home,
     href: "/",
   },
   {

@@ -9,8 +9,17 @@ import { FacultyEngagement, GradSchoolFaculty, Prisma } from "@prisma/client";
 
 export type UtilizationWithOther = Prisma.UtilizationGetPayload<{
   include: {
-    project: true,
-    center: true,
+    project: {
+      select: {
+        title: true
+      }
+    },
+    center: {
+      select: {
+        name: true
+      }
+
+    },
   }
 }>
 

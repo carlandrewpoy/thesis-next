@@ -7,7 +7,7 @@ export const createCenter = async (state: any, formData: FormData) => {
   const res = await prisma.center.create({
     data: {
       name: formData.get("name") as string,
-      collegeId: formData.get("college") as string,
+      collegeId: formData.get("collegeId") as string,
     },
   });
   if (res.id) {
@@ -29,7 +29,7 @@ export const updateCenter = async (
     },
     data: {
       name: formData.get("name") as string,
-      collegeId: formData.get("college") as string,
+      collegeId: formData.get("collegeId") as string,
     },
   });
   if (!res.id) {

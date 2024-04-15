@@ -12,9 +12,10 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { CenterSelect } from '@/components/select/center-select'
 import { ProjectSelect } from '@/components/select/project-select'
 import { updateUtilization } from '@/server-actions/utilization'
+import { UtilizationWithOther } from '../../columns'
 
 const EditForm = ({ row, close }: {
-    row: Row<Utilization>
+    row: Row<UtilizationWithOther>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
     const updateWithId = updateUtilization.bind(null, row.original.id)

@@ -118,11 +118,11 @@ export const columns: ColumnDef<Project>[] = [
   {
     accessorKey: "supportingDocs",
     header: "Supporting Docs",
-    cell: ({ row }) => {
-      return <div className="w-48">
-        {row.original.supportingDocs}
-      </div>;
-    }
+    // cell: ({ row }) => {
+    //   return <div className="w-96">
+    //     {row.original.supportingDocs}
+    //   </div>;
+    // }
   },
   {
     accessorKey: "projectReport",

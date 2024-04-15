@@ -4,25 +4,22 @@ import { Label } from "@/components/ui/label"
 import { useFormState, useFormStatus } from 'react-dom'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
-import { createCenter } from '@/server-actions/center'
-import { CollegeSelect } from '@/components/select/college-select'
-import { FacultySelect } from '@/components/select/faculty-select'
-import { EngagementSelect } from '@/components/select/engagement-select'
-import { createGradSchoolFaculty } from '@/server-actions/grad-school-faculty'
 import { getSchoolYears } from '@/lib/utils'
-import { SchoolYearSelect } from '@/components/select/schoolyear-select'
-import { SemesterSelect } from '@/components/select/semester-select'
 import { ProjectSelect } from '@/components/select/project-select'
-import { CenterSelect } from '@/components/select/center-select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { createUtilization } from '@/server-actions/utilization'
+import { ProjectStatusSelect } from '@/components/select/project-status-select'
+import { ProjectTypeSelect } from '@/components/select/project-type-select'
+import { createPresentation } from '@/server-actions/presentation'
+import { PresentationTypeSelect } from '@/components/select/presentation-type-select'
+import { CenterSelect } from '@/components/select/center-select'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
 }
 ) => {
 
-    const [state, formAction] = useFormState(createUtilization, null)
+    const [state, formAction] = useFormState(createPresentation, null)
     if (state?.message) {
         close(false)
         toast({
@@ -31,11 +28,8 @@ const AddForm = ({ close }: {
 
         })
     }
-
-    console.log(getSchoolYears())
-
     return (
-        <form className="grid gap-4 p-4" action={formAction}>
+        <form className="grid gap-4" action={formAction} >
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
                 <Label className="col-span-9 text-xs font-extralight">Project</Label>
             </div>
@@ -52,41 +46,87 @@ const AddForm = ({ close }: {
                     <CenterSelect />
                 </div>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Proof/Description/Documentation</Label>
+
+            <div className="grid grid-cols-6 items-center gap-2-mb-3">
+                <Label className="col-span-2 text-xs font-extralight">Start</Label>
+                <Label className="col-span-2 text-xs font-extralight">Completed</Label>
+                <Label className="col-span-2 text-xs font-extralight">Status</Label>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 ">
-                <div className='col-span-9'>
-                    <Input name='proof' />
+            <div className="grid grid-cols-6 items-center gap-2 ">
+                <div className="col-span-2">
+                    <Input type='date' name="startedDate" />
+                </div>
+                <div className="col-span-2">
+                    <Input type='date' name="completedDate" />
+                </div>
+                <div className="col-span-2">
+                    <ProjectStatusSelect />
                 </div>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Beneficiary</Label>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Article/Title</Label>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 ">
-                <div className='col-span-9'>
-                    <Input name='benificiary' />
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input name="articleTitle" className="col-span-12" />
+
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Keywords</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input name="keywords" className="col-span-12" />
+
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Researchers</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input name="researchers" className="col-span-12" />
+
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Forum Title</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input name="forumTitle" className="col-span-12" />
+
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Venue</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input name="venue" className="col-span-12" />
+
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-3 text-xs font-extralight">Type</Label>
+                <Label className="col-span-3 text-xs font-extralight">Date</Label>
+            </div>
+            <div className="grid grid-cols-6 items-center gap-2 ">
+                <div className='col-span-3'>
+                    <PresentationTypeSelect />
                 </div>
+                <Input type='date' name="date" className="col-span-3" />
+
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Supporting Docs</Label>
+
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Supporting Document</Label>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 ">
-                <div className='col-span-9'>
-                    <Input name='supportingDocs' />
-                </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input name="supportingDocs" className="col-span-12" />
+
             </div>
-            <div className="grid grid-cols-8 items-center gap-4 -mb-3">
-                <Label className="col-span-2 text-xs font-extralight">Notarized Moa</Label>
-                <Label className="col-span-2 text-xs font-extralight">Report</Label>
-                <Label className="col-span-2 text-xs font-extralight">Certificate of Utilization</Label>
-                <Label className="col-span-2 text-xs font-extralight">Photos of Actual Product</Label>
+
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-2 text-xs font-extralight">ABSTRACT</Label>
+                <Label className="col-span-2 text-xs font-extralight">CERT OF APPEARANCE / PARTICIPATION</Label>
+                <Label className="col-span-2 text-xs font-extralight">Conference Proceeding/Program</Label>
             </div>
-            <div className="grid grid-cols-8 items-center gap-4 ">
-                <Checkbox name="movMoa" className="col-span-2" />
-                <Checkbox name="movReport" className="col-span-2" />
-                <Checkbox name="movUtilization" className="col-span-2" />
-                <Checkbox name="movPhotos" className="col-span-2" />
+            <div className="grid grid-cols-6 items-center gap-4 ">
+                <Checkbox name="movAbstract" className="col-span-2" />
+                <Checkbox name="movCertOfAppearance" className="col-span-2" />
+                <Checkbox name="movConferenceProgram" className="col-span-2" />
             </div>
 
             <div className='flex justify-end'>

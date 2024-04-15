@@ -9,12 +9,14 @@ import { useFormStatus } from 'react-dom'
 import { DialogClose } from '@/components/ui/dialog'
 import { deleteGradSchoolFaculty } from '@/server-actions/grad-school-faculty'
 import { deleteUtilization } from '@/server-actions/utilization'
+import { PresentationWithOthers } from '../../columns'
+import { deletePresentation } from '@/server-actions/presentation'
 
 const DeleteForm = ({ row, close }: {
-    row: Row<Utilization>
+    row: Row<PresentationWithOthers>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
-    const [state, formAction] = useFormState(deleteUtilization, null)
+    const [state, formAction] = useFormState(deletePresentation, null)
     if (state?.message) {
         close(false)
         toast({

@@ -52,7 +52,7 @@ const EditForm = ({ row, close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
 
 
-                <Input defaultValue={row.original.description} required name="description" className="col-span-9" />
+                <Input defaultValue={row.original.description ?? ''} name="description" className="col-span-9" />
 
             </div>
             <div className='flex justify-end'>

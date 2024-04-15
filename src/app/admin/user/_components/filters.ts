@@ -17,3 +17,16 @@ export const statuses = [
     icon: Icons.pending,
   },
 ];
+
+export const userTypes = [
+  {
+    name: "ADMIN",
+    value: "ADMIN",
+    icon: Icons.gitHub,
+  },
+  {
+    name: "USER",
+    value: "USER",
+    icon: Icons.google,
+  },
+];

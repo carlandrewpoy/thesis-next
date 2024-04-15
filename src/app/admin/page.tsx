@@ -62,6 +62,11 @@ import {
 } from "@/components/ui/tabs"
 import { Metadata } from 'next'
 
+export const metadata: Metadata = {
+    title: "Admin",
+    description: "A task and issue tracker build using Tanstack Table.",
+}
+
 export default function Dashboard() {
     return (
         <main className="grid flex-1 items-start gap-4  sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
@@ -69,14 +74,14 @@ export default function Dashboard() {
                 <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
                     <Card className="sm:col-span-2">
                         <CardHeader className="pb-3">
-                            <CardTitle>Your Orders</CardTitle>
+                            <CardTitle>Your Title</CardTitle>
                             <CardDescription className="max-w-lg text-balance leading-relaxed">
-                                Introducing Our Dynamic Orders Dashboard for Seamless
+                                Introducing Our Dynamic Title Dashboard for Seamless
                                 Management and Insightful Analysis.
                             </CardDescription>
                         </CardHeader>
                         <CardFooter>
-                            <Button>Create New Order</Button>
+                            <Button>Create New Title</Button>
                         </CardFooter>
                     </Card>
                     <Card>
@@ -154,9 +159,9 @@ export default function Dashboard() {
                     <TabsContent value="week">
                         <Card>
                             <CardHeader className="px-7">
-                                <CardTitle>Orders</CardTitle>
+                                <CardTitle>Title</CardTitle>
                                 <CardDescription>
-                                    Recent orders from your store.
+                                    Recent Title from your store.
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
@@ -349,14 +354,14 @@ export default function Dashboard() {
                     <CardHeader className="flex flex-row items-start bg-muted/50">
                         <div className="grid gap-0.5">
                             <CardTitle className="group flex items-center gap-2 text-lg">
-                                Order ID: Oe31b70H
+                                Title ID: Oe31b70H
                                 <Button
                                     size="icon"
                                     variant="outline"
                                     className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
                                 >
                                     <Copy className="h-3 w-3" />
-                                    <span className="sr-only">Copy Order ID</span>
+                                    <span className="sr-only">Copy Title ID</span>
                                 </Button>
                             </CardTitle>
                             <CardDescription>Date: November 23, 2023</CardDescription>
@@ -365,7 +370,7 @@ export default function Dashboard() {
                             <Button size="sm" variant="outline" className="h-8 gap-1">
                                 <Truck className="h-3.5 w-3.5" />
                                 <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-                                    Track Order
+                                    Track Title
                                 </span>
                             </Button>
                             <DropdownMenu>
@@ -386,7 +391,7 @@ export default function Dashboard() {
                     </CardHeader>
                     <CardContent className="p-6 text-sm">
                         <div className="grid gap-3">
-                            <div className="font-semibold">Order Details</div>
+                            <div className="font-semibold">Title Details</div>
                             <ul className="grid gap-3">
                                 <li className="flex items-center justify-between">
                                     <span className="text-muted-foreground">
@@ -474,7 +479,7 @@ export default function Dashboard() {
                             </dl>
                         </div>
                     </CardContent>
-                    <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
+                    <CardFooter className="flex flex-row items-center bTitle-t bg-muted/50 px-6 py-3">
                         <div className="text-xs text-muted-foreground">
                             Updated <time dateTime="2023-11-23">November 23, 2023</time>
                         </div>
@@ -483,13 +488,13 @@ export default function Dashboard() {
                                 <PaginationItem>
                                     <Button size="icon" variant="outline" className="h-6 w-6">
                                         <ChevronLeft className="h-3.5 w-3.5" />
-                                        <span className="sr-only">Previous Order</span>
+                                        <span className="sr-only">Previous Title</span>
                                     </Button>
                                 </PaginationItem>
                                 <PaginationItem>
                                     <Button size="icon" variant="outline" className="h-6 w-6">
                                         <ChevronRight className="h-3.5 w-3.5" />
-                                        <span className="sr-only">Next Order</span>
+                                        <span className="sr-only">Next Title</span>
                                     </Button>
                                 </PaginationItem>
                             </PaginationContent>

@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { AddDialog } from "./dialog/add-dialog/add-dialog"
 import { DataTableViewOptions } from "@/components/table/data-table-view-options"
+import { userTypes } from "./filters"
+import { UserTypeSelect } from "./select/user-type-select"
 
 
 interface DataTableToolbarProps<TData> {
@@ -24,27 +26,22 @@ export function DataTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Search Name..."
+          placeholder="Search user"
           value={(table.getColumn("firstname")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("firstname")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        {/* {table.getColumn("status") && (
+        <UserTypeSelect table={table as any} />
+        {/* {table.getColumn("role") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
-            title="Status"
-            options={statuses}
-          />
-        )}
-        {table.getColumn("priority") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("priority")}
-            title="Priority"
-            options={priorities}
+            title="Role"
+            options={userTypes}
           />
         )} */}
+
         {isFiltered && (
           <Button
             variant="ghost"
