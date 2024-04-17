@@ -28,7 +28,7 @@ export function EngagementSelect({ defaultValue }: { defaultValue?: string }) {
             <SelectContent>
                 <SelectGroup>
                     {data?.map((item: FacultyEngagement) => (
-                        <SelectItem className="max-w-full" key={item.id} value={item.id}>{item.description}</SelectItem>
+                        <SelectItem className="max-w-full" key={item.id} value={item.id}>{item.letter}. {item.description}</SelectItem>
                     ))}
                 </SelectGroup>
             </SelectContent>

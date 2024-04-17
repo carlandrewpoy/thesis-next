@@ -35,7 +35,7 @@ type Mov = {
   sample: number;
 };
 
-type ApiResponse = {
+type TTraingingAutofill = {
   mov: Mov;
   data: Filee[];
   error: null | string;

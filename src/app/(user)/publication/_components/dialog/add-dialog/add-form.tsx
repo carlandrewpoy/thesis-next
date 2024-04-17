@@ -9,7 +9,7 @@ import { dateFormatterNumber, getSchoolYears } from '@/lib/utils'
 import { ProjectSelect } from '@/components/select/project-select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { ReloadIcon } from '@radix-ui/react-icons'
-import { AutoFill } from '@/api/autofill'
+import { AutoFill } from '@/server-state/autofill'
 import { PublicationStatusSelect } from '@/components/select/publication-status-select'
 import { CenterSelect } from '@/components/select/center-select'
 import { createPublication } from '@/server-actions/publication'
@@ -28,20 +28,26 @@ const AddForm = ({ close }: {
         })
     }
 
-
-    const { mutateAsync: createPost, isPending } = AutoFill();
-    console.log(isPending)
-    const [autoFillData, setautoFillData] = useState<ApiResponse>()
+    const { mutateAsync: autofillFN, isPending } = AutoFill();
+    const [autoFillData, setautoFillData] = useState<TPublicationAutofill>()
     const [link, setlink] = useState('')
     const params = {
         "link": link,
-        "table": "TRAINING"
+        "table": "PUBLICATION"
     }
     !isPending && console.log(autoFillData)
 
     const handleClick = async () => {
-        const res = await createPost(params as any)
+        if (link === '') return toast({ description: 'Please enter a link', duration: 1500, variant: 'destructive' })
+        const res = await autofillFN(params as any)
+        if (!res.data.mov) return toast({ description: 'Invalid link', duration: 1500, variant: 'destructive' })
         setautoFillData(res.data as any)
+        if (res.data.mov) {
+            toast({
+                duration: 1500,
+                description: 'Scan successfuly',
+            })
+        }
     }
 
     return (
@@ -69,10 +75,10 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-6 items-center gap-2 ">
                 <div className="col-span-2">
-                    <Input defaultValue={dateFormatterNumber(autoFillData?.results.dateStarted ?? '') ?? ''} type='date' name="startedDate" />
+                    <Input type='date' name="startedDate" />
                 </div>
                 <div className="col-span-2">
-                    <Input defaultValue={dateFormatterNumber(autoFillData?.results.dateEnded ?? '') ?? ''} type='date' name="completedDate" />
+                    <Input type='date' name="completedDate" />
                 </div>
                 <div className="col-span-2">
                     <PublicationStatusSelect />
@@ -91,7 +97,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='keywords' />
+                    <Input defaultValue={autoFillData?.results.keywords} name='keywords' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -99,7 +105,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='authors' />
+                    <Input defaultValue={autoFillData?.results.authors} name='authors' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -116,8 +122,8 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-6 items-center gap-2 ">
 
-                <Input defaultValue={autoFillData?.results.totalTrainees} type='date' name="publicationDate" className="col-span-3" />
-                <Input defaultValue={autoFillData?.results.weightedTrainees} type='text' name="index" className="col-span-3" />
+                <Input defaultValue={autoFillData?.results.date} type='date' name="publicationDate" className="col-span-3" />
+                <Input type='text' name="index" className="col-span-3" />
             </div>
             <div className="grid grid-cols-6 items-center gap-2 -mb-3">
                 <Label className="col-span-3 text-xs font-extralight">VOL. NO. & ISSUE NO.</Label>
@@ -125,8 +131,8 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-6 items-center gap-2 ">
 
-                <Input defaultValue={autoFillData?.results.totalTrainees} type='text' name="issueNo" className="col-span-3" />
-                <Input defaultValue={autoFillData?.results.weightedTrainees} type='text' name="issnOrIsbn" className="col-span-3" />
+                <Input defaultValue={autoFillData?.results.volume} type='text' name="issueNo" className="col-span-3" />
+                <Input type='text' name="issnOrIsbn" className="col-span-3" />
             </div>
 
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
@@ -139,7 +145,7 @@ const AddForm = ({ close }: {
                     <Button type='button' onClick={handleClick} disabled={isPending}>
                         {isPending ? <div className='flex items-center justify-center w-10'>
                             <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                        </div> : 'Read'}
+                        </div> : 'Scan'}
                     </Button>
                 </div>
             </div>
@@ -151,10 +157,10 @@ const AddForm = ({ close }: {
                 <Label className="col-span-2 text-xs font-extralight">Full Paperr</Label>
             </div>
             <div className="grid grid-cols-8 items-center gap-4 ">
-                <Checkbox name="movAbstract" className="col-span-2" />
-                <Checkbox name="movJournalTitlePage" className="col-span-2" />
-                <Checkbox name="movTableOfContents" className="col-span-2" />
-                <Checkbox name="movFullPaper" className="col-span-2" />
+                <Checkbox checked={autoFillData?.mov.abstract === 1 ? true : false} name="movAbstract" className="col-span-2" />
+                <Checkbox checked={autoFillData?.mov.title === 1 ? true : false} name="movJournalTitlePage" className="col-span-2" />
+                <Checkbox checked={autoFillData?.mov.table === 1 ? true : false} name="movTableOfContents" className="col-span-2" />
+                <Checkbox checked={autoFillData?.mov.full === 1 ? true : false} name="movFullPaper" className="col-span-2" />
             </div>
 
             <div className='flex justify-end'>

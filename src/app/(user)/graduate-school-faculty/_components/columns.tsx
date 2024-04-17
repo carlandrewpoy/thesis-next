@@ -24,7 +24,7 @@ export const columns: ColumnDef<GradSchoolFacultyWithOwner>[] = [
   },
   {
     accessorKey: "faculty.middleInitial",
-    header: "Middle Name/Initial",
+    header: "Middle Initial",
   },
   {
     accessorKey: "faculty.lastname",

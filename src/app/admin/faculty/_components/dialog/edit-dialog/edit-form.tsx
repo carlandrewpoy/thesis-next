@@ -50,13 +50,14 @@ const EditForm = ({ row, close }: {
             </div>
 
             <div className="grid grid-cols-12 items-center gap-4 -mb-3">
-                <Label className="col-span-12 text-xs font-extralight">Position</Label>
+                <Label className="col-span-6 text-xs font-extralight">Suffix</Label>
+                <Label className="col-span-6 text-xs font-extralight">Position</Label>
             </div>
             <div className="grid grid-cols-12 items-center gap-4 ">
 
-                <div className="col-span-12">
-                    <Input defaultValue={row.original.position} required name="position" className="col-span-3" />
-                </div>
+                <Input defaultValue={row.original.suffix ?? ''} required name="suffix" className="col-span-6" />
+                <Input defaultValue={row.original.position} required name="position" className="col-span-6" />
+
             </div>
             <div className='flex justify-end'>
                 <SubmitButton />

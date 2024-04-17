@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { usePathname } from 'next/navigation';
 import { capitalizeFirstLetter } from '@/lib/utils';
-import { headerLinks } from '@/constants/links';
+import { adminSideNavLinks, headerLinks, userSideNavLinks } from '@/constants/links';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Icons } from './icons';
 import { useTheme } from 'next-themes';
@@ -39,19 +39,34 @@ const Header = () => {
                             <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
                             <span className="sr-only">Acme Inc</span>
                         </Link>
-                        {headerLinks.map((link) => (
-                            <SheetClose asChild key={link.title}>
 
-                                <Link
-                                    href={link.href}
-                                    className={`${pathname === link.href ? 'text-foreground' : 'text-muted-foreground'} flex items-center gap-4 px-2.5  hover:text-foreground`}
-                                >
-                                    <link.icon className="h-5 w-5" />
-                                    {link.title}
-                                </Link>
-                            </SheetClose>
+                        {session?.user.role === 'ADMIN' ? (
+                            adminSideNavLinks.map((link) => (
+                                <SheetClose asChild key={link.title}>
 
-                        ))}
+                                    <Link
+                                        href={link.href}
+                                        className={`${pathname === link.href ? 'text-foreground' : 'text-muted-foreground'} flex items-center gap-4 px-2.5  hover:text-foreground`}
+                                    >
+                                        <link.icon className="h-5 w-5" />
+                                        {link.title}
+                                    </Link>
+                                </SheetClose>
+                            ))
+                        ) : (
+                            userSideNavLinks.map((link) => (
+                                <SheetClose asChild key={link.title}>
+
+                                    <Link
+                                        href={link.href}
+                                        className={`${pathname === link.href ? 'text-foreground' : 'text-muted-foreground'} flex items-center gap-4 px-2.5  hover:text-foreground`}
+                                    >
+                                        <link.icon className="h-5 w-5" />
+                                        {link.title}
+                                    </Link>
+                                </SheetClose>
+                            ))
+                        )}
                         {/* <Link
                             href="#"
                             className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
@@ -166,16 +181,16 @@ const Header = () => {
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                        <Link href="/user/dashboard">
+                        <Link href="/">
                             <DropdownMenuItem>
-                                <Icons.dashboard className="mr-2 h-4 w-4" />
-                                <span>Dashboard</span>
+                                <Icons.home className="mr-2 h-4 w-4" />
+                                <span>Home</span>
                             </DropdownMenuItem>
                         </Link>
-                        <DropdownMenuItem>
+                        {/* <DropdownMenuItem>
                             <Icons.settings className="mr-2 h-4 w-4" />
                             <span>Settings</span>
-                        </DropdownMenuItem>
+                        </DropdownMenuItem> */}
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuSub>

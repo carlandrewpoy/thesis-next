@@ -3,6 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { EditDialog } from "./dialog/edit-dialog/edit-dialog";
 import { DeleteDialog } from "./dialog/delete-dialog/delete-dialog";
 import { FacultyEngagement, GradSchoolFaculty, Prisma } from "@prisma/client";
+import { dateFormatterName } from "@/lib/utils";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -44,28 +45,35 @@ export const columns: ColumnDef<PartnershipWithOthers>[] = [
   {
     accessorKey: "partner",
     header: "PARTNER LGU /COMMUNITY / INDUSTRY / SMEs / PRIVATE OF PUBLIC AGENCIES /NGOs",
+    cell: ({ row }) => {
+      return <h1 className="w-96">{row.original.partner}</h1>
+    }
   },
   {
     accessorKey: "dateStarted",
     header: "Date Started",
+    cell: ({ row }) => {
+      return <h1 className="w-24">{dateFormatterName(row.original.dateStarted)}</h1>
+    }
   },
   {
     accessorKey: "dateEnded",
     header: "Date Ended",
+    cell: ({ row }) => {
+      return <h1 className="w-24">{dateFormatterName(row.original.dateEnded)}</h1>
+    }
   },
   {
     accessorKey: "implementor",
     header: "Implementors/ Delivery Units/Bureaus",
+    cell: ({ row }) => {
+      return <h1 className="w-52">{row.original.implementor}</h1>
+    }
   },
 
   {
     accessorKey: "supportingDocs",
     header: "Supporting Docs",
-    cell: ({ row }) => {
-      return <div className="w-20">
-        {row.original.supportingDocs}
-      </div>;
-    }
   },
 
   {

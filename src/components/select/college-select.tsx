@@ -21,7 +21,7 @@ export function CollegeSelect({ defaultValue }: { defaultValue?: string }) {
         fetchColleges();
     }, [])
     return (
-        <Select name="college" required defaultValue={defaultValue}>
+        <Select name="collegeId" required defaultValue={defaultValue}>
             <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a college" />
             </SelectTrigger>

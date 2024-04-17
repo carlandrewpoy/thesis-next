@@ -25,13 +25,13 @@ import {
 } from "lucide-react";
 
 export const adminControlsLinks = [
-  {
-    title: "Dashboard",
-    href: "/admin",
-  },
+  // {
+  //   title: "Dashboard",
+  //   href: "/admin",
+  // },
   {
     title: "Users",
-    href: "/admin/user",
+    href: "/admin",
   },
   {
     title: "College",
@@ -63,21 +63,16 @@ export const userSideNavLinks = [
     href: "/graduate-school-faculty",
   },
   {
-    title: "Projects",
-    icon: FolderKanban,
-    href: "/projects",
-  },
-  {
     title: "Utilization",
     icon: Package,
     href: "/utilization",
   },
-  {
+    {
     title: "Presentation",
     icon: Presentation,
     href: "/presentation",
   },
-  {
+    {
     title: "Publication",
     icon: BookCheck,
     href: "/publication",
@@ -87,17 +82,17 @@ export const userSideNavLinks = [
     icon: RailSymbol,
     href: "/trainings",
   },
-  {
-    title: "Extension Program",
-    icon: Blocks,
-    href: "/extension-program",
-  },
-  {
+   {
     title: "Active Partnerships",
     icon: Handshake,
     href: "/active-partnerships",
+  },  
+    {
+    title: "Technical Advisory Services",
+    icon: LineChart,
+    href: "/technical-advisory-services",
   },
-  {
+    {
     title: "Awards",
     icon: Award,
     href: "/awards",
@@ -108,9 +103,9 @@ export const userSideNavLinks = [
     href: "/citations",
   },
   {
-    title: "Technical Advisory Services",
-    icon: LineChart,
-    href: "/technical-advisory-services",
+    title: "Projects",
+    icon: FolderKanban,
+    href: "/projects",
   },
 ];
 
@@ -131,21 +126,16 @@ export const adminSideNavLinks = [
     href: "/graduate-school-faculty",
   },
   {
-    title: "Projects",
-    icon: FolderKanban,
-    href: "/projects",
-  },
-  {
     title: "Utilization",
     icon: Package,
     href: "/utilization",
   },
-  {
+    {
     title: "Presentation",
     icon: Presentation,
     href: "/presentation",
   },
-  {
+    {
     title: "Publication",
     icon: BookCheck,
     href: "/publication",
@@ -155,12 +145,17 @@ export const adminSideNavLinks = [
     icon: RailSymbol,
     href: "/trainings",
   },
-  {
+   {
     title: "Active Partnerships",
     icon: Handshake,
     href: "/active-partnerships",
+  },  
+    {
+    title: "Technical Advisory Services",
+    icon: LineChart,
+    href: "/technical-advisory-services",
   },
-  {
+    {
     title: "Awards",
     icon: Award,
     href: "/awards",
@@ -171,9 +166,9 @@ export const adminSideNavLinks = [
     href: "/citations",
   },
   {
-    title: "Technical Advisory Services",
-    icon: LineChart,
-    href: "/technical-advisory-services",
+    title: "Projects",
+    icon: FolderKanban,
+    href: "/projects",
   },
 ];
 

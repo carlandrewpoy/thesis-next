@@ -24,10 +24,10 @@ export function DataTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Search Name..."
-          value={(table.getColumn("firstname")?.getFilterValue() as string) ?? ""}
+          placeholder="Search project"
+          value={(table.getColumn("project_title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("firstname")?.setFilterValue(event.target.value)
+            table.getColumn("project_title")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
@@ -61,6 +61,9 @@ export function DataTableToolbar<TData>({
         >Add</Button> */}
         <AddDialog />
         <DataTableViewOptions table={table} />
+        <Button className="h-8" variant={"outline"}>
+          Export
+        </Button>
       </div>
     </div>
   )

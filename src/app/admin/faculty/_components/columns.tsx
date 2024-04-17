@@ -11,14 +11,28 @@ export const columns: ColumnDef<Faculty>[] = [
   {
     accessorKey: "firstname",
     header: "Firstname",
+    cell: ({ row }) => {
+      return <div>{row.original.firstname.toLocaleUpperCase()}</div>;
+    }
   },
   {
     accessorKey: "middleInitial",
     header: "Middle Initial/Name",
+    cell: ({ row }) => {
+      return <div>{row.original.middleInitial?.toLocaleUpperCase()}</div>;
+    }
   },
   {
     accessorKey: "lastname",
     header: "Lastname",
+    cell: ({ row }) => {
+      return <div>{row.original.lastname?.toLocaleUpperCase()}</div>;
+    }
+
+  },
+  {
+    accessorKey: "suffix",
+    header: "Suffix",
   },
   {
     accessorKey: "position",

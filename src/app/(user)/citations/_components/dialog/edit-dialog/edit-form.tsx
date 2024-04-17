@@ -71,7 +71,7 @@ const EditForm = ({ row, close }: {
             <div className="grid grid-cols-6 items-center gap-4 ">
 
                 <div className="col-span-3">
-                    <Input defaultValue={row.original.yearPublished} type='date' name='yearPublished' />
+                    <Input defaultValue={row.original.yearPublished} type='number' name='yearPublished' />
                 </div>
                 <div className="col-span-3">
                     <Input defaultValue={row.original.index} name='index' />
@@ -92,7 +92,7 @@ const EditForm = ({ row, close }: {
             <div className="grid grid-cols-6 items-center gap-4 ">
 
                 <div className="col-span-3">
-                    <Input defaultValue={row.original.yearPublishedTwo} type='date' name='yearPublishedTwo' />
+                    <Input defaultValue={row.original.yearPublishedTwo} type='number' name='yearPublishedTwo' />
                 </div>
                 <div className="col-span-3">
                     <Input defaultValue={row.original.vol} name='vol' />

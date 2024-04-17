@@ -14,7 +14,7 @@ import { createTraining } from '@/server-actions/trainings'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { ReloadIcon } from '@radix-ui/react-icons'
-import { AutoFill } from '@/api/autofill'
+import { AutoFill } from '@/server-state/autofill'
 import { link } from 'fs'
 
 const AddForm = ({ close }: {
@@ -32,8 +32,8 @@ const AddForm = ({ close }: {
     }
 
 
-    const { mutateAsync: createPost, isPending } = AutoFill();
-    const [autoFillData, setautoFillData] = useState<ApiResponse>()
+    const { mutateAsync: autofillFN, isPending } = AutoFill();
+    const [autoFillData, setautoFillData] = useState<TTraingingAutofill>()
     const [link, setlink] = useState('')
     const params = {
         "link": link,
@@ -43,9 +43,15 @@ const AddForm = ({ close }: {
 
     const handleClick = async () => {
         if (link === '') return toast({ description: 'Please enter a link', duration: 1500, variant: 'destructive' })
-        const res = await createPost(params as any)
+        const res = await autofillFN(params as any)
         if (!res.data.mov) return toast({ description: 'Invalid link', duration: 1500, variant: 'destructive' })
         setautoFillData(res.data as any)
+        if (res.data.mov) {
+            toast({
+                duration: 1500,
+                description: 'Scan successfuly',
+            })
+        }
     }
 
     const [mov1, setmov1] = useState(false)
@@ -175,7 +181,7 @@ const AddForm = ({ close }: {
                     <Button type='button' onClick={handleClick} disabled={isPending}>
                         {isPending ? <div className='flex items-center justify-center w-10'>
                             <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                        </div> : 'Read'}
+                        </div> : 'Scan'}
                     </Button>
                 </div>
             </div>
@@ -187,10 +193,10 @@ const AddForm = ({ close }: {
                 <Label className="col-span-2 text-xs font-extralight">Attendance</Label>
             </div>
             <div className="grid grid-cols-8 items-center gap-4 ">
-                <Checkbox checked={mov1} onCheckedChange={handleChangeMov1} name="movReportAndActivityProgram" className="col-span-2" />
-                <Checkbox checked={mov2} onCheckedChange={handleChangeMov2} name="movSummaryOfEvaluation" className="col-span-2" />
-                <Checkbox checked={mov3} onCheckedChange={handleChangeMov3} name="movSurverForm" className="col-span-2" />
-                <Checkbox checked={mov4} onCheckedChange={handleChangeMov4} name="movAttendance" className="col-span-2" />
+                <Checkbox checked={autoFillData?.mov.report === 1 ? true : false} name="movReportAndActivityProgram" className="col-span-2" />
+                <Checkbox checked={autoFillData?.mov.summary === 1 ? true : false} name="movSummaryOfEvaluation" className="col-span-2" />
+                <Checkbox checked={autoFillData?.mov.sample === 1 ? true : false} name="movSurverForm" className="col-span-2" />
+                <Checkbox checked={autoFillData?.mov.attendance === 1 ? true : false} name="movAttendance" className="col-span-2" />
             </div>
 
             <div className='flex justify-end'>

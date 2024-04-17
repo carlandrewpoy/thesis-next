@@ -292,6 +292,7 @@ model Utilization {
   centerId       String
   center         Center   @relation(fields: [centerId], references: [id])
   proof          String
+  year           String
   benificiary    String
   supportingDocs String
   movMoa         Boolean  @default(false)

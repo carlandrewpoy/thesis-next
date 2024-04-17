@@ -4,8 +4,6 @@ import { Label } from "@/components/ui/label"
 import { useFormState, useFormStatus } from 'react-dom'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
-import { createCenter } from '@/server-actions/center'
-import { CollegeSelect } from '@/components/select/college-select'
 import { createFaculty } from '@/server-actions/faculty'
 
 const AddForm = ({ close }: {
@@ -40,13 +38,14 @@ const AddForm = ({ close }: {
             </div>
 
             <div className="grid grid-cols-12 items-center gap-4 -mb-3">
-                <Label className="col-span-12 text-xs font-extralight">Position</Label>
+                <Label className="col-span-6 text-xs font-extralight">Suffix</Label>
+                <Label className="col-span-6 text-xs font-extralight">Position</Label>
             </div>
             <div className="grid grid-cols-12 items-center gap-4 ">
 
-                <div className="col-span-12">
-                    <Input required name="position" className="col-span-3" />
-                </div>
+                <Input required name="suffix" className="col-span-6" />
+                <Input required name="position" className="col-span-6" />
+
             </div>
 
             <div className='flex justify-end'>

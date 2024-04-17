@@ -22,7 +22,7 @@ export const columns: ColumnDef<TrainingWithOther>[] = [
     accessorKey: "project.title",
     header: "Project Title",
     cell: ({ row }) => {
-      return <div className="w-52">
+      return <div className="w-72">
         {row.original.project.title}
       </div>;
     }
@@ -31,7 +31,7 @@ export const columns: ColumnDef<TrainingWithOther>[] = [
     accessorKey: "venue",
     header: "Venue",
     cell: ({ row }) => {
-      return <div className="w-20">
+      return <div className="w-72">
         {row.original.venue}
       </div>;
     }
@@ -39,10 +39,21 @@ export const columns: ColumnDef<TrainingWithOther>[] = [
   {
     accessorKey: "dateStarted",
     header: "From",
+    cell: ({ row }) => {
+      return <div className="w-24">
+        {row.original.dateStarted}
+      </div>;
+    }
   },
   {
     accessorKey: "dateEnded",
     header: "To",
+    cell: ({ row }) => {
+      return <div className="w-24">
+        {row.original.dateEnded}
+      </div>;
+    }
+
   },
   {
     accessorKey: "duration",

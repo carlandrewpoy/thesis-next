@@ -9,11 +9,13 @@ import { Input } from "@/components/ui/input"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { AddDialog } from "./dialog/add-dialog/add-dialog"
 import { DataTableViewOptions } from "@/components/table/data-table-view-options"
-import { ProjectTypeSelect } from "@/components/select/project-type-select"
+import { ProjectTypeSelect } from "./select/project-type-select"
+import { Project } from "@prisma/client"
+import { ProjectStatusSelect } from "./select/project-status-select"
 
 
 interface DataTableToolbarProps<TData> {
-  table: Table<TData>
+  table: Table<Project>
 }
 
 export function DataTableToolbar<TData>({
@@ -25,28 +27,16 @@ export function DataTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Search Name..."
-          value={(table.getColumn("firstname")?.getFilterValue() as string) ?? ""}
+          placeholder="Search project"
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("firstname")?.setFilterValue(event.target.value)
+            table.getColumn("title")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        {/* <ProjectTypeSelect /> */}
-        {/* {table.getColumn("status") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("status")}
-            title="Status"
-            options={statuses}
-          />
-        )}
-        {table.getColumn("priority") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("priority")}
-            title="Priority"
-            options={priorities}
-          />
-        )} */}
+        <ProjectTypeSelect table={table} />
+        <ProjectStatusSelect table={table} />
+
         {isFiltered && (
           <Button
             variant="ghost"
@@ -59,10 +49,11 @@ export function DataTableToolbar<TData>({
         )}
       </div>
       <div className="flex items-center gap-x-2">
-        {/* <Button variant={"outline"} size="sm" className="ml-auto h-8"
-        >Add</Button> */}
         <AddDialog />
         <DataTableViewOptions table={table} />
+        <Button className="h-8" variant={"outline"}>
+          Export
+        </Button>
       </div>
     </div>
   )

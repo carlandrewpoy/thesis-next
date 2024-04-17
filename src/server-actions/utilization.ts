@@ -11,6 +11,7 @@ export const createUtilization = async (state: any, formData: FormData) => {
       proof: formData.get("proof") as string,
       benificiary: formData.get("benificiary") as string,
       supportingDocs: formData.get("supportingDocs") as string,
+      year: formData.get("year") as string,
       movMoa: !!formData.get("movMoa") as boolean,
       movPhotos: !!formData.get("movPhotos") as boolean,
       movReport: !!formData.get("movReport") as boolean,

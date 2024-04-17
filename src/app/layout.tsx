@@ -5,6 +5,7 @@ import AuthProvider from "@/components/nextauth-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import ReactQueryProvider from "@/components/react-query-provider";
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,10 @@ export default function RootLayout({
             <AuthProvider>
               {/* <HomeNavbar /> */}
               {children}
+              <NextTopLoader color="#16a34a"
+                showSpinner={false}
+              />
+
 
             </AuthProvider>
           </ThemeProvider>

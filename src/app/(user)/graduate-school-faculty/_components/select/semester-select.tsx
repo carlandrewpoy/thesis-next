@@ -23,15 +23,18 @@ const data = [
 ]
 
 export function SemesterSelect({
+    set,
     table
 }: {
     table: Table<GradSchoolFaculty>
+    set: React.Dispatch<React.SetStateAction<string | null | undefined>>
 }) {
 
     return (
         <Select name="semester"
             value={(table.getColumn("semester")?.getFilterValue() as string) ?? ""}
             onValueChange={val => {
+                set(val)
                 table.getColumn("semester")?.setFilterValue(val)
             }}
         >

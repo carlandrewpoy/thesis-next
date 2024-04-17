@@ -31,11 +31,13 @@ import { DataTablePagination } from "@/components/table/data-table-pagination"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  results: any
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  results,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -67,9 +69,11 @@ export function DataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
 
+
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table as any} />
+      <DataTableToolbar table={table as any} results={results} />
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>

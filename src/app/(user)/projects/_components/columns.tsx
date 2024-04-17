@@ -22,6 +22,10 @@ export const columns: ColumnDef<Project>[] = [
     }
   },
   {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
     accessorKey: "dateStart",
     header: "Start",
     cell: ({ row }) => {
@@ -94,10 +98,6 @@ export const columns: ColumnDef<Project>[] = [
     }
   },
   {
-    accessorKey: "status",
-    header: "Status",
-  },
-  {
     accessorKey: "beneficiaries",
     header: "Beneficiaries",
     cell: ({ row }) => {
@@ -126,16 +126,7 @@ export const columns: ColumnDef<Project>[] = [
   },
   {
     accessorKey: "projectReport",
-    header: "Project Report",
-    cell: ({ row }) => {
-      return <div className="w-48">
-        {row.original.projectReport}
-      </div>;
-    }
-  },
-  {
-    accessorKey: "projectReport",
-    header: "Movs",
+    header: "MOVS",
     cell: ({ row }) => {
       return <div className="flex flex-col w-52">
 

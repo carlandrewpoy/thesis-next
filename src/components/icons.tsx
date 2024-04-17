@@ -31,11 +31,13 @@ import {
   ChevronRight,
   ChevronsRight,
   SlidersHorizontal,
+  Home,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
 
 export const Icons = {
+  home: Home,
   previous: ChevronLeft,
   speedPrevious: ChevronsLeft,
   next: ChevronRight,
@@ -66,7 +68,7 @@ export const Icons = {
   circle: Circle,
   question: HelpCircle,
   check: Check,
-  logout: LogOut, 
+  logout: LogOut,
   logo: (props: LucideProps) => (
     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' {...props}>
       <path

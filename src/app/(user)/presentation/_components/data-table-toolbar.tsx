@@ -9,10 +9,13 @@ import { Input } from "@/components/ui/input"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { AddDialog } from "./dialog/add-dialog/add-dialog"
 import { DataTableViewOptions } from "@/components/table/data-table-view-options"
+import { CenterSelect } from "./select/center-select"
+import { Presentation, Utilization } from "@prisma/client"
+import { PresentationStatusSelect } from "./select/presentation-status-select"
 
 
 interface DataTableToolbarProps<TData> {
-  table: Table<TData>
+  table: Table<Presentation>
 }
 
 export function DataTableToolbar<TData>({
@@ -24,13 +27,15 @@ export function DataTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Search Name..."
-          value={(table.getColumn("firstname")?.getFilterValue() as string) ?? ""}
+          placeholder="Search project"
+          value={(table.getColumn("project_title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("firstname")?.setFilterValue(event.target.value)
+            table.getColumn("project_title")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
+        <CenterSelect table={table} />
+        <PresentationStatusSelect table={table} />
         {/* {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
@@ -61,6 +66,9 @@ export function DataTableToolbar<TData>({
         >Add</Button> */}
         <AddDialog />
         <DataTableViewOptions table={table} />
+        <Button className="h-8" variant={"outline"}>
+          Export
+        </Button>
       </div>
     </div>
   )

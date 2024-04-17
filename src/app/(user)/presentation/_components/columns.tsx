@@ -3,6 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { EditDialog } from "./dialog/edit-dialog/edit-dialog";
 import { DeleteDialog } from "./dialog/delete-dialog/delete-dialog";
 import { FacultyEngagement, GradSchoolFaculty, Prisma } from "@prisma/client";
+import { dateFormatterName } from "@/lib/utils";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -41,15 +42,31 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
   {
     accessorKey: "startedDate",
     header: "Started Date",
+    cell: ({ row }) => {
+      return <h1 className="w-24">{dateFormatterName(row.original.startedDate)}</h1>
+    }
+
   },
   {
     accessorKey: "completedDate",
     header: "Completed Date",
+    cell: ({ row }) => {
+      return <h1 className="w-24">{dateFormatterName(row.original.completedDate)}</h1>
+    }
   },
 
   {
     accessorKey: "articleTitle",
     header: "Article/Title",
+    cell: ({ row }) => {
+      return (
+        <div className="w-52">
+          <h1 >{row.original.articleTitle}</h1>
+
+        </div>
+      )
+
+    }
   },
   {
     accessorKey: "keywords",
@@ -74,11 +91,14 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
   {
     accessorKey: "date",
     header: "Date",
+    cell: ({ row }) => {
+      return <h1 className="w-24">{dateFormatterName(row.original.date)}</h1>
+    }
   },
 
   {
     accessorKey: "movMoa",
-    header: "Movs",
+    header: "MOVS",
     cell: ({ row }) => {
       return <div className="flex flex-col w-52">
 

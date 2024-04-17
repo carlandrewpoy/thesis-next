@@ -50,17 +50,31 @@ const SideNav = () => {
                                             <span className="sr-only">Acme Inc</span>
                                         </Link>
                                     </SheetClose>
-                                    {headerLinks.map((link) => (
-                                        <SheetClose asChild key={link.title}>
-                                            <Link
-                                                href={link.href}
-                                                className={`${pathname === link.href ? 'text-foreground' : 'text-muted-foreground'} flex items-center gap-4 px-2.5  hover:text-foreground`}
-                                            >
-                                                <link.icon className="h-5 w-5" />
-                                                {link.title}
-                                            </Link>
-                                        </SheetClose>
-                                    ))}
+                                    {session?.user.role === 'ADMIN' ? (
+                                        adminSideNavLinks.map((link) => (
+                                            <SheetClose asChild key={link.title}>
+                                                <Link
+                                                    href={link.href}
+                                                    className={`${pathname === link.href ? 'text-foreground' : 'text-muted-foreground'} flex items-center gap-4 px-2.5  hover:text-foreground`}
+                                                >
+                                                    <link.icon className="h-5 w-5" />
+                                                    {link.title}
+                                                </Link>
+                                            </SheetClose>
+                                        ))
+                                    ) : (
+                                        userSideNavLinks.map((link) => (
+                                            <SheetClose asChild key={link.title}>
+                                                <Link
+                                                    href={link.href}
+                                                    className={`${pathname === link.href ? 'text-foreground' : 'text-muted-foreground'} flex items-center gap-4 px-2.5  hover:text-foreground`}
+                                                >
+                                                    <link.icon className="h-5 w-5" />
+                                                    {link.title}
+                                                </Link>
+                                            </SheetClose>
+                                        ))
+                                    )}
 
                                 </nav>
                             </ScrollArea>
@@ -185,7 +199,7 @@ const SideNav = () => {
                 </nav>
             </ScrollArea>
             <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-4">
-                <TooltipProvider>
+                {/* <TooltipProvider>
                     <Tooltip delayDuration={0}>
                         <TooltipTrigger asChild>
                             <Link
@@ -198,7 +212,7 @@ const SideNav = () => {
                         </TooltipTrigger>
                         <TooltipContent side="right">Settings</TooltipContent>
                     </Tooltip>
-                </TooltipProvider>
+                </TooltipProvider> */}
                 {/* <TooltipProvider>
 
                     <Tooltip>

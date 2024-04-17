@@ -9,7 +9,7 @@ import { dateFormatterNumber, getSchoolYears } from '@/lib/utils'
 import { ProjectSelect } from '@/components/select/project-select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { ReloadIcon } from '@radix-ui/react-icons'
-import { AutoFill } from '@/api/autofill'
+import { AutoFill } from '@/server-state/autofill'
 import { PublicationStatusSelect } from '@/components/select/publication-status-select'
 import { CenterSelect } from '@/components/select/center-select'
 import { createPublication } from '@/server-actions/publication'
@@ -32,18 +32,19 @@ const AddForm = ({ close }: {
     }
 
 
-    const { mutateAsync: createPost, isPending } = AutoFill();
-    console.log(isPending)
-    const [autoFillData, setautoFillData] = useState<ApiResponse>()
+    const { mutateAsync: autofillFN, isPending } = AutoFill();
+    const [autoFillData, setautoFillData] = useState<TPartnerAutofill>()
     const [link, setlink] = useState('')
     const params = {
         "link": link,
-        "table": "TRAINING"
+        "table": "PARTNER"
     }
     !isPending && console.log(autoFillData)
 
     const handleClick = async () => {
-        const res = await createPost(params as any)
+        if (link === '') return toast({ description: 'Please enter a link', duration: 1500, variant: 'destructive' })
+        const res = await autofillFN(params as any)
+        if (!res.data.mov) return toast({ description: 'Invalid link', duration: 1500, variant: 'destructive' })
         setautoFillData(res.data as any)
     }
 
@@ -70,7 +71,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='partner' />
+                    <Input defaultValue={autoFillData?.results.partner} name='partner' />
                 </div>
             </div>
             <div className="grid grid-cols-6 items-center gap-2 -mb-3">
@@ -91,7 +92,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='implementor' />
+                    <Input defaultValue={autoFillData?.results.implementors} name='implementor' />
                 </div>
             </div>
 

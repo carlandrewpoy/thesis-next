@@ -14,7 +14,7 @@ import { createTraining } from '@/server-actions/trainings'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { ReloadIcon } from '@radix-ui/react-icons'
-import { AutoFill } from '@/api/autofill'
+import { AutoFill } from '@/server-state/autofill'
 import { link } from 'fs'
 import { createCitation } from '@/server-actions/citations'
 
@@ -66,7 +66,7 @@ const AddForm = ({ close }: {
             <div className="grid grid-cols-6 items-center gap-4 ">
 
                 <div className="col-span-3">
-                    <Input type='date' name='yearPublished' />
+                    <Input type='number' name='yearPublished' />
                 </div>
                 <div className="col-span-3">
                     <Input name='index' />
@@ -87,7 +87,7 @@ const AddForm = ({ close }: {
             <div className="grid grid-cols-6 items-center gap-4 ">
 
                 <div className="col-span-3">
-                    <Input type='date' name='yearPublishedTwo' />
+                    <Input type='number' name='yearPublishedTwo' />
                 </div>
                 <div className="col-span-3">
                     <Input name='vol' />

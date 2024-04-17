@@ -27,6 +27,17 @@ export const columns: ColumnDef<UtilizationWithOther>[] = [
   {
     accessorKey: "project.title",
     header: "Project Title",
+    cell: ({ row }) => {
+      return <h1 className="w-72">{row.original.project.title}</h1>
+    }
+  },
+  {
+    accessorKey: "center.name",
+    header: "Center",
+  },
+  {
+    accessorKey: "year",
+    header: "Year",
   },
   {
     accessorKey: "proof",
@@ -35,20 +46,17 @@ export const columns: ColumnDef<UtilizationWithOther>[] = [
   {
     accessorKey: "benificiary",
     header: "Benificiary",
+    cell: ({ row }) => {
+      return <h1 className="w-52">{row.original.benificiary}</h1>
+    }
   },
   {
     accessorKey: "supportingDocs",
     header: "Supporting Docs",
   },
-
-  {
-    accessorKey: "center.name",
-    header: "Center",
-  },
-
   {
     accessorKey: "movMoa",
-    header: "Movs",
+    header: "MOVS",
     cell: ({ row }) => {
       return <div className="flex flex-col w-52">
 

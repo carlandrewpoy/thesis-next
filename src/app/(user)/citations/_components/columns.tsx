@@ -75,14 +75,24 @@ export const columns: ColumnDef<CitationWithOther>[] = [
   {
     accessorKey: "journalTitle",
     header: "Journal Title",
+    cell: ({ row }) => {
+      return <div className="w-40">
+        {row.original.journalTitle}
+      </div>;
+    }
   },
   {
     accessorKey: "vol",
     header: "Vol. / Issue / Page No.",
+    cell: ({ row }) => {
+      return <div className="w-40">
+        {row.original.vol}
+      </div>;
+    }
   },
   {
     accessorKey: "yearPublishedTwo",
-    header: "TRAINEES SURVEYED",
+    header: "Year Published",
     cell: ({ row }) => {
       return <div className="w-20">
         {row.original.yearPublishedTwo}
@@ -92,10 +102,15 @@ export const columns: ColumnDef<CitationWithOther>[] = [
   {
     accessorKey: "publisherName",
     header: "Publisher Name",
+    cell: ({ row }) => {
+      return <div className="w-64">
+        {row.original.journalTitle}
+      </div>;
+    }
   },
   {
     accessorKey: "scholarLink",
-    header: "Scholar Link",
+    header: "Scholarly Link",
   },
 
   {

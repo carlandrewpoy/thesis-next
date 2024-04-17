@@ -10,6 +10,7 @@ export const createFaculty = async (state: any, formData: FormData) => {
       lastname: formData.get("lastname") as string,
       middleInitial: formData.get("middleInitial") as string,
       position: formData.get("position") as string,
+      suffix: formData.get("suffix") as string,
     },
   });
   if (res.id) {
@@ -34,6 +35,8 @@ export const updateFaculty = async (
       lastname: formData.get("lastname") as string,
       middleInitial: formData.get("middleInitial") as string,
       position: formData.get("position") as string,
+      suffix: formData.get("suffix") as string,
+
     },
   });
   if (!res.id) {

@@ -14,8 +14,8 @@ export const capitalizeFirstLetter = (string: string) => {
   );
 };
 
-export const dateFormatterName = (dateParam: Date) => {
-  const date = new Date(dateParam);
+export const dateFormatterName = (dateParam: String | null) => {
+  const date = new Date(dateParam as string);
   const formattedDate = date.toLocaleDateString("en-US", {
     timeZone: "Asia/Manila",
     year: "numeric",
@@ -47,4 +47,17 @@ export function getSchoolYears() {
   }
 
   return schoolYears;
+}
+
+export function getSingleYearsArray() {
+    var currentYear = new Date().getFullYear(); // Get the current year
+    var targetYear = 2010; // Target year
+    var years = [];
+
+    // Loop from current year to 2010
+    for (var year = currentYear; year >= targetYear; year--) {
+        years.push(year); // Add each year to the array
+    }
+
+    return years;
 }

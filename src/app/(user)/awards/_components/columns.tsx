@@ -28,6 +28,10 @@ export const columns: ColumnDef<AwardWithOthers>[] = [
     }
   },
   {
+    accessorKey: "type",
+    header: "Type",
+  },
+  {
     accessorKey: "researchers",
     header: "Researchers",
     cell: ({ row }) => {
@@ -43,10 +47,6 @@ export const columns: ColumnDef<AwardWithOthers>[] = [
   {
     accessorKey: "publisher",
     header: "Publisher/Conference Organizer/Conferring Body",
-  },
-  {
-    accessorKey: "type",
-    header: "Type",
   },
   {
     accessorKey: "supportingDocs",

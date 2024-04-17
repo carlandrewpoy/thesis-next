@@ -16,6 +16,29 @@ import { ProjectSelect } from '@/components/select/project-select'
 import { CenterSelect } from '@/components/select/center-select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { createUtilization } from '@/server-actions/utilization'
+import { z } from 'zod'
+
+// const UtilizationSchema = z.object({
+//     projectId: z.string(),
+//     centerId: z.string(),
+//     year: z.string(),
+//     proof: z.string({
+//         required_error: "Proof is required",
+//         invalid_type_error: "Proof must be a string",
+//     }),
+//     benificiary: z.string({
+//         required_error: "Benificiary is required",
+//         invalid_type_error: "Benificiary must be a string",
+//     }),
+//     supportingDocs: z.string().startsWith("https://", { message: "Must provide secure URL" }),
+//     movMoa: z.boolean(),
+//     movReport: z.boolean(),
+//     movUtilization: z.boolean(),
+//     movPhotos: z.boolean(),
+// })
+
+// type TUtilizationSchema = z.infer<typeof UtilizationSchema>;
+
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
@@ -44,13 +67,15 @@ const AddForm = ({ close }: {
                     <ProjectSelect />
                 </div>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Center</Label>
+            <div className="grid grid-cols-12 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Center</Label>
+                <Label className="col-span-6 text-xs font-extralight">Year</Label>
             </div>
-            <div className="grid grid-cols-9 items-center gap-4 ">
-                <div className='col-span-9'>
+            <div className="grid grid-cols-12 items-center gap-4 ">
+                <div className='col-span-6'>
                     <CenterSelect />
                 </div>
+                <Input name='year' className="col-span-6" />
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
                 <Label className="col-span-9 text-xs font-extralight">Proof/Description/Documentation</Label>
