@@ -234,6 +234,7 @@ enum PresentationType {
   NATIONAL
   INTERNATIONAL
   REGIONAL
+  LOCAL
 }
 
 enum PresentationStatus {

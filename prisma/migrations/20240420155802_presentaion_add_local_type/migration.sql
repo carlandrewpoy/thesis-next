@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `presentation` MODIFY `type` ENUM('NATIONAL', 'INTERNATIONAL', 'REGIONAL', 'LOCAL') NOT NULL;
