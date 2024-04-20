@@ -12,6 +12,8 @@ import { DataTableViewOptions } from "@/components/table/data-table-view-options
 import { CenterSelect } from "./select/center-select"
 import { Presentation, Utilization } from "@prisma/client"
 import { PresentationStatusSelect } from "./select/presentation-status-select"
+import { CenterCombobox } from "@/components/combobox/filter/center-select"
+import { FacultyCombobox } from "@/components/combobox/filter/faculty"
 
 
 interface DataTableToolbarProps<TData> {
@@ -34,8 +36,9 @@ export function DataTableToolbar<TData>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        <CenterSelect table={table} />
+        <CenterCombobox table={table} />
         <PresentationStatusSelect table={table} />
+        <FacultyCombobox columnName="newResearchers" table={table} />
         {/* {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}

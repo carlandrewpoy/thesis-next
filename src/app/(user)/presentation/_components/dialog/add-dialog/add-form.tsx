@@ -4,22 +4,23 @@ import { Label } from "@/components/ui/label"
 import { useFormState, useFormStatus } from 'react-dom'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
-import { getSchoolYears } from '@/lib/utils'
-import { ProjectSelect } from '@/components/select/project-select'
 import { Checkbox } from '@/components/ui/checkbox'
-import { createUtilization } from '@/server-actions/utilization'
 import { ProjectStatusSelect } from '@/components/select/project-status-select'
-import { ProjectTypeSelect } from '@/components/select/project-type-select'
 import { createPresentation } from '@/server-actions/presentation'
 import { PresentationTypeSelect } from '@/components/select/presentation-type-select'
-import { CenterSelect } from '@/components/select/center-select'
+
+import { ProjectCombobox } from '@/components/combobox/mutation/project'
+import { CenterCombobox } from '@/components/combobox/mutation/center'
+import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
 }
 ) => {
-
-    const [state, formAction] = useFormState(createPresentation, null)
+    const [selected, setSelected] = useState<string[]>([])
+    console.log(selected)
+    const createWithOthers = createPresentation.bind(null, selected)
+    const [state, formAction] = useFormState(createWithOthers, null)
     if (state?.message) {
         close(false)
         toast({
@@ -28,6 +29,7 @@ const AddForm = ({ close }: {
 
         })
     }
+
     return (
         <form className="grid gap-4" action={formAction} >
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -35,7 +37,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectSelect />
+                    <ProjectCombobox />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -43,7 +45,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <CenterSelect />
+                    <CenterCombobox />
                 </div>
             </div>
 
@@ -81,8 +83,8 @@ const AddForm = ({ close }: {
                 <Label className="col-span-6 text-xs font-extralight">Researchers</Label>
             </div>
             <div className="grid grid-cols-12 items-center gap-2 ">
-                <Input name="researchers" className="col-span-12" />
-
+                {/* <Input name="researchers" className="col-span-12" /> */}
+                <MultiSelectFacultyCombobox selected={selected} setSelected={setSelected} />
             </div>
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
                 <Label className="col-span-6 text-xs font-extralight">Forum Title</Label>

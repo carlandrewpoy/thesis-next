@@ -9,17 +9,11 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { College } from "@prisma/client";
+import { GetCollege } from "@/server-state-management/state-data";
 
 export function CollegeSelect({ defaultValue }: { defaultValue?: string }) {
-    const [data, setdata] = React.useState<College[]>()
-    const fetchColleges = async () => {
-        const response = await fetch("/api/college");
-        const data = await response.json();
-        setdata(data);
-    }
-    React.useEffect(() => {
-        fetchColleges();
-    }, [])
+
+    const { data, isLoading } = GetCollege();
     return (
         <Select name="collegeId" required defaultValue={defaultValue}>
             <SelectTrigger className="w-full">

@@ -17,6 +17,8 @@ import { updateGradSchoolFaculty } from '@/server-actions/grad-school-faculty'
 import { GradSchoolFacultyWithOwner } from '../../columns'
 import { SchoolYearSelect } from '@/components/select/schoolyear-select'
 import { SemesterSelect } from '@/components/select/semester-select'
+import { FacultyCombobox } from '@/components/combobox/mutation/faculty'
+import { CollegeCombobox } from '@/components/combobox/college'
 
 const EditForm = ({ row, close }: {
     row: Row<GradSchoolFacultyWithOwner>
@@ -48,7 +50,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <FacultySelect defaultValue={row.original.facultyId} />
+                    <FacultyCombobox defaultValue={row.original.faculty} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -56,7 +58,8 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <CollegeSelect defaultValue={row.original.collegeId} />
+                    <CollegeCombobox defaultValue={row.original.college.name} />
+
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

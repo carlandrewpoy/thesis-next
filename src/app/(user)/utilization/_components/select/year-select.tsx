@@ -11,8 +11,9 @@ import {
 import { Center, Utilization } from "@prisma/client";
 import { Table } from "@tanstack/react-table";
 import { getSingleYearsArray } from "@/lib/utils";
+import { UtilizationWithOther } from "../columns";
 
-export function YearSelect({ table }: { table: Table<Utilization> }) {
+export function YearSelect({ table }: { table: Table<UtilizationWithOther> }) {
     const data = getSingleYearsArray()
     return (
         <Select

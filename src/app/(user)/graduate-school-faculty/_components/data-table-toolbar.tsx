@@ -13,9 +13,8 @@ import { SchoolYearSelect } from "./select/schoolyear-select"
 import { useState } from "react"
 import { SemesterSelect } from "./select/semester-select"
 import { GradSchoolFaculty } from "@prisma/client"
-import { CollegeSelect } from "./select/college-select"
-import Link from "next/link"
 import ExcelExportHelper from "@/components/export-helper"
+import { CollegeCombobox } from "../../../../components/combobox/filter/college-select"
 
 
 interface DataTableToolbarProps<TData> {
@@ -30,6 +29,7 @@ export function DataTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0
   const [sy, setSy] = useState<string | null>()
   const [sem, setSem] = useState<string | null>()
+  // const [college, setCollege] = useState<string | null>()
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -41,7 +41,7 @@ export function DataTableToolbar<TData>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        <CollegeSelect table={table} />
+        <CollegeCombobox table={table} />
         <SchoolYearSelect set={setSy} table={table} />
         {sy && <SemesterSelect set={setSem} table={table} />}
         {isFiltered && (

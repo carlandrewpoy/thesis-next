@@ -12,10 +12,12 @@ import { DataTableViewOptions } from "@/components/table/data-table-view-options
 import { Utilization } from "@prisma/client"
 import { CenterSelect } from "./select/center-select"
 import { YearSelect } from "./select/year-select"
+import { CenterCombobox } from "@/components/combobox/filter/center-select"
+import { UtilizationWithOther } from "./columns"
 
 
 interface DataTableToolbarProps<TData> {
-  table: Table<Utilization>
+  table: Table<UtilizationWithOther>
 }
 
 export function DataTableToolbar<TData>({
@@ -34,7 +36,8 @@ export function DataTableToolbar<TData>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        <CenterSelect table={table} />
+        {/* <CenterSelect table={table} /> */}
+        <CenterCombobox table={table as any} />
         <YearSelect table={table} />
         {/* {table.getColumn("status") && (
           <DataTableFacetedFilter

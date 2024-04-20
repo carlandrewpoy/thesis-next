@@ -35,7 +35,7 @@ export const updateGradSchoolFaculty = async (
       id: id,
     },
     data: {
-      collegeId: formData.get("college") as string,
+      collegeId: formData.get("collegeId") as string,
       facultyEngagementId: formData.get("facultyEngagement") as string,
       facultyId: formData.get("faculty") as string,
       schoolYear: formData.get("schoolYear") as string,

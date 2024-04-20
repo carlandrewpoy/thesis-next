@@ -4,13 +4,15 @@ import prisma from "@/lib/prisma";
 import { PublicationStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-export const createPublication = async (state: any, formData: FormData) => {
+export const createPublication = async (selected: string[], state: any, formData: FormData) => {
   const res = await prisma.publication.create({
     data: {
       projectId: formData.get("projectId") as string,
       centerId: formData.get("centerId") as string,
       article: formData.get("article") as string,
-      authors: formData.get("authors") as string,
+      authors: {
+        connect: selected.map((item) => ({ id: item }))
+      },
       index: formData.get("index") as string,
       keywords: formData.get("keywords") as string,
       status: formData.get("status") as PublicationStatus,
@@ -37,6 +39,7 @@ export const createPublication = async (state: any, formData: FormData) => {
 
 export const updatePublication = async (
   id: string,
+  selected: string[],
   state: any,
   formData: FormData
 ) => {
@@ -48,8 +51,9 @@ export const updatePublication = async (
       projectId: formData.get("projectId") as string,
       centerId: formData.get("centerId") as string,
       article: formData.get("article") as string,
-      authors: formData.get("authors") as string,
-      index: formData.get("index") as string,
+      authors: {
+        set: selected.map((item) => ({ id: item }))
+      },      index: formData.get("index") as string,
       keywords: formData.get("keywords") as string,
       status: formData.get("status") as PublicationStatus,
       issnOrIsbn: formData.get("issnOrIsbn") as string,

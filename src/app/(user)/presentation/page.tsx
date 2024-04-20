@@ -21,11 +21,16 @@ const Center = async () => {
                     name: true
                 }
             },
+            Researchers: true
         }
     });
-    console.log(data)
+    const transformedData = data.map(item => ({
+        ...item,
+        newResearchers: `${item.Researchers.map(researcher => `${researcher.lastname}, ${researcher.firstname} ${researcher.middleInitial === null ? '' : `${researcher?.middleInitial}.`} ${researcher.suffix === null ? '' : `${researcher?.suffix}`}`).join(':')}`,
+    }));
+    console.log({ transformedData })
     return <div className='mx-5'>
-        <DataTable data={data} columns={columns} />
+        <DataTable data={transformedData} columns={columns} />
     </div>
 }
 export default Center

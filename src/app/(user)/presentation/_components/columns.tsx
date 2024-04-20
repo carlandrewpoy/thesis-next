@@ -2,7 +2,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { EditDialog } from "./dialog/edit-dialog/edit-dialog";
 import { DeleteDialog } from "./dialog/delete-dialog/delete-dialog";
-import { FacultyEngagement, GradSchoolFaculty, Prisma } from "@prisma/client";
+import { FacultyEngagement, GradSchoolFaculty, Presentation, Prisma } from "@prisma/client";
 import { dateFormatterName } from "@/lib/utils";
 
 // This type is used to define the shape of our data.
@@ -20,8 +20,11 @@ export type PresentationWithOthers = Prisma.PresentationGetPayload<{
         name: true
       }
     },
+    Researchers: true
   }
-}>
+}> & {
+  newResearchers: string;
+}
 
 export const columns: ColumnDef<PresentationWithOthers>[] = [
   {
@@ -38,6 +41,10 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
   {
     accessorKey: "status",
     header: "Status",
+  },
+  {
+    accessorKey: "type",
+    header: "Type",
   },
   {
     accessorKey: "startedDate",
@@ -73,9 +80,29 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
     header: "Keywords",
   },
   {
-    accessorKey: "researchers",
+    accessorKey: "newResearchers",
     header: "Researchers",
+    cell: ({ row }) => {
+      const newResearchersArray = row.original.newResearchers.split(':');
+      console.log(newResearchersArray)
+      return <div className="w-64">
+        {newResearchersArray.map((researcher, index) => {
+          return <h1 key={index}>{researcher}</h1>
+        })}
+      </div>
+    }
   },
+  // {
+  //   accessorKey: "researchers",
+  //   header: "Researchers",
+  //   cell: ({ row }) => {
+  //     return <div className="w-52">
+  //       {row.original.Researchers.map((researcher, index) => {
+  //         return <h1 key={index}>{researcher.lastname} {researcher.firstname} {researcher?.middleInitial && researcher?.middleInitial + '.'} {researcher.suffix}</h1>
+  //       })}
+  //     </div>
+  //   }
+  // },
   {
     accessorKey: "forumTitle",
     header: "Forum Title",
@@ -83,10 +110,6 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
   {
     accessorKey: "venue",
     header: "Venue",
-  },
-  {
-    accessorKey: "type",
-    header: "Type",
   },
   {
     accessorKey: "date",

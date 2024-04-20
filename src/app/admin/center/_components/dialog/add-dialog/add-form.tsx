@@ -7,6 +7,7 @@ import { toast } from '@/components/ui/use-toast'
 import { createCenter } from '@/server-actions/center'
 import { CollegeSelect } from '@/components/select/college-select'
 import { ReloadIcon } from '@radix-ui/react-icons'
+import { CollegeCombobox } from '@/components/combobox/mutation/college'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
@@ -44,7 +45,7 @@ const AddForm = ({ close }: {
 
 
                 <div className='col-span-9'>
-                    <CollegeSelect />
+                    <CollegeCombobox />
                 </div>
 
             </div>

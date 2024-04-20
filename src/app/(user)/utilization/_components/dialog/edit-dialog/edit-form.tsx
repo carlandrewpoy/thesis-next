@@ -13,6 +13,8 @@ import { CenterSelect } from '@/components/select/center-select'
 import { ProjectSelect } from '@/components/select/project-select'
 import { updateUtilization } from '@/server-actions/utilization'
 import { UtilizationWithOther } from '../../columns'
+import { ProjectCombobox } from '@/components/combobox/mutation/project'
+import { CenterCombobox } from '@/components/combobox/mutation/center'
 
 const EditForm = ({ row, close }: {
     row: Row<UtilizationWithOther>
@@ -62,7 +64,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectSelect defaultValue={row.original.projectId} />
+                    <ProjectCombobox defaultValue={row.original.project.title} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -70,7 +72,8 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <CenterSelect defaultValue={row.original.centerId} />
+                    <CenterCombobox defaultValue={row.original.center.name} />
+
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

@@ -12,6 +12,8 @@ import { createGradSchoolFaculty } from '@/server-actions/grad-school-faculty'
 import { getSchoolYears } from '@/lib/utils'
 import { SchoolYearSelect } from '@/components/select/schoolyear-select'
 import { SemesterSelect } from '@/components/select/semester-select'
+import { CollegeCombobox } from '@/components/combobox/mutation/college'
+import { FacultyCombobox } from '@/components/combobox/mutation/faculty'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
@@ -37,7 +39,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <FacultySelect />
+                    <FacultyCombobox />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -45,7 +47,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <CollegeSelect />
+                    <CollegeCombobox />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

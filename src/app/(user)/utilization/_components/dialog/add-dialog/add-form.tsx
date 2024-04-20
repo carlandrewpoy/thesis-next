@@ -17,6 +17,8 @@ import { CenterSelect } from '@/components/select/center-select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { createUtilization } from '@/server-actions/utilization'
 import { z } from 'zod'
+import { CenterCombobox } from '@/components/combobox/mutation/center'
+import { ProjectCombobox } from '@/components/combobox/mutation/project'
 
 // const UtilizationSchema = z.object({
 //     projectId: z.string(),
@@ -64,7 +66,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectSelect />
+                    <ProjectCombobox />
                 </div>
             </div>
             <div className="grid grid-cols-12 items-center gap-4 -mb-3">
@@ -73,7 +75,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-12 items-center gap-4 ">
                 <div className='col-span-6'>
-                    <CenterSelect />
+                    <CenterCombobox />
                 </div>
                 <Input name='year' className="col-span-6" />
             </div>

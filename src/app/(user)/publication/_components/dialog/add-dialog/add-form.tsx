@@ -9,17 +9,22 @@ import { dateFormatterNumber, getSchoolYears } from '@/lib/utils'
 import { ProjectSelect } from '@/components/select/project-select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { ReloadIcon } from '@radix-ui/react-icons'
-import { AutoFill } from '@/server-state/autofill'
+import { AutoFill } from '@/server-state-management/autofill'
 import { PublicationStatusSelect } from '@/components/select/publication-status-select'
 import { CenterSelect } from '@/components/select/center-select'
 import { createPublication } from '@/server-actions/publication'
+import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
+import { ProjectCombobox } from '@/components/combobox/mutation/project'
+import { CenterCombobox } from '@/components/combobox/mutation/center'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
 }
 ) => {
 
-    const [state, formAction] = useFormState(createPublication, null)
+    const [selected, setSelected] = useState<string[]>([])
+    const createWithOthers = createPublication.bind(null, selected)
+    const [state, formAction] = useFormState(createWithOthers, null)
     if (state?.message) {
         close(false)
         toast({
@@ -27,6 +32,7 @@ const AddForm = ({ close }: {
             description: state?.message,
         })
     }
+
 
     const { mutateAsync: autofillFN, isPending } = AutoFill();
     const [autoFillData, setautoFillData] = useState<TPublicationAutofill>()
@@ -57,7 +63,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectSelect />
+                    <ProjectCombobox />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -65,7 +71,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <CenterSelect />
+                    <CenterCombobox />
                 </div>
             </div>
             <div className="grid grid-cols-6 items-center gap-2 -mb-3">
@@ -105,7 +111,8 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={autoFillData?.results.authors} name='authors' />
+                    <MultiSelectFacultyCombobox selected={selected} setSelected={setSelected} />
+
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

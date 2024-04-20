@@ -16,28 +16,19 @@ import { PresentationWithOthers } from '../../columns'
 import { ProjectStatusSelect } from '@/components/select/project-status-select'
 import { PresentationTypeSelect } from '@/components/select/presentation-type-select'
 import { updatePresentation } from '@/server-actions/presentation'
+import { Combobox } from '@/components/combobox/demo'
+import { ProjectCombobox } from '@/components/combobox/mutation/project'
+import { CenterCombobox } from '@/components/combobox/mutation/center'
+import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
 
 const EditForm = ({ row, close }: {
     row: Row<PresentationWithOthers>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
-    const updateWithId = updatePresentation.bind(null, row.original.id)
+    const [selected, setSelected] = useState(row.original.Researchers.map((item) => item.id))
+    console.log(selected)
+    const updateWithId = updatePresentation.bind(null, row.original.id, selected)
     const [state, formAction] = useFormState(updateWithId, null)
-    const [mov1, setmov1] = useState(row.original.movAbstract)
-    const [mov2, setmov2] = useState(row.original.movCertOfAppearance)
-    const [mov3, setmov3] = useState(row.original.movConferenceProgram)
-
-
-    const handleChangeMov1 = (checked: boolean) => {
-        setmov1(checked)
-    };
-    const handleChangeMov2 = (checked: boolean) => {
-        setmov2(checked)
-    };
-    const handleChangeMov3 = (checked: boolean) => {
-        setmov3(checked)
-    };
-
     if (state?.message) {
         close(false)
         toast({
@@ -55,6 +46,22 @@ const EditForm = ({ row, close }: {
 
         })
     }
+    const [mov1, setmov1] = useState(row.original.movAbstract)
+    const [mov2, setmov2] = useState(row.original.movCertOfAppearance)
+    const [mov3, setmov3] = useState(row.original.movConferenceProgram)
+
+
+    const handleChangeMov1 = (checked: boolean) => {
+        setmov1(checked)
+    };
+    const handleChangeMov2 = (checked: boolean) => {
+        setmov2(checked)
+    };
+    const handleChangeMov3 = (checked: boolean) => {
+        setmov3(checked)
+    };
+
+
     return (
         <form className="grid gap-4" action={formAction} >
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -62,7 +69,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectSelect defaultValue={row.original.projectId} />
+                    <ProjectCombobox defaultValue={row.original.project.title} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -70,7 +77,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <CenterSelect defaultValue={row.original.centerId} />
+                    <CenterCombobox defaultValue={row.original.center.name} />
                 </div>
             </div>
 
@@ -108,7 +115,8 @@ const EditForm = ({ row, close }: {
                 <Label className="col-span-6 text-xs font-extralight">Researchers</Label>
             </div>
             <div className="grid grid-cols-12 items-center gap-2 ">
-                <Input defaultValue={row.original.researchers} name="researchers" className="col-span-12" />
+                <MultiSelectFacultyCombobox selected={selected} setSelected={setSelected} />
+
 
             </div>
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">

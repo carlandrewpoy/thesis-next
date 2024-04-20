@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Row } from '@tanstack/react-table'
-import { Center, College, User } from '@prisma/client'
+import { Center, College, Prisma, User } from '@prisma/client'
 import { toast } from '@/components/ui/use-toast'
 import { useFormState } from 'react-dom'
 import { useFormStatus } from 'react-dom'
@@ -11,9 +11,20 @@ import { updateUser } from '@/server-actions/auth/auth'
 import { updateCollege } from '@/server-actions/college'
 import { CollegeSelect } from '@/components/select/college-select'
 import { updateCenter } from '@/server-actions/center'
+import { CollegeCombobox } from '@/components/combobox/mutation/college'
+
+export type CenterWithOthers = Prisma.CenterGetPayload<{
+    include: {
+        college: {
+            select: {
+                name: true
+            }
+        },
+    }
+}>
 
 const EditForm = ({ row, close }: {
-    row: Row<Center>
+    row: Row<CenterWithOthers>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
     const updateWithId = updateCenter.bind(null, row.original.id)
@@ -55,7 +66,8 @@ const EditForm = ({ row, close }: {
 
 
                 <div className='col-span-9'>
-                    <CollegeSelect defaultValue={row.original.collegeId} />
+                    {/*  <CollegeSelect /> */}
+                    <CollegeCombobox defaultValue={row.original.college.name} />
                 </div>
 
             </div>

@@ -19,8 +19,11 @@ export type PublicationWithOther = Prisma.PublicationGetPayload<{
         name: true
       }
     },
+    authors: true
   }
-}>
+}> & {
+  newAuthors: string;
+}
 
 export const columns: ColumnDef<PublicationWithOther>[] = [
   {
@@ -58,12 +61,15 @@ export const columns: ColumnDef<PublicationWithOther>[] = [
     header: "Keywords",
   },
   {
-    accessorKey: "authors",
+    accessorKey: "newAuthors",
     header: "Authors",
     cell: ({ row }) => {
-      return <div className="w-52">
-        {row.original.authors}
-      </div>;
+      const newAuthorsArray = row.original.newAuthors.split(':');
+      return <div className="w-64">
+        {newAuthorsArray.map((author, index) => {
+          return <h1 key={index}>{author}</h1>
+        })}
+      </div>
     }
   },
   {

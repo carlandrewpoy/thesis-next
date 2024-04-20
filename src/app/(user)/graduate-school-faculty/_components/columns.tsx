@@ -10,6 +10,8 @@ import { FacultyEngagement, GradSchoolFaculty, Prisma } from "@prisma/client";
 export type GradSchoolFacultyWithOwner = Prisma.GradSchoolFacultyGetPayload<{
   include: {
     facultyEngagement: true
+    faculty: true
+    college: true
   }
 }>
 

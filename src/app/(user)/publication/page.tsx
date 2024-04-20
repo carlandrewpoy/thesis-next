@@ -21,10 +21,16 @@ const Publication = async () => {
                     name: true
                 }
             },
+            authors: true
         }
     });
+    const transformedData = data.map(item => ({
+        ...item,
+        newAuthors: `${item.authors.map(researcher => `${researcher.lastname}, ${researcher.firstname} ${researcher.middleInitial === null ? '' : `${researcher?.middleInitial}.`} ${researcher.suffix === null ? '' : `${researcher?.suffix}`}`).join(':')}`,
+    }));
+    console.log(data)
     return <div className='mx-5'>
-        <DataTable data={data} columns={columns} />
+        <DataTable data={transformedData} columns={columns} />
     </div>
 }
 export default Publication

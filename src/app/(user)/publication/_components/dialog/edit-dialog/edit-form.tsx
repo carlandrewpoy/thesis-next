@@ -16,12 +16,17 @@ import { DurationSelect } from '@/components/select/duration-select'
 import { dateFormatterNumber } from '@/lib/utils'
 import { PublicationStatusSelect } from '@/components/select/publication-status-select'
 import { updatePublication } from '@/server-actions/publication'
+import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
+import { PublicationWithOther } from '../../columns'
+import { ProjectCombobox } from '@/components/combobox/mutation/project'
+import { CenterCombobox } from '@/components/combobox/mutation/center'
 
 const EditForm = ({ row, close }: {
-    row: Row<Publication>
+    row: Row<PublicationWithOther>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
-    const updateWithId = updatePublication.bind(null, row.original.id)
+    const [selected, setSelected] = useState<string[]>(row.original.authors.map((item) => item.id))
+    const updateWithId = updatePublication.bind(null, row.original.id, selected)
     const [state, formAction] = useFormState(updateWithId, null)
     const [mov1, setmov1] = useState(row.original.movAbstract)
     const [mov2, setmov2] = useState(row.original.movJournalTitlePage)
@@ -66,7 +71,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectSelect defaultValue={row.original.projectId} />
+                    <ProjectCombobox defaultValue={row.original.project.title} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -74,7 +79,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <CenterSelect defaultValue={row.original.centerId} />
+                    <CenterCombobox defaultValue={row.original.center.name} />
                 </div>
             </div>
             <div className="grid grid-cols-6 items-center gap-2 -mb-3">
@@ -114,7 +119,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={row.original.authors} name='authors' />
+                    <MultiSelectFacultyCombobox selected={selected} setSelected={setSelected} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

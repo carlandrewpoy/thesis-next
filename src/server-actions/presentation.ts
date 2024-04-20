@@ -1,11 +1,13 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { PresentationStatus, PresentationType } from "@prisma/client";
+import { Faculty, PresentationStatus, PresentationType } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-export const createPresentation = async (state: any, formData: FormData) => {
-  const res = await prisma.presentation.create({
+export const createPresentation = async (selected: string[], state: any, formData: FormData) => {
+  console.log(selected, 'actions');
+  console.log(formData.get("projectId"));
+  const res = await prisma.presentation.create({  
     data: {
       projectId: formData.get("projectId") as string,
       centerId: formData.get("centerId") as string,
@@ -16,7 +18,9 @@ export const createPresentation = async (state: any, formData: FormData) => {
       supportingDocs: formData.get("supportingDocs") as string,
       forumTitle: formData.get("forumTitle") as string,
       keywords: formData.get("keywords") as string,
-      researchers: formData.get("researchers") as string,
+      Researchers: {
+        connect: selected.map((item) => ({ id: item }))
+      },
       status: formData.get("status") as PresentationStatus,
       type: formData.get("type") as PresentationType,
       venue: formData.get("venue") as string,
@@ -35,9 +39,12 @@ export const createPresentation = async (state: any, formData: FormData) => {
 
 export const updatePresentation = async (
   id: string,
+  selected: string[],
   state: any,
   formData: FormData
 ) => {
+  console.log(selected, 'actions')
+  console.log(formData.get("projectId"), 'actions')
   const res = await prisma.presentation.update({
     where: {
       id: id,
@@ -52,7 +59,9 @@ export const updatePresentation = async (
       supportingDocs: formData.get("supportingDocs") as string,
       forumTitle: formData.get("forumTitle") as string,
       keywords: formData.get("keywords") as string,
-      researchers: formData.get("researchers") as string,
+      Researchers: {
+        set: selected.map((item) => ({ id: item }))
+      },      
       status: formData.get("status") as PresentationStatus,
       type: formData.get("type") as PresentationType,
       venue: formData.get("venue") as string,

@@ -14,7 +14,7 @@ import { createTraining } from '@/server-actions/trainings'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { ReloadIcon } from '@radix-ui/react-icons'
-import { AutoFill } from '@/server-state/autofill'
+import { AutoFill } from '@/server-state-management/autofill'
 import { link } from 'fs'
 import { createCitation } from '@/server-actions/citations'
 

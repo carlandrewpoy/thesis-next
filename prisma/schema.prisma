@@ -63,9 +63,45 @@ model Faculty {
   position            String
   suffix              String?
   GradSchoolFaculties GradSchoolFaculty[]
+  Presentations       Presentation[]
+  Publications        Publication[]
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @updatedAt
 }
+
+model Presentation {
+  id                   String             @id @default(cuid())
+  projectId            String
+  project              Project            @relation(fields: [projectId], references: [id])
+  status               PresentationStatus
+  startedDate          String?
+  completedDate        String?
+  articleTitle         String
+  keywords             String
+  forumTitle           String
+  venue                String
+  type                 PresentationType
+  date                 String
+  supportingDocs       String
+  centerId             String
+  center               Center             @relation(fields: [centerId], references: [id])
+  movAbstract          Boolean            @default(false)
+  movCertOfAppearance  Boolean            @default(false)
+  movConferenceProgram Boolean            @default(false)
+  Researchers          Faculty[]
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+}
+
+// model ResearchersOnPresentation {
+//   presentation   Presentation @relation(fields: [presentationID], references: [id])
+//   presentationID String // relation scalar field (used in the `@relation` attribute above)
+//   faculty        Faculty      @relation(fields: [facultyId], references: [id])
+//   facultyId      String // relation scalar field (used in the `@relation` attribute above)
+//   assignedAt     DateTime     @default(now())
+//   assignedBy     String
+//   @@id([presentationID, facultyId])
+// }
 
 model FacultyEngagement {
   id                  String              @id @default(cuid())
@@ -205,30 +241,6 @@ enum PresentationStatus {
   COMPLETED
 }
 
-model Presentation {
-  id                   String             @id @default(cuid())
-  projectId            String
-  project              Project            @relation(fields: [projectId], references: [id])
-  status               PresentationStatus
-  startedDate          String?
-  completedDate        String?
-  articleTitle         String
-  keywords             String
-  researchers          String
-  forumTitle           String
-  venue                String
-  type                 PresentationType
-  date                 String
-  supportingDocs       String
-  centerId             String
-  center               Center             @relation(fields: [centerId], references: [id])
-  movAbstract          Boolean            @default(false)
-  movCertOfAppearance  Boolean            @default(false)
-  movConferenceProgram Boolean            @default(false)
-  createdAt            DateTime           @default(now())
-  updatedAt            DateTime           @updatedAt
-}
-
 enum TrainingDurationType {
   LESS_THAN_EIGHT_HOUR
   EIGHT_HOURS
@@ -319,7 +331,7 @@ model Publication {
   completedDate       String?
   article             String
   keywords            String
-  authors             String
+  authors             Faculty[]
   publicationDate     String
   journalTitle        String
   issueNo             String
