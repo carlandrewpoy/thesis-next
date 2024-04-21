@@ -18,13 +18,16 @@ import { AutoFill } from '@/server-state-management/autofill'
 import { link } from 'fs'
 import { createCitation } from '@/server-actions/citations'
 import { createTechnicalServices } from '@/server-actions/technical-advisory-services'
+import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
 }
 ) => {
-
-    const [state, formAction] = useFormState(createTechnicalServices, null)
+    const [selectedOrganizer, setSelectedOrganizer] = useState<string[]>([])
+    const [selectedInvFaculty, setSelectedInvFaculty] = useState<string[]>([])
+    const createWithOthers = createTechnicalServices.bind(null, selectedOrganizer, selectedInvFaculty)
+    const [state, formAction] = useFormState(createWithOthers, null)
     if (state?.message) {
         close(false)
         toast({
@@ -69,7 +72,8 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='organizer' />
+                    <MultiSelectFacultyCombobox selected={selectedOrganizer} setSelected={setSelectedOrganizer} />
+
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -77,7 +81,8 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='faculty' />
+                    <MultiSelectFacultyCombobox selected={selectedInvFaculty} setSelected={setSelectedInvFaculty} />
+
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

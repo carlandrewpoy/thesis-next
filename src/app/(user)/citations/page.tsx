@@ -16,10 +16,17 @@ const Citations = async () => {
                     title: true
                 }
             },
+            researchers: true,
+            publisherName: true
         }
     });
+    const transformedData = data.map(item => ({
+        ...item,
+        newResearchers: `${item.researchers.map(researcher => `${researcher.lastname}, ${researcher.firstname} ${researcher.middleInitial === null ? '' : `${researcher?.middleInitial}.`} ${researcher.suffix === null ? '' : `${researcher?.suffix}`}`).join(':')}`,
+    }));
+    console.log({ transformedData })
     return <div className='mx-5'>
-        <DataTable data={data} columns={columns} />
+        <DataTable data={transformedData} columns={columns} />
     </div>
 }
 

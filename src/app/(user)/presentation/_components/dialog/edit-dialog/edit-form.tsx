@@ -69,7 +69,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectCombobox defaultValue={row.original.project.title} />
+                    <ProjectCombobox columnName='projectId' defaultValue={row.original.project.title ?? ''} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

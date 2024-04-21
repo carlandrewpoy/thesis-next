@@ -34,7 +34,7 @@ export function DataTableToolbar<TData>({
           className="h-8 w-[150px] lg:w-[250px]"
         />
         <ProjectStatusSelect table={table} />
-        <FacultyCombobox columnName="newAuthors" table={table} />
+        <FacultyCombobox filterName="Author" columnName="newAuthors" table={table} />
 
         {/* {table.getColumn("status") && (
           <DataTableFacetedFilter

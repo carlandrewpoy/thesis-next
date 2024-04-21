@@ -14,6 +14,7 @@ import { Presentation, Utilization } from "@prisma/client"
 import { PresentationStatusSelect } from "./select/presentation-status-select"
 import { CenterCombobox } from "@/components/combobox/filter/center-select"
 import { FacultyCombobox } from "@/components/combobox/filter/faculty"
+import { RegionTypeSelect } from "@/components/select/filter/region-type-select"
 
 
 interface DataTableToolbarProps<TData> {
@@ -38,7 +39,8 @@ export function DataTableToolbar<TData>({
         />
         <CenterCombobox table={table} />
         <PresentationStatusSelect table={table} />
-        <FacultyCombobox columnName="newResearchers" table={table} />
+        <RegionTypeSelect table={table} />
+        <FacultyCombobox columnName="newResearchers" table={table} filterName="Researcher" />
         {/* {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}

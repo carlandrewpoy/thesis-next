@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { AddDialog } from "./dialog/add-dialog/add-dialog"
 import { DataTableViewOptions } from "@/components/table/data-table-view-options"
+import { DurationSelect } from "@/components/select/filter/duration-type"
 
 
 interface DataTableToolbarProps<TData> {
@@ -31,6 +32,7 @@ export function DataTableToolbar<TData>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
+        <DurationSelect table={table} />
         {/* {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}

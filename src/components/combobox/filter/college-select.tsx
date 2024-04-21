@@ -26,7 +26,7 @@ export function CollegeCombobox({
     table
 }: {
     defaultValue?: string | undefined
-    table: Table<GradSchoolFaculty>
+    table: Table<any>
 }) {
     const [open, setOpen] = React.useState(false)
     console.log({ defaultValue })

@@ -3,16 +3,19 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
-export const createCitation = async (state: any, formData: FormData) => {
+export const createCitation = async (selected: string[],state: any, formData: FormData) => {
   const res = await prisma.citation.create({
     data: {
       projectId: formData.get("projectId") as string,
       index: formData.get("index") as string,
+      scopus: formData.get("scopus") as string,
       journalTitle: formData.get("journalTitle") as string,
       keywords: formData.get("keywords") as string,
       vol: formData.get("vol") as string,
-      publisherName: formData.get("publisherName") as string,
-      researchers: formData.get("researchers") as string,
+      publisherNameId: formData.get("publisherNameId") as string,
+      researchers: {
+        connect: selected.map((item) => ({ id: item }))
+      },
       scholarLink: formData.get("scholarLink") as string,
       yearPublished: formData.get("yearPublished") as string,
       yearPublishedTwo: formData.get("yearPublishedTwo") as string,
@@ -28,6 +31,7 @@ export const createCitation = async (state: any, formData: FormData) => {
 
 export const updateCitation = async (
   id: string,
+  selected: string[],
   state: any,
   formData: FormData
 ) => {
@@ -41,11 +45,15 @@ export const updateCitation = async (
       journalTitle: formData.get("journalTitle") as string,
       keywords: formData.get("keywords") as string,
       vol: formData.get("vol") as string,
-      publisherName: formData.get("publisherName") as string,
-      researchers: formData.get("researchers") as string,
+      publisherNameId: formData.get("publisherNameId") as string,
+      researchers: {
+                set: selected.map((item) => ({ id: item }))
+      },
       scholarLink: formData.get("scholarLink") as string,
       yearPublished: formData.get("yearPublished") as string,
       yearPublishedTwo: formData.get("yearPublishedTwo") as string,
+      scopus: formData.get("scopus") as string,
+
     },
   });
   if (!res.id) {

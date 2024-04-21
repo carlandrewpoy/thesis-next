@@ -37,7 +37,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectCombobox />
+                    <ProjectCombobox columnName='projectId' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

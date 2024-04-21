@@ -23,10 +23,12 @@ import { Table } from "@tanstack/react-table"
 
 export function FacultyCombobox({
     table,
-    columnName
+    columnName,
+    filterName
 }: {
     table: Table<any>
     columnName: string
+    filterName: string
 }) {
     const handleFullName = (item: Faculty | undefined) => {
         if (!item) return ''
@@ -49,7 +51,7 @@ export function FacultyCombobox({
                         aria-expanded={open}
                         className="min-w-32 h-8 justify-between"
                     >
-                        {(table.getColumn(columnName)?.getFilterValue() as string) ? (table.getColumn(columnName)?.getFilterValue() as string) : 'Author'}
+                        {(table.getColumn(columnName)?.getFilterValue() as string) ? (table.getColumn(columnName)?.getFilterValue() as string) : filterName}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                 </PopoverTrigger>

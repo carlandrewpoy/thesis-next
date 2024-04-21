@@ -47,6 +47,19 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
     header: "Type",
   },
   {
+    accessorKey: "newResearchers",
+    header: "Researchers",
+    cell: ({ row }) => {
+      const newResearchersArray = row.original.newResearchers.split(':');
+      console.log(newResearchersArray)
+      return <div className="w-64">
+        {newResearchersArray.map((researcher, index) => {
+          return <h1 key={index}>{researcher}</h1>
+        })}
+      </div>
+    }
+  },
+  {
     accessorKey: "startedDate",
     header: "Started Date",
     cell: ({ row }) => {
@@ -79,19 +92,7 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
     accessorKey: "keywords",
     header: "Keywords",
   },
-  {
-    accessorKey: "newResearchers",
-    header: "Researchers",
-    cell: ({ row }) => {
-      const newResearchersArray = row.original.newResearchers.split(':');
-      console.log(newResearchersArray)
-      return <div className="w-64">
-        {newResearchersArray.map((researcher, index) => {
-          return <h1 key={index}>{researcher}</h1>
-        })}
-      </div>
-    }
-  },
+
   // {
   //   accessorKey: "researchers",
   //   header: "Researchers",

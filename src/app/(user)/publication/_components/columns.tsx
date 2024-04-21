@@ -47,10 +47,20 @@ export const columns: ColumnDef<PublicationWithOther>[] = [
   {
     accessorKey: "startedDate",
     header: "Started",
+    cell: ({ row }) => {
+      return <div className="w-24">
+        {row.original.startedDate}
+      </div>;
+    }
   },
   {
     accessorKey: "completedDate",
     header: "Completed",
+    cell: ({ row }) => {
+      return <div className="w-24">
+        {row.original.completedDate}
+      </div>;
+    }
   },
   {
     accessorKey: "article",
@@ -111,6 +121,10 @@ export const columns: ColumnDef<PublicationWithOther>[] = [
   {
     accessorKey: "supportingDocs",
     header: "Supporting Docs",
+  },
+  {
+    accessorKey: "scopus",
+    header: "Scopus",
   },
 
   {

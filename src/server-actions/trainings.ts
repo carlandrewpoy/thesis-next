@@ -9,6 +9,8 @@ export const createTraining = async (state: any, formData: FormData) => {
     data: {
       projectId: formData.get("projectId") as string,
       venue: formData.get("venue") as string,
+      beneficiary: formData.get("beneficiary") as string,
+      trainingTitle: formData.get("trainingTitle") as string,
       dateStarted: formData.get("dateStarted") as string,
       dateEnded: formData.get("dateEnded") as string,
       rateExcellent: formData.get("rateExcellent") as string,
@@ -62,6 +64,8 @@ export const updateTraining = async (
     data: {
       projectId: formData.get("projectId") as string,
       venue: formData.get("venue") as string,
+      trainingTitle: formData.get("trainingTitle") as string,
+      beneficiary: formData.get("beneficiary") as string,
       dateStarted: formData.get("dateStarted") as string,
       dateEnded: formData.get("dateEnded") as string,
       rateExcellent: formData.get("rateExcellent") as string,

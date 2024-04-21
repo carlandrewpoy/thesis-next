@@ -17,26 +17,21 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { GetCollege, GetFaculty } from "@/server-state-management/state-data"
-import { Faculty } from "@prisma/client"
+import { GetCenter, GetCollege, GetExtensionProject, GetProject } from "@/server-state-management/state-data"
 
-export function FacultyCombobox({
+export function ExtensionProjectCombobox({
     defaultValue,
     columnName
 }: {
-    defaultValue?: Faculty | undefined
+    defaultValue?: string | undefined
     columnName: string
 }) {
-    const handleFullName = (item: Faculty | undefined) => {
-        if (!item) return ''
-        return `${item?.firstname} ${item?.lastname}`
-    }
     const [open, setOpen] = React.useState(false)
-    const [value, setValue] = React.useState(handleFullName(defaultValue))
-    console.log({ value })
-    const { data } = GetFaculty()
+    const [value, setValue] = React.useState(defaultValue ?? '')
+    const { data } = GetExtensionProject()
+    const valueObject = data?.filter((item) => item.extensionProject?.title?.toLocaleLowerCase() === value.toLocaleLowerCase())
+    console.log(value)
 
-    const valueObject = data?.filter((item) => handleFullName(item).toLocaleLowerCase() === value.toLocaleLowerCase())
     return (
         <>
             <input value={valueObject?.[0]?.id ?? ''} name={columnName} className="hidden" />
@@ -49,31 +44,31 @@ export function FacultyCombobox({
                         aria-expanded={open}
                         className="w-full justify-between"
                     >
-                        {value !== ''
-                            ? handleFullName(data?.find((item) => handleFullName(item).toLocaleLowerCase() === value.toLocaleLowerCase()))
-                            : "Select faculty..."}
+                        {value
+                            ? data?.find((item) => item?.title?.toLocaleLowerCase() === value.toLocaleLowerCase())?.title
+                            : "Select project..."}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent className="p-0" >
                     <Command >
-                        <CommandInput placeholder="Search faculty..." className="h-9" />
+                        <CommandInput placeholder="Search project..." className="h-9" />
                         <CommandEmpty>No framework found.</CommandEmpty>
                         <CommandGroup>
                             {data?.map((item) => (
                                 <CommandItem
                                     key={item.id}
-                                    value={handleFullName(item)}
+                                    value={item.extensionProject?.title as any}
                                     onSelect={(currentValue) => {
                                         setValue(currentValue === value ? "" : currentValue)
                                         setOpen(false)
                                     }}
                                 >
-                                    {handleFullName(item)}
+                                    {item.title}
                                     <CheckIcon
                                         className={cn(
                                             "ml-auto h-4 w-4",
-                                            value.toLocaleLowerCase() === handleFullName(item).toLocaleLowerCase() ? "opacity-100" : "opacity-0"
+                                            value === item.id ? "opacity-100" : "opacity-0"
                                         )}
                                     />
                                 </CommandItem>

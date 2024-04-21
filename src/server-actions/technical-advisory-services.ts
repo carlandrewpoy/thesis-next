@@ -4,6 +4,8 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 export const createTechnicalServices = async (
+  selectedOrganizers: string[],
+  selectedInvFaculty: string[],
   state: any,
   formData: FormData
 ) => {
@@ -11,8 +13,12 @@ export const createTechnicalServices = async (
     data: {
       projectId: formData.get("projectId") as string,
       venue: formData.get("venue") as string,
-      faculty: formData.get("faculty") as string,
-      organizer: formData.get("organizer") as string,
+      organizers: {
+        connect: selectedOrganizers.map((item) => ({ id: item }))
+      },
+      invitedFaculties: {
+        connect: selectedInvFaculty.map((item) => ({ id: item }))
+      },
       proofLink: formData.get("proofLink") as string,
       dateStart: formData.get("dateStart") as string,
       dateEnd: formData.get("dateEnd") as string,
@@ -28,6 +34,8 @@ export const createTechnicalServices = async (
 
 export const updateTechnicalServices = async (
   id: string,
+  selectedOrganizers: string[],
+  selectedInvFaculty: string[],
   state: any,
   formData: FormData
 ) => {
@@ -38,8 +46,12 @@ export const updateTechnicalServices = async (
     data: {
       projectId: formData.get("projectId") as string,
       venue: formData.get("venue") as string,
-      faculty: formData.get("faculty") as string,
-      organizer: formData.get("organizer") as string,
+       organizers: {
+        set: selectedOrganizers.map((item) => ({ id: item }))
+      },
+      invitedFaculties: {
+        set: selectedInvFaculty.map((item) => ({ id: item }))
+      },
       proofLink: formData.get("proofLink") as string,
       dateStart: formData.get("dateStart") as string,
       dateEnd: formData.get("dateEnd") as string,

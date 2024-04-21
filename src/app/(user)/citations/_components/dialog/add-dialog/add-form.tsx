@@ -17,13 +17,16 @@ import { ReloadIcon } from '@radix-ui/react-icons'
 import { AutoFill } from '@/server-state-management/autofill'
 import { link } from 'fs'
 import { createCitation } from '@/server-actions/citations'
+import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
+import { FacultyCombobox } from '@/components/combobox/mutation/faculty'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
 }
 ) => {
-
-    const [state, formAction] = useFormState(createCitation, null)
+    const [selected, setSelected] = useState<string[]>([])
+    const createWithOthers = createCitation.bind(null, selected)
+    const [state, formAction] = useFormState(createWithOthers, null)
     if (state?.message) {
         close(false)
         toast({
@@ -47,7 +50,8 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='researchers' />
+                    <MultiSelectFacultyCombobox selected={selected} setSelected={setSelected} />
+
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -98,7 +102,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='publisherName' />
+                    <FacultyCombobox columnName='publisherNameId' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

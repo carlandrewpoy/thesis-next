@@ -20,6 +20,7 @@ import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi
 import { PublicationWithOther } from '../../columns'
 import { ProjectCombobox } from '@/components/combobox/mutation/project'
 import { CenterCombobox } from '@/components/combobox/mutation/center'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
 
 const EditForm = ({ row, close }: {
     row: Row<PublicationWithOther>
@@ -71,7 +72,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectCombobox defaultValue={row.original.project.title} />
+                    <ResearchProjectCombobox columnName='projectId' defaultValue={row.original.project.title ?? ''} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -154,6 +155,13 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-12 items-center gap-2 ">
                 <Input defaultValue={row.original.supportingDocs} name="supportingDocs" className="col-span-12" />
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Scopus</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input name="scopus" className="col-span-10" />
+
             </div>
 
             <div className="grid grid-cols-8 items-center gap-4 -mb-3">

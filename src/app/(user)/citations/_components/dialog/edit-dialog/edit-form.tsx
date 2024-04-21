@@ -12,12 +12,16 @@ import { ProjectSelect } from '@/components/select/project-select'
 import { DurationSelect } from '@/components/select/duration-select'
 import { updateTraining } from '@/server-actions/trainings'
 import { updateCitation } from '@/server-actions/citations'
+import { FacultyCombobox } from '@/components/combobox/mutation/faculty'
+import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
+import { CitationWithOther } from '../../columns'
 
 const EditForm = ({ row, close }: {
-    row: Row<Citation>
+    row: Row<CitationWithOther>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
-    const updateWithId = updateCitation.bind(null, row.original.id)
+    const [selected, setSelected] = useState<string[]>(row.original.researchers.map((item) => item.id))
+    const updateWithId = updateCitation.bind(null, row.original.id, selected)
     const [state, formAction] = useFormState(updateWithId, null)
 
     if (state?.message) {
@@ -52,7 +56,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={row.original.researchers} name='researchers' />
+                    <MultiSelectFacultyCombobox selected={selected} setSelected={setSelected} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -103,7 +107,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={row.original.publisherName} name='publisherName' />
+                    <FacultyCombobox columnName='publisherNameId' defaultValue={row.original.publisherName} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

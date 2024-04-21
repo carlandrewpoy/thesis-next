@@ -21,18 +21,20 @@ import { GetCenter, GetCollege, GetProject } from "@/server-state-management/sta
 
 export function ProjectCombobox({
     defaultValue,
+    columnName
 }: {
     defaultValue?: string | undefined
+    columnName: string
 }) {
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState(defaultValue ?? '')
     const { data } = GetProject()
-    const valueObject = data?.filter((item) => item.title.toLocaleLowerCase() === value.toLocaleLowerCase())
+    const valueObject = data?.filter((item) => item.title?.toLocaleLowerCase() === value.toLocaleLowerCase())
     console.log(value)
 
     return (
         <>
-            <input value={valueObject?.[0]?.id ?? ''} name="projectId" className="hidden" />
+            <input value={valueObject?.[0]?.id ?? ''} name={columnName} className="hidden" />
             <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
                     <Button
@@ -43,7 +45,7 @@ export function ProjectCombobox({
                         className="w-full justify-between"
                     >
                         {value
-                            ? data?.find((item) => item?.title.toLocaleLowerCase() === value.toLocaleLowerCase())?.title
+                            ? data?.find((item) => item?.title?.toLocaleLowerCase() === value.toLocaleLowerCase())?.title
                             : "Select project..."}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
@@ -56,7 +58,7 @@ export function ProjectCombobox({
                             {data?.map((item) => (
                                 <CommandItem
                                     key={item.id}
-                                    value={item.title}
+                                    value={item.title as any}
                                     onSelect={(currentValue) => {
                                         setValue(currentValue === value ? "" : currentValue)
                                         setOpen(false)

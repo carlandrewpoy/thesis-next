@@ -9,12 +9,15 @@ import { useFormStatus } from 'react-dom'
 import { ProjectSelect } from '@/components/select/project-select'
 import { TechnicalServiceWithOther } from '../../columns'
 import { updateTechnicalServices } from '@/server-actions/technical-advisory-services'
+import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
 
 const EditForm = ({ row, close }: {
     row: Row<TechnicalServiceWithOther>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
-    const updateWithId = updateTechnicalServices.bind(null, row.original.id)
+    const [selectedOrganizer, setSelectedOrganizer] = useState<string[]>(row.original.organizers.map((item) => item.id))
+    const [selectedInvFaculty, setSelectedInvFaculty] = useState<string[]>(row.original.invitedFaculties.map((item) => item.id))
+    const updateWithId = updateTechnicalServices.bind(null, row.original.id, selectedOrganizer, selectedInvFaculty)
     const [state, formAction] = useFormState(updateWithId, null)
 
     if (state?.message) {
@@ -70,7 +73,8 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={row.original.organizer} name='organizer' />
+                    <MultiSelectFacultyCombobox selected={selectedOrganizer} setSelected={setSelectedOrganizer} />
+
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -78,7 +82,8 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={row.original.faculty} name='faculty' />
+                    <MultiSelectFacultyCombobox selected={selectedInvFaculty} setSelected={setSelectedInvFaculty} />
+
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

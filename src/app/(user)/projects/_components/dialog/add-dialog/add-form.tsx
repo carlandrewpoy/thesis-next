@@ -10,12 +10,17 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { ProjectTypeSelect } from '@/components/select/project-type-select'
 import { ProjectStatusSelect } from '@/components/select/project-status-select'
 import { createProject } from '@/server-actions/project'
+import { Switch } from '@/components/ui/switch'
+import { ProjectCombobox } from '@/components/combobox/mutation/project'
+import { ExtensionProjectCombobox } from '@/components/combobox/mutation/extension-project'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
 }
 ) => {
-
+    const [projectToggle, setprojectToggle] = useState(false)
+    const handleProjectToggle = () => { setprojectToggle(!projectToggle) }
     const [state, formAction] = useFormState(createProject, null)
     if (state?.message) {
         close(false)
@@ -29,12 +34,29 @@ const AddForm = ({ close }: {
 
     return (
         <form className="grid gap-4" action={formAction}>
-            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
-                <Label className="col-span-3 text-xs font-extralight">Title</Label>
+            <div className="flex items-center space-x-2">
+                <Switch name='type' checked={projectToggle} onCheckedChange={handleProjectToggle} />
+                <Label >Extension Project</Label>
             </div>
-            <div className="grid grid-cols-6 items-center gap-4 ">
-                <Input name="title" className="col-span-6" />
-            </div>
+            {projectToggle ?
+                <>
+                    <div className="grid grid-cols-9 items-center gap-4 -mb-3">
+                        <Label className="col-span-9 text-xs font-extralight">Project</Label>
+                    </div>
+                    <div className="grid grid-cols-9 items-center gap-4 ">
+                        <div className='col-span-9'>
+                            <ResearchProjectCombobox columnName='extensionProjectId' />
+                        </div>
+                    </div>
+                </> : <>
+                    <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                        <Label className="col-span-3 text-xs font-extralight">Title</Label>
+                    </div>
+                    <div className="grid grid-cols-6 items-center gap-4 ">
+                        <Input name="title" className="col-span-6" />
+                    </div>
+                </>}
+
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
                 <Label className="col-span-3 text-xs font-extralight">Research Workers</Label>
             </div>
@@ -42,15 +64,15 @@ const AddForm = ({ close }: {
                 <Input name="researchWorkers" className="col-span-6" />
             </div>
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
-                <Label className="col-span-3 text-xs font-extralight">Project Type</Label>
-                <Label className="col-span-3 text-xs font-extralight">Status</Label>
+                {/* <Label className="col-span-3 text-xs font-extralight">Project Type</Label> */}
+                <Label className="col-span-6 text-xs font-extralight">Status</Label>
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
 
-                <div className="col-span-3">
+                {/* <div className="col-span-3">
                     <ProjectTypeSelect />
-                </div>
-                <div className="col-span-3">
+                </div> */}
+                <div className="col-span-6">
                     <ProjectStatusSelect />
                 </div>
             </div>

@@ -15,9 +15,13 @@ import { ProjectTypeSelect } from '@/components/select/project-type-select'
 import { ProjectStatusSelect } from '@/components/select/project-status-select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { updateProject } from '@/server-actions/project'
+import { ProjectCombobox } from '@/components/combobox/mutation/project'
+import { ExtensionProjectCombobox } from '@/components/combobox/mutation/extension-project'
+import { ProjectWithOthers } from '../../columns'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
 
 const EditForm = ({ row, close }: {
-    row: Row<Project>
+    row: Row<ProjectWithOthers>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
     const updateWithId = updateProject.bind(null, row.original.id)
@@ -61,12 +65,30 @@ const EditForm = ({ row, close }: {
     }
     return (
         <form className="grid gap-4 " action={formAction}>
-            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+            {row.original.extensionProjectId ?
+                <>
+                    <div className="grid grid-cols-9 items-center gap-4 -mb-3">
+                        <Label className="col-span-9 text-xs font-extralight">Project</Label>
+                    </div>
+                    <div className="grid grid-cols-9 items-center gap-4 ">
+                        <div className='col-span-9'>
+                            <ResearchProjectCombobox defaultValue={row.original.extensionProject?.title ?? ''} columnName='extensionProjectId' />
+                        </div>
+                    </div>
+                </> : <>
+                    <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                        <Label className="col-span-3 text-xs font-extralight">Title</Label>
+                    </div>
+                    <div className="grid grid-cols-6 items-center gap-4 ">
+                        <Input name="title" defaultValue={row.original.title ?? ''} className="col-span-6" />
+                    </div>
+                </>}
+            {/* <div className="grid grid-cols-6 items-center gap-4 -mb-3">
                 <Label className="col-span-3 text-xs font-extralight">Title</Label>
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
                 <Input defaultValue={row.original.title} name="title" className="col-span-6" />
-            </div>
+            </div> */}
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
                 <Label className="col-span-3 text-xs font-extralight">Research Workers</Label>
             </div>

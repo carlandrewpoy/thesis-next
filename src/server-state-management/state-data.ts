@@ -1,3 +1,4 @@
+import { ProjectWithOthers } from "@/app/(user)/projects/_components/columns";
 import { Center, College, Faculty, Project } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -17,7 +18,26 @@ export const GetProject = () => {
     queryKey: ["[project]"],
     queryFn: async () => {
       const { data } = await axios.get('/api/project');
-      return data as Project[];
+      return data as ProjectWithOthers[];
+    },
+  });
+};
+
+export const GetExtensionProject = () => {
+  return useQuery({
+    queryKey: ["[extension]"],
+    queryFn: async () => {
+      const { data } = await axios.get('/api/extension');
+      return data as ProjectWithOthers[];
+    },
+  });
+};
+export const GetResearchProject = () => {
+  return useQuery({
+    queryKey: ["[research]"],
+    queryFn: async () => {
+      const { data } = await axios.get('/api/research');
+      return data as ProjectWithOthers[];
     },
   });
 };

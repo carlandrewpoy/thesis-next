@@ -16,12 +16,16 @@ import axios from 'axios'
 import { ReloadIcon } from '@radix-ui/react-icons'
 import { AutoFill } from '@/server-state-management/autofill'
 import { link } from 'fs'
+import { ProjectCombobox } from '@/components/combobox/mutation/project'
+import { Switch } from '@/components/ui/switch'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
 }
 ) => {
-
+    const [projectToggle, setprojectToggle] = useState(false)
+    const handleProjectToggle = () => { setprojectToggle(!projectToggle) }
     const [state, formAction] = useFormState(createTraining, null)
     if (state?.message) {
         close(false)
@@ -77,12 +81,27 @@ const AddForm = ({ close }: {
 
     return (
         <form className="grid gap-4" action={formAction} >
+            <div className="flex items-center space-x-2">
+                <Switch checked={projectToggle} onCheckedChange={handleProjectToggle} />
+                <Label >Project</Label>
+            </div>
+            {projectToggle &&
+                <>
+                    <div className="grid grid-cols-9 items-center gap-4 -mb-3">
+                        <Label className="col-span-9 text-xs font-extralight">Project</Label>
+                    </div>
+                    <div className="grid grid-cols-9 items-center gap-4 ">
+                        <div className='col-span-9'>
+                            <ResearchProjectCombobox columnName='projectId' />
+                        </div>
+                    </div>
+                </>}
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Project</Label>
+                <Label className="col-span-9 text-xs font-extralight">Training Title</Label>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectSelect />
+                    <Input defaultValue={autoFillData?.results.venue} name='trainingTitle' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -91,6 +110,14 @@ const AddForm = ({ close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
                     <Input defaultValue={autoFillData?.results.venue} name='venue' />
+                </div>
+            </div>
+            <div className="grid grid-cols-9 items-center gap-4 -mb-3">
+                <Label className="col-span-9 text-xs font-extralight">Beneficiary</Label>
+            </div>
+            <div className="grid grid-cols-9 items-center gap-4 ">
+                <div className='col-span-9'>
+                    <Input defaultValue={autoFillData?.results.venue} name='beneficiary' />
                 </div>
             </div>
 

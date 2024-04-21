@@ -14,8 +14,13 @@ export type TechnicalServiceWithOther = Prisma.TechnicalServiceGetPayload<{
         title: true
       }
     },
+    invitedFaculties: true,
+    organizers: true
   }
-}>
+}> & {
+  newOrganizers: string;
+  newInvitedFaculty: string;
+}
 
 export const columns: ColumnDef<TechnicalServiceWithOther>[] = [
   {
@@ -48,18 +53,36 @@ export const columns: ColumnDef<TechnicalServiceWithOther>[] = [
   {
     accessorKey: "dateEnd",
     header: "Date End",
-  },
-  {
-    accessorKey: "organizer",
-    header: "Organizer",
-  },
-  {
-    accessorKey: "faculty",
-    header: "Name of the faculty who invited",
     cell: ({ row }) => {
-      return <div className="w-52">
-        {row.original.faculty}
+      return <div className="w-32">
+        {row.original.dateEnd}
       </div>;
+    }
+  },
+  {
+    accessorKey: "newOrganizers",
+    header: "Organizers",
+    cell: ({ row }) => {
+      const newResearchersArray = row.original.newOrganizers.split(':');
+      console.log(newResearchersArray)
+      return <div className="w-64">
+        {newResearchersArray.map((item, index) => {
+          return <h1 key={index}>{item}</h1>
+        })}
+      </div>
+    }
+  },
+  {
+    accessorKey: "newInvitedFaculty",
+    header: "Invited Faculty",
+    cell: ({ row }) => {
+      const newResearchersArray = row.original.newInvitedFaculty.split(':');
+      console.log(newResearchersArray)
+      return <div className="w-64">
+        {newResearchersArray.map((item, index) => {
+          return <h1 key={index}>{item}</h1>
+        })}
+      </div>
     }
   },
 
@@ -68,7 +91,7 @@ export const columns: ColumnDef<TechnicalServiceWithOther>[] = [
     header: "Certificate/Invitation/Program/Evaluation",
     cell: ({ row }) => {
       return <div className="w-52">
-        {row.original.project.title}
+        {row.original.proofLink}
       </div>;
     }
   },

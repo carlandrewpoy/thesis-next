@@ -1,13 +1,19 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { Center, College, Project, User } from "@prisma/client";
+import { Center, College, Prisma, Project, User } from "@prisma/client";
 import { EditDialog } from "./dialog/edit-dialog/edit-dialog";
 import { DeleteDialog } from "./dialog/delete-dialog/delete-dialog";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-export const columns: ColumnDef<Project>[] = [
+export type ProjectWithOthers = Prisma.ProjectGetPayload<{
+  include: {
+    extensionProject: true
+  }
+}>
+
+export const columns: ColumnDef<ProjectWithOthers>[] = [
   {
     accessorKey: "type",
     header: "Type",
@@ -16,8 +22,8 @@ export const columns: ColumnDef<Project>[] = [
     accessorKey: "title",
     header: "Title",
     cell: ({ row }) => {
-      return <div className="w-52">
-        {row.original.title}
+      return <div className="w-72">
+        {row.original.extensionProjectId === null ? row.original.title : row.original.extensionProject?.title}
       </div>;
     }
   },

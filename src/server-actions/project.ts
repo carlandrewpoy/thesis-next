@@ -8,8 +8,9 @@ export const createProject = async (state: any, formData: FormData) => {
   const res = await prisma.project.create({
     data: {
       title: formData.get("title") as string,
+      extensionProjectId: formData.get("extensionProjectId") as string,
       researchWorkers: formData.get("researchWorkers") as string,
-      type: formData.get("type") as ProjectType,
+      type: formData.get("type") ? 'EXTENSION':'RESEARCH',
       status: formData.get("status") as ProjectStatus,
       dateStart: formData.get("dateStart") as string,
       dateCompleted: formData.get("dateCompleted") as string,
@@ -50,6 +51,7 @@ export const updateProject = async (
     data: {
       title: formData.get("title") as string,
       researchWorkers: formData.get("researchWorkers") as string,
+      extensionProjectId: formData.get("extensionProjectId") as string,
       type: formData.get("type") as ProjectType,
       status: formData.get("status") as ProjectStatus,
       dateStart: formData.get("dateStart") as string,

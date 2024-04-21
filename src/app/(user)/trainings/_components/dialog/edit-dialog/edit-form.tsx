@@ -11,9 +11,11 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { ProjectSelect } from '@/components/select/project-select'
 import { DurationSelect } from '@/components/select/duration-select'
 import { updateTraining } from '@/server-actions/trainings'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
+import { TrainingWithOther } from '../../columns'
 
 const EditForm = ({ row, close }: {
-    row: Row<Training>
+    row: Row<TrainingWithOther>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
     const updateWithId = updateTraining.bind(null, row.original.id)
@@ -55,12 +57,23 @@ const EditForm = ({ row, close }: {
     }
     return (
         <form className="grid gap-4" action={formAction} >
+            {row.original.projectId &&
+                <>
+                    <div className="grid grid-cols-9 items-center gap-4 -mb-3">
+                        <Label className="col-span-9 text-xs font-extralight">Project</Label>
+                    </div>
+                    <div className="grid grid-cols-9 items-center gap-4 ">
+                        <div className='col-span-9'>
+                            <ResearchProjectCombobox columnName='projectId' defaultValue={row.original.project?.title ?? ''} />
+                        </div>
+                    </div>
+                </>}
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Project</Label>
+                <Label className="col-span-9 text-xs font-extralight">Training Title</Label>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectSelect defaultValue={row.original.projectId} />
+                    <Input defaultValue={row.original.trainingTitle} name='trainingTitle' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -69,6 +82,14 @@ const EditForm = ({ row, close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
                     <Input defaultValue={row.original.venue} name='venue' />
+                </div>
+            </div>
+            <div className="grid grid-cols-9 items-center gap-4 -mb-3">
+                <Label className="col-span-9 text-xs font-extralight">Beneficiary</Label>
+            </div>
+            <div className="grid grid-cols-9 items-center gap-4 ">
+                <div className='col-span-9'>
+                    <Input defaultValue={row.original.beneficiary} name='beneficiary' />
                 </div>
             </div>
 

@@ -16,10 +16,17 @@ const TechAdvisoryServices = async () => {
                     title: true
                 }
             },
+            invitedFaculties: true,
+            organizers: true
         }
     });
+    const transformedData = data.map(item => ({
+        ...item,
+        newOrganizers: `${item.organizers.map(mappedItem => `${mappedItem.lastname}, ${mappedItem.firstname} ${mappedItem.middleInitial === null ? '' : `${mappedItem?.middleInitial}.`} ${mappedItem.suffix === null ? '' : `${mappedItem?.suffix}`}`).join(':')}`,
+        newInvitedFaculty: `${item.invitedFaculties.map(mappedItem => `${mappedItem.lastname}, ${mappedItem.firstname} ${mappedItem.middleInitial === null ? '' : `${mappedItem?.middleInitial}.`} ${mappedItem.suffix === null ? '' : `${mappedItem?.suffix}`}`).join(':')}`,
+    }));
     return <div className='mx-5'>
-        <DataTable data={data} columns={columns} />
+        <DataTable data={transformedData} columns={columns} />
     </div>
 }
 

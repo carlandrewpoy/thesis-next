@@ -23,7 +23,16 @@ export const columns: ColumnDef<TrainingWithOther>[] = [
     header: "Project Title",
     cell: ({ row }) => {
       return <div className="w-72">
-        {row.original.project.title}
+        {row.original.project?.title}
+      </div>;
+    }
+  },
+  {
+    accessorKey: "trainingTitle",
+    header: "Training Title",
+    cell: ({ row }) => {
+      return <div className="w-72">
+        {row.original.trainingTitle}
       </div>;
     }
   },
@@ -33,6 +42,15 @@ export const columns: ColumnDef<TrainingWithOther>[] = [
     cell: ({ row }) => {
       return <div className="w-72">
         {row.original.venue}
+      </div>;
+    }
+  },
+  {
+    accessorKey: "beneficiary",
+    header: "Beneficiary",
+    cell: ({ row }) => {
+      return <div className="w-72">
+        {row.original.beneficiary}
       </div>;
     }
   },

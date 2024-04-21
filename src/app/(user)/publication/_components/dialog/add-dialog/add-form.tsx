@@ -16,6 +16,7 @@ import { createPublication } from '@/server-actions/publication'
 import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
 import { ProjectCombobox } from '@/components/combobox/mutation/project'
 import { CenterCombobox } from '@/components/combobox/mutation/center'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
@@ -63,7 +64,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectCombobox />
+                    <ResearchProjectCombobox columnName='projectId' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -155,6 +156,13 @@ const AddForm = ({ close }: {
                         </div> : 'Scan'}
                     </Button>
                 </div>
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Scopus</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input name="scopus" className="col-span-10" />
+
             </div>
 
             <div className="grid grid-cols-8 items-center gap-4 -mb-3">

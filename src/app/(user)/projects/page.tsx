@@ -13,6 +13,9 @@ const Project = async () => {
         orderBy: {
             updatedAt: 'desc'
         },
+        include: {
+            extensionProject: true
+        }
     });
     console.log(data)
     return <div className='mx-5'>

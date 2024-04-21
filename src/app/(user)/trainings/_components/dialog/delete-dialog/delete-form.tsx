@@ -2,17 +2,15 @@ import React, { Dispatch, SetStateAction, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from '@/components/ui/button'
 import { Row } from '@tanstack/react-table'
-import { Center, GradSchoolFaculty, Training, Utilization } from '@prisma/client'
 import { toast } from '@/components/ui/use-toast'
 import { useFormState } from 'react-dom'
 import { useFormStatus } from 'react-dom'
 import { DialogClose } from '@/components/ui/dialog'
-import { deleteGradSchoolFaculty } from '@/server-actions/grad-school-faculty'
-import { deleteUtilization } from '@/server-actions/utilization'
 import { deleteTraining } from '@/server-actions/trainings'
+import { TrainingWithOther } from '../../columns'
 
 const DeleteForm = ({ row, close }: {
-    row: Row<Training>
+    row: Row<TrainingWithOther>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
     const [state, formAction] = useFormState(deleteTraining, null)

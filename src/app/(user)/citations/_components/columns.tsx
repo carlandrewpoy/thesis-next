@@ -14,8 +14,12 @@ export type CitationWithOther = Prisma.CitationGetPayload<{
         title: true
       }
     },
+    publisherName: true,
+    researchers: true
   }
-}>
+}> & {
+  newResearchers: string;
+}
 
 export const columns: ColumnDef<CitationWithOther>[] = [
   {
@@ -37,12 +41,16 @@ export const columns: ColumnDef<CitationWithOther>[] = [
     }
   },
   {
-    accessorKey: "researchers",
-    header: "Researcher(s)",
+    accessorKey: "newResearchers",
+    header: "Researchers",
     cell: ({ row }) => {
-      return <div className="w-52">
-        {row.original.researchers}
-      </div>;
+      const newResearchersArray = row.original.newResearchers.split(':');
+      console.log(newResearchersArray)
+      return <div className="w-64">
+        {newResearchersArray.map((researcher, index) => {
+          return <h1 key={index}>{researcher}</h1>
+        })}
+      </div>
     }
   },
   {
@@ -57,9 +65,13 @@ export const columns: ColumnDef<CitationWithOther>[] = [
     accessorKey: "researchers",
     header: "Author(s) Who Cited the Research Output",
     cell: ({ row }) => {
-      return <div className="w-52">
-        {row.original.researchers}
-      </div>;
+      const newResearchersArray = row.original.newResearchers.split(':');
+      console.log(newResearchersArray)
+      return <div className="w-64">
+        {newResearchersArray.map((researcher, index) => {
+          return <h1 key={index}>{researcher}</h1>
+        })}
+      </div>
     }
   },
 
@@ -104,7 +116,7 @@ export const columns: ColumnDef<CitationWithOther>[] = [
     header: "Publisher Name",
     cell: ({ row }) => {
       return <div className="w-64">
-        {row.original.journalTitle}
+        {`${row.original.publisherName.lastname}, ${row.original.publisherName.firstname} ${row.original.publisherName.middleInitial === null ? '' : `${row.original.publisherName?.middleInitial}.`} ${row.original.publisherName.suffix === null ? '' : `${row.original.publisherName?.suffix}`}`}
       </div>;
     }
   },
