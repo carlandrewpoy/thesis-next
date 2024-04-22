@@ -64,11 +64,20 @@ const AddForm = ({ close }: {
     const [mov3, setmov3] = useState(false)
     const [mov4, setmov4] = useState(false)
 
+
+
+    const [durationValue, setdurationValue] = useState('')
+    const [countTrainees, setcountTrainees] = useState<string>()
+    console.log(durationValue, countTrainees)
+    console.log({ autoFillData })
+
+
     useEffect(() => {
         setmov1(autoFillData?.mov.report === 1 ? true : false)
         setmov2(autoFillData?.mov.summary === 1 ? true : false)
         setmov3(autoFillData?.mov.sample === 1 ? true : false)
         setmov4(autoFillData?.mov.attendance === 1 ? true : false)
+        setcountTrainees(autoFillData?.results.totalTrainees.toString())
     }, [autoFillData])
 
 
@@ -85,6 +94,7 @@ const AddForm = ({ close }: {
     const handleChangeMov4 = (checked: boolean) => {
         setmov4(checked)
     };
+
 
     return (
         <form className="grid gap-4" action={formAction} >
@@ -183,7 +193,7 @@ const AddForm = ({ close }: {
 
                 </div>
                 <div className="col-span-2">
-                    <DurationSelect defaultValue={autoFillData?.results.duration} />
+                    <DurationSelect set={setdurationValue} defaultValue={autoFillData?.results.duration} />
                     {state?.error?.duration && <p className="text-red-500 text-xs">{state?.error?.duration[0]}</p>}
 
                 </div>
@@ -196,12 +206,12 @@ const AddForm = ({ close }: {
             <div className="grid grid-cols-6 items-center gap-4 ">
                 <div className="col-span-2">
 
-                    <Input defaultValue={autoFillData?.results.totalTrainees} type='number' name="traineesCount" />
+                    <Input value={countTrainees} onChange={(e) => setcountTrainees(e.target.value)} type='number' name="traineesCount" />
                     {state?.error?.traineesCount && <p className="text-red-500 text-xs">{state?.error?.traineesCount[0]}</p>}
 
                 </div>
                 <div className="col-span-2">
-                    <Input defaultValue={autoFillData?.results.weightedTrainees} type='number' name="traineesWeighted" className="col-span-2" />
+                    <Input value={parseFloat(durationValue) * parseFloat(countTrainees ?? '0')} type='number' name="traineesWeighted" className="col-span-2" />
                     {state?.error?.traineesWeighted && <p className="text-red-500 text-xs">{state?.error?.traineesWeighted[0]}</p>}
 
                 </div>
