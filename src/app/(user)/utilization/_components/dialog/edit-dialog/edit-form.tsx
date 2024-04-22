@@ -49,15 +49,7 @@ const EditForm = ({ row, close }: {
 
         })
     }
-    if (state?.error) {
-        close(false)
-        toast({
-            variant: 'destructive',
-            duration: 1500,
-            description: state?.error,
 
-        })
-    }
     return (
         <form className="grid gap-4 p-4" action={formAction}>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -66,16 +58,25 @@ const EditForm = ({ row, close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
                     <ResearchProjectCombobox defaultValue={row.original.project.title ?? ''} columnName='projectId' />
-                </div>
-            </div>
-            <div className="grid grid-cols-9 items-center gap-4 -mb-3">
-                <Label className="col-span-9 text-xs font-extralight">Center</Label>
-            </div>
-            <div className="grid grid-cols-9 items-center gap-4 ">
-                <div className='col-span-9'>
-                    <CenterCombobox defaultValue={row.original.center.name} />
+                    {state?.error?.projectId && <p className="text-red-500 text-xs">{state?.error?.projectId[0]}</p>}
 
                 </div>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Center</Label>
+                <Label className="col-span-6 text-xs font-extralight">Year</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-4 ">
+                <div className='col-span-6'>
+                    <CenterCombobox defaultValue={row.original.center.name} />
+                    {state?.error?.centerId && <p className="text-red-500 text-xs">{state?.error?.centerId[0]}</p>}
+                </div>
+                <div className="col-span-6" >
+                    <Input defaultValue={row.original.year} name='year' type='number' />
+                    {state?.error?.year && <p className="text-red-500 text-xs">{state?.error?.year[0]}</p>}
+
+                </div>
+
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
                 <Label className="col-span-9 text-xs font-extralight">Proof/Description/Documentation</Label>
@@ -83,6 +84,8 @@ const EditForm = ({ row, close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
                     <Input name='proof' defaultValue={row.original.proof} />
+                    {state?.error?.proof && <p className="text-red-500 text-xs">{state?.error?.proof[0]}</p>}
+
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -91,6 +94,8 @@ const EditForm = ({ row, close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
                     <Input name='benificiary' defaultValue={row.original.benificiary} />
+                    {state?.error?.benificiary && <p className="text-red-500 text-xs">{state?.error?.benificiary[0]}</p>}
+
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -99,6 +104,8 @@ const EditForm = ({ row, close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
                     <Input name='supportingDocs' defaultValue={row.original.supportingDocs} />
+                    {state?.error?.supportingDocs && <p className="text-red-500 text-xs">{state?.error?.supportingDocs[0]}</p>}
+
                 </div>
             </div>
             <div className="grid grid-cols-8 items-center gap-4 -mb-3">
@@ -112,6 +119,9 @@ const EditForm = ({ row, close }: {
                 <Checkbox checked={mov2} onCheckedChange={handleChangeMov2} name="movReport" className="col-span-2" />
                 <Checkbox checked={mov3} onCheckedChange={handleChangeMov3} name="movUtilization" className="col-span-2" />
                 <Checkbox checked={mov4} onCheckedChange={handleChangeMov4} name="movPhotos" className="col-span-2" />
+                <div className='col-span-8'>
+                    {state?.error?.movMoa && <p className="text-red-500 text-xs">{state?.error?.movMoa[0]}</p>}
+                </div>
             </div>
 
             <div className='flex justify-end'>

@@ -57,8 +57,50 @@ const AddForm = ({ close }: {
         }
     }
 
+    const [mov1, setmov1] = useState(false)
+    const [mov2, setmov2] = useState(false)
+    const [mov3, setmov3] = useState(false)
+    const [mov4, setmov4] = useState(false)
+
+    useEffect(() => {
+        setmov1(autoFillData?.mov.abstract === 1 ? true : false)
+        setmov2(autoFillData?.mov.title === 1 ? true : false)
+        setmov3(autoFillData?.mov.table === 1 ? true : false)
+        setmov4(autoFillData?.mov.full === 1 ? true : false)
+    }, [autoFillData])
+
+
+    const handleChangeMov1 = (checked: boolean) => {
+        setmov1(checked)
+    };
+    const handleChangeMov2 = (checked: boolean) => {
+        setmov2(checked)
+    };
+    const handleChangeMov3 = (checked: boolean) => {
+        setmov3(checked)
+    };
+
+    const handleChangeMov4 = (checked: boolean) => {
+        setmov4(checked)
+    };
+
+
     return (
         <form className="grid gap-4" action={formAction} >
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Supporting Document</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input onChange={(e) => setlink(e.target.value)} name="supportingDocs" className="col-span-10" />
+                <div className='col-span-2'>
+                    {/* <Button type='button' variant={'secondary'}>Read</Button> */}
+                    <Button type='button' onClick={handleClick} disabled={isPending}>
+                        {isPending ? <div className='flex items-center justify-center w-10'>
+                            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                        </div> : 'Scan'}
+                    </Button>
+                </div>
+            </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
                 <Label className="col-span-9 text-xs font-extralight">Project</Label>
             </div>
@@ -96,7 +138,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='article' />
+                    <Input defaultValue={autoFillData?.results.title} name='article' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -130,7 +172,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-6 items-center gap-2 ">
 
-                <Input defaultValue={autoFillData?.results.date} type='date' name="publicationDate" className="col-span-3" />
+                <Input type='date' name="publicationDate" className="col-span-3" />
                 <Input type='text' name="index" className="col-span-3" />
             </div>
             <div className="grid grid-cols-6 items-center gap-2 -mb-3">
@@ -143,20 +185,7 @@ const AddForm = ({ close }: {
                 <Input type='text' name="issnOrIsbn" className="col-span-3" />
             </div>
 
-            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
-                <Label className="col-span-6 text-xs font-extralight">Supporting Document</Label>
-            </div>
-            <div className="grid grid-cols-12 items-center gap-2 ">
-                <Input onChange={(e) => setlink(e.target.value)} name="supportingDocs" className="col-span-10" />
-                <div className='col-span-2'>
-                    {/* <Button type='button' variant={'secondary'}>Read</Button> */}
-                    <Button type='button' onClick={handleClick} disabled={isPending}>
-                        {isPending ? <div className='flex items-center justify-center w-10'>
-                            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                        </div> : 'Scan'}
-                    </Button>
-                </div>
-            </div>
+
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
                 <Label className="col-span-6 text-xs font-extralight">Scopus</Label>
             </div>
@@ -172,10 +201,10 @@ const AddForm = ({ close }: {
                 <Label className="col-span-2 text-xs font-extralight">Full Paperr</Label>
             </div>
             <div className="grid grid-cols-8 items-center gap-4 ">
-                <Checkbox checked={autoFillData?.mov.abstract === 1 ? true : false} name="movAbstract" className="col-span-2" />
-                <Checkbox checked={autoFillData?.mov.title === 1 ? true : false} name="movJournalTitlePage" className="col-span-2" />
-                <Checkbox checked={autoFillData?.mov.table === 1 ? true : false} name="movTableOfContents" className="col-span-2" />
-                <Checkbox checked={autoFillData?.mov.full === 1 ? true : false} name="movFullPaper" className="col-span-2" />
+                <Checkbox checked={mov1} onCheckedChange={handleChangeMov1} name="movAbstract" className="col-span-2" />
+                <Checkbox checked={mov2} onCheckedChange={handleChangeMov2} name="movJournalTitlePage" className="col-span-2" />
+                <Checkbox checked={mov3} onCheckedChange={handleChangeMov3} name="movTableOfContents" className="col-span-2" />
+                <Checkbox checked={mov4} onCheckedChange={handleChangeMov4} name="movFullPaper" className="col-span-2" />
             </div>
 
             <div className='flex justify-end'>

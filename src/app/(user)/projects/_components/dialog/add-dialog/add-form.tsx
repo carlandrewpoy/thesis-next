@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useFormState, useFormStatus } from 'react-dom'
@@ -14,6 +14,9 @@ import { Switch } from '@/components/ui/switch'
 import { ProjectCombobox } from '@/components/combobox/mutation/project'
 import { ExtensionProjectCombobox } from '@/components/combobox/mutation/extension-project'
 import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
+import { AutoFill } from '@/server-state-management/autofill'
+import { dateFormatterNumber } from '@/lib/utils'
+import { ReloadIcon } from '@radix-ui/react-icons'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
@@ -31,12 +34,76 @@ const AddForm = ({ close }: {
         })
     }
 
+    const { mutateAsync: autofillFN, isPending } = AutoFill();
+    const [autoFillData, setautoFillData] = useState<TProject>()
+    const [link, setlink] = useState('')
+    const params = {
+        "link": link,
+        "table": "PROGRAM"
+    }
+    !isPending && console.log(autoFillData)
+
+    const handleClick = async () => {
+        if (link === '') return toast({ description: 'Please enter a link', duration: 1500, variant: 'destructive' })
+        const res = await autofillFN(params as any)
+        if (!res.data.mov) return toast({ description: 'Invalid link', duration: 1500, variant: 'destructive' })
+        setautoFillData(res.data as any)
+        if (res.data.mov) {
+            toast({
+                duration: 1500,
+                description: 'Scan successfuly',
+            })
+        }
+    }
+
+    const [mov1, setmov1] = useState(false)
+    const [mov2, setmov2] = useState(false)
+    const [mov3, setmov3] = useState(false)
+    const [mov4, setmov4] = useState(false)
+
+    useEffect(() => {
+        setmov1(autoFillData?.mov.budget === 1 ? true : false)
+        setmov2(autoFillData?.mov.report === 1 ? true : false)
+        setmov3(autoFillData?.mov.moa === 1 ? true : false)
+        setmov4(autoFillData?.mov.resolution === 1 ? true : false)
+    }, [autoFillData])
+
+
+    const handleChangeMov1 = (checked: boolean) => {
+        setmov1(checked)
+    };
+    const handleChangeMov2 = (checked: boolean) => {
+        setmov2(checked)
+    };
+    const handleChangeMov3 = (checked: boolean) => {
+        setmov3(checked)
+    };
+    const handleChangeMov4 = (checked: boolean) => {
+        setmov4(checked)
+    };
+
 
     return (
         <form className="grid gap-4" action={formAction}>
             <div className="flex items-center space-x-2">
                 <Switch name='type' checked={projectToggle} onCheckedChange={handleProjectToggle} />
                 <Label >Extension Project</Label>
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4 -mb-3">
+                <Label className="col-span-6 text-xs font-extralight">Supporting Document</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-2 ">
+                <Input onChange={(e) => setlink(e.target.value)} name="supportingDocs" className="col-span-10" />
+                <div className='col-span-2'>
+                    {/* <Button type='button' variant={'secondary'}>Read</Button> */}
+                    <Button type='button' onClick={handleClick} disabled={isPending}>
+                        {isPending ? <div className='flex items-center justify-center w-10'>
+                            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                        </div> : 'Scan'}
+                    </Button>
+                </div>
+                <div className='col-span-12'>
+                </div>
             </div>
             {projectToggle ?
                 <>
@@ -111,8 +178,8 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
 
-                <Input name="beneficiaries" className="col-span-3" />
-                <Input name="mandatedProgram" className="col-span-3" />
+                <Input defaultValue={autoFillData?.results.beneficiaries} name="beneficiaries" className="col-span-3" />
+                <Input defaultValue={autoFillData?.results.mandatedProgram} name="mandatedProgram" className="col-span-3" />
             </div>
             <div className="grid grid-cols-8 items-center gap-4 -mb-3">
                 <Label className="col-span-2 text-xs font-extralight">Signed Budget</Label>
@@ -121,19 +188,18 @@ const AddForm = ({ close }: {
                 <Label className="col-span-2 text-xs font-extralight">Board Resolution</Label>
             </div>
             <div className="grid grid-cols-8 items-center gap-4 ">
-                <Checkbox name="movSignedBudgetAllocation" className="col-span-2" />
-                <Checkbox name="movSingedReports" className="col-span-2" />
-                <Checkbox name="movNotarizedMoa" className="col-span-2" />
-                <Checkbox name="movBoardResolution" className="col-span-2" />
+                <Checkbox checked={mov1} onCheckedChange={handleChangeMov1} name="movSignedBudgetAllocation" className="col-span-2" />
+                <Checkbox checked={mov2} onCheckedChange={handleChangeMov2} name="movSingedReports" className="col-span-2" />
+                <Checkbox checked={mov3} onCheckedChange={handleChangeMov3} name="movNotarizedMoa" className="col-span-2" />
+                <Checkbox checked={mov4} onCheckedChange={handleChangeMov4} name="movBoardResolution" className="col-span-2" />
             </div>
+
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
-                <Label className="col-span-3 text-xs font-extralight">Supporting Document</Label>
-                <Label className="col-span-3 text-xs font-extralight">Project Reports</Label>
+                <Label className="col-span-6 text-xs font-extralight">Project Reports</Label>
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
 
-                <Input name="supportingDocs" className="col-span-3" />
-                <Input name="projectReport" className="col-span-3" />
+                <Input name="projectReport" className="col-span-6" />
             </div>
             <div className='flex justify-end'>
                 <SubmitButton />

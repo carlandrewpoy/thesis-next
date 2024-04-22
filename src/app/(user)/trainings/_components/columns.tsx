@@ -3,6 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { EditDialog } from "./dialog/edit-dialog/edit-dialog";
 import { DeleteDialog } from "./dialog/delete-dialog/delete-dialog";
 import { FacultyEngagement, GradSchoolFaculty, Prisma } from "@prisma/client";
+import { CircleHelp, Octagon, OctagonX } from "lucide-react";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -23,7 +24,7 @@ export const columns: ColumnDef<TrainingWithOther>[] = [
     header: "Project Title",
     cell: ({ row }) => {
       return <div className="w-72">
-        {row.original.project?.title}
+        {row.original.project?.title ? row.original.project?.title : <CircleHelp className="w-5 h-5" />}
       </div>;
     }
   },

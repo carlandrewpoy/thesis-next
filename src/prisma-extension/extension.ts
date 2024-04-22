@@ -7,8 +7,8 @@ export const xprisma = new PrismaClient().$extends({
             async $allOperations({ model, operation, args, query }) {
                 const user = await getServerSession()
                 /* your custom logic for modifying all operations on all models here */
-                const result = await query(args) as { id: string }
-                const id = result?.id
+                const result = await query(args)
+                // const id = result?.id
                 // const res = await prisma.gradSchoolFaculty.findUnique({
                 //     where: {
                 //         id: id,
@@ -19,7 +19,7 @@ export const xprisma = new PrismaClient().$extends({
                 //         facultyEngagement: true,
                 //     }
                 // })
-                console.log(id)
+                // console.log(id)
                 console.log({result})
                 await prisma.auditLog.create({
                     data: {

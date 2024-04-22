@@ -34,9 +34,13 @@ const durations = [
 ]
 
 export function DurationSelect({ defaultValue }: { defaultValue?: string }) {
+    const [value, setvalue] = React.useState('')
+    React.useEffect(() => {
+        setvalue(defaultValue ?? '')
+    }, [defaultValue])
 
     return (
-        <Select name="duration" required defaultValue={defaultValue}>
+        <Select name="duration" value={value} onValueChange={(value) => setvalue(value)}>
             <SelectTrigger className="w-full">
                 <SelectValue placeholder="Duration" />
             </SelectTrigger>
