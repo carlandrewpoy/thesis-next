@@ -19,6 +19,7 @@ import { createUtilization } from '@/server-actions/utilization'
 import { z } from 'zod'
 import { CenterCombobox } from '@/components/combobox/mutation/center'
 import { ProjectCombobox } from '@/components/combobox/mutation/project'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
 
 // const UtilizationSchema = z.object({
 //     projectId: z.string(),
@@ -66,7 +67,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectCombobox />
+                    <ResearchProjectCombobox columnName='projectId' />
                 </div>
             </div>
             <div className="grid grid-cols-12 items-center gap-4 -mb-3">

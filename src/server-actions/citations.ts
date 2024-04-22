@@ -1,14 +1,14 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { xprisma } from "@/prisma-extension/extension";
 import { revalidatePath } from "next/cache";
 
 export const createCitation = async (selected: string[],state: any, formData: FormData) => {
-  const res = await prisma.citation.create({
+  const res = await xprisma.citation.create({
     data: {
       projectId: formData.get("projectId") as string,
       index: formData.get("index") as string,
-      scopus: formData.get("scopus") as string,
       journalTitle: formData.get("journalTitle") as string,
       keywords: formData.get("keywords") as string,
       vol: formData.get("vol") as string,
@@ -35,7 +35,7 @@ export const updateCitation = async (
   state: any,
   formData: FormData
 ) => {
-  const res = await prisma.citation.update({
+  const res = await xprisma.citation.update({
     where: {
       id: id,
     },
@@ -52,7 +52,6 @@ export const updateCitation = async (
       scholarLink: formData.get("scholarLink") as string,
       yearPublished: formData.get("yearPublished") as string,
       yearPublishedTwo: formData.get("yearPublishedTwo") as string,
-      scopus: formData.get("scopus") as string,
 
     },
   });
@@ -68,7 +67,7 @@ export const updateCitation = async (
 };
 
 export const deleteCitation = async (state: any, formData: FormData) => {
-  const res = await prisma.citation.delete({
+  const res = await xprisma.citation.delete({
     where: {
       id: formData.get("id") as string,
     },

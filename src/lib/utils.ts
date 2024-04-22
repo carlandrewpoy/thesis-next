@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { parse, format } from "date-fns";
+import { parse, format, parseISO, formatDistanceToNow } from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -61,3 +61,7 @@ export function getSingleYearsArray() {
 
     return years;
 }
+
+export function formattedDistance(date: any) {
+      return formatDistanceToNow(date, { addSuffix: true });
+  }

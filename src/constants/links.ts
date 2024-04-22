@@ -49,6 +49,10 @@ export const adminControlsLinks = [
     title: "Center",
     href: "/admin/center",
   },
+  {
+    title: "Audit Trails",
+    href: "/admin/audit-trails",
+  },
 ];
 
 export const userSideNavLinks = [

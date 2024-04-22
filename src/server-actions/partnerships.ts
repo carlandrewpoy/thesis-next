@@ -1,10 +1,11 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { xprisma } from "@/prisma-extension/extension";
 import { revalidatePath } from "next/cache";
 
 export const createPartnership = async (state: any, formData: FormData) => {
-  const res = await prisma.partnership.create({
+  const res = await xprisma.partnership.create({
     data: {
       collegeId: formData.get("collegeId") as string,
       projectId: formData.get("projectId") as string,
@@ -33,7 +34,7 @@ export const updatePartnership = async (
   state: any,
   formData: FormData
 ) => {
-  const res = await prisma.partnership.update({
+  const res = await xprisma.partnership.update({
     where: {
       id: id,
     },
@@ -64,7 +65,7 @@ export const updatePartnership = async (
 };
 
 export const deletePartnership = async (state: any, formData: FormData) => {
-  const res = await prisma.partnership.delete({
+  const res = await xprisma.partnership.delete({
     where: {
       id: formData.get("id") as string,
     },

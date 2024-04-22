@@ -1,11 +1,12 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { xprisma } from "@/prisma-extension/extension";
 import { TrainingDurationType } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export const createTraining = async (state: any, formData: FormData) => {
-  const res = await prisma.training.create({
+  const res = await xprisma.training.create({
     data: {
       projectId: formData.get("projectId") as string,
       venue: formData.get("venue") as string,
@@ -57,7 +58,7 @@ export const updateTraining = async (
   state: any,
   formData: FormData
 ) => {
-  const res = await prisma.training.update({
+  const res = await xprisma.training.update({
     where: {
       id: id,
     },
@@ -111,7 +112,7 @@ export const updateTraining = async (
 };
 
 export const deleteTraining = async (state: any, formData: FormData) => {
-  const res = await prisma.training.delete({
+  const res = await xprisma.training.delete({
     where: {
       id: formData.get("id") as string,
     },

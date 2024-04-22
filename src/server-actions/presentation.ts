@@ -1,13 +1,14 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { xprisma } from "@/prisma-extension/extension";
 import { Faculty, PresentationStatus, PresentationType } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export const createPresentation = async (selected: string[], state: any, formData: FormData) => {
   console.log(selected, 'actions');
   console.log(formData.get("projectId"));
-  const res = await prisma.presentation.create({  
+  const res = await xprisma.presentation.create({  
     data: {
       projectId: formData.get("projectId") as string,
       centerId: formData.get("centerId") as string,
@@ -45,7 +46,7 @@ export const updatePresentation = async (
 ) => {
   console.log(selected, 'actions')
   console.log(formData.get("projectId"), 'actions')
-  const res = await prisma.presentation.update({
+  const res = await xprisma.presentation.update({
     where: {
       id: id,
     },
@@ -82,7 +83,7 @@ export const updatePresentation = async (
 };
 
 export const deletePresentation = async (state: any, formData: FormData) => {
-  const res = await prisma.presentation.delete({
+  const res = await xprisma.presentation.delete({
     where: {
       id: formData.get("id") as string,
     },

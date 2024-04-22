@@ -96,15 +96,11 @@ const EditForm = ({ row, close }: {
                 <Input defaultValue={row.original.researchWorkers} name="researchWorkers" className="col-span-6" />
             </div>
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
-                <Label className="col-span-3 text-xs font-extralight">Project Type</Label>
-                <Label className="col-span-3 text-xs font-extralight">Status</Label>
+                <Label className="col-span-6 text-xs font-extralight">Status</Label>
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
 
-                <div className="col-span-3">
-                    <ProjectTypeSelect defaultValue={row.original.type ?? ''} />
-                </div>
-                <div className="col-span-3">
+                <div className="col-span-6">
                     <ProjectStatusSelect defaultValue={row.original.status} />
                 </div>
             </div>

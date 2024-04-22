@@ -19,17 +19,18 @@ enum roles {
 }
 
 model User {
-  id            String   @id @default(cuid())
+  id            String     @id @default(cuid())
   firstname     String
   lastname      String
   middleInitial String?
-  email         String   @unique
+  email         String     @unique
   image         String?
   role          roles?
-  superAdmin    Boolean? @default(false)
+  superAdmin    Boolean?   @default(false)
   password      String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  AuditLog      AuditLog[]
 }
 
 model College {
@@ -133,6 +134,16 @@ model GradSchoolFaculty {
   semester            Semester
   createdAt           DateTime          @default(now())
   updatedAt           DateTime          @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  model     String
+  operation String
+  user      User     @relation(fields: [userEmail], references: [email])
+  userEmail String
+  result    Json
+  createdAt DateTime @default(now())
 }
 
 model TechnicalService {
@@ -371,7 +382,6 @@ model Citation {
   publisherName    Faculty   @relation(fields: [publisherNameId], references: [id])
   publisherNameId  String
   scholarLink      String
-  scopus           String
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
 }

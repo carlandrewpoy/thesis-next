@@ -19,7 +19,7 @@ export default function Home() {
           <section className="text-center mt-20">
             <Badge>Carara State University</Badge>
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mt-2">
-              Oveprie Management System
+              OVPRIE MANAGEMENT SYSTEM
             </h1>
             <p className="text-xl text-muted-foreground mt-3 max-w-6xl mx-auto">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero pariatur eligendi facere numquam aspernatur dignissimos odio quae alias culpa soluta fugit ipsam suscipit, vitae nihil porro? Iure possimus tempore ab?

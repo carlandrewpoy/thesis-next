@@ -6,6 +6,7 @@ var bcrypt = require("bcryptjs");
 import { redirect } from "next/navigation";
 import { roles } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import { xprisma } from "@/prisma-extension/extension";
 
 export const loginUser = async (formData: FormData) => {
   const params = {
@@ -38,7 +39,7 @@ export const createUser = async (state: any, formData: FormData) => {
     };
   }
 
-  const res = await prisma.user.create({
+  const res = await xprisma.user.create({
     data: {
       firstname: formData.get("firstname") as string,
       lastname: formData.get("lastname") as string,

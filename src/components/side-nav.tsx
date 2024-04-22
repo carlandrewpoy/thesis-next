@@ -14,12 +14,14 @@ import { Sheet, SheetClose, SheetContent, SheetTrigger } from './ui/sheet'
 import { Button } from './ui/button'
 import { ScrollArea } from './ui/scroll-area'
 import { useSession } from 'next-auth/react'
+import { User } from '@/lib/user'
 
 
 
 const SideNav = () => {
     const pathname = usePathname()
     const { data: session, status, update } = useSession()
+    console.log({ session })
     return (
         <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex overflow-auto scrollbar-hide no-scroll">
             <ScrollArea className='h-screen'>

@@ -1,11 +1,12 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { xprisma } from "@/prisma-extension/extension";
 import { PublicationStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export const createPublication = async (selected: string[], state: any, formData: FormData) => {
-  const res = await prisma.publication.create({
+  const res = await xprisma.publication.create({
     data: {
       projectId: formData.get("projectId") as string,
       centerId: formData.get("centerId") as string,
@@ -44,7 +45,7 @@ export const updatePublication = async (
   state: any,
   formData: FormData
 ) => {
-  const res = await prisma.publication.update({
+  const res = await xprisma.publication.update({
     where: {
       id: id,
     },
@@ -83,7 +84,7 @@ export const updatePublication = async (
 };
 
 export const deletePublication = async (state: any, formData: FormData) => {
-  const res = await prisma.publication.delete({
+  const res = await xprisma.publication.delete({
     where: {
       id: formData.get("id") as string,
     },

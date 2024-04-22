@@ -50,7 +50,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <FacultyCombobox defaultValue={row.original.faculty} />
+                    <FacultyCombobox columnName='facultyId' defaultValue={row.original.faculty} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

@@ -1,10 +1,11 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { xprisma } from "@/prisma-extension/extension";
 import { revalidatePath } from "next/cache";
 
 export const createFaculty = async (state: any, formData: FormData) => {
-  const res = await prisma.faculty.create({
+  const res = await xprisma.faculty.create({
     data: {
       firstname: formData.get("firstname") as string,
       lastname: formData.get("lastname") as string,
@@ -26,7 +27,7 @@ export const updateFaculty = async (
   state: any,
   formData: FormData
 ) => {
-  const res = await prisma.faculty.update({
+  const res = await xprisma.faculty.update({
     where: {
       id: id,
     },
@@ -51,7 +52,7 @@ export const updateFaculty = async (
 };
 
 export const deleteFaculty = async (state: any, formData: FormData) => {
-  const res = await prisma.faculty.delete({
+  const res = await xprisma.faculty.delete({
     where: {
       id: formData.get("id") as string,
     },

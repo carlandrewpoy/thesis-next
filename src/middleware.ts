@@ -12,9 +12,17 @@ export default withAuth({
 export const config = {
   matcher: [
     "/",
-    "/protected",
-    "/user",
     "/graduate-school-faculty",
     "/admin/:path*",
+    "/utilization",
+    "/presentation",
+    "/publication",
+    "/trainings",
+    "/active-partnerships",
+    "/technical-advisory-services",
+    "/awards",
+    "/citations",
+    "/projects",
   ],
 };
+

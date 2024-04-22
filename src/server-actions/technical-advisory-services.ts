@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { xprisma } from "@/prisma-extension/extension";
 import { revalidatePath } from "next/cache";
 
 export const createTechnicalServices = async (
@@ -9,7 +10,7 @@ export const createTechnicalServices = async (
   state: any,
   formData: FormData
 ) => {
-  const res = await prisma.technicalService.create({
+  const res = await xprisma.technicalService.create({
     data: {
       projectId: formData.get("projectId") as string,
       venue: formData.get("venue") as string,
@@ -39,7 +40,7 @@ export const updateTechnicalServices = async (
   state: any,
   formData: FormData
 ) => {
-  const res = await prisma.technicalService.update({
+  const res = await xprisma.technicalService.update({
     where: {
       id: id,
     },
@@ -72,7 +73,7 @@ export const deleteTechnicalServices = async (
   state: any,
   formData: FormData
 ) => {
-  const res = await prisma.technicalService.delete({
+  const res = await xprisma.technicalService.delete({
     where: {
       id: formData.get("id") as string,
     },

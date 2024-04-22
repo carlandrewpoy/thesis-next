@@ -6,7 +6,7 @@ import { Button } from "./ui/button"
 const ExcelExportHelper = (result) => {
     let data = result.result.result1
     let data1 = result.result.result2
-    console.log("dataaaaa", result)
+    // console.log("dataaaaa", result)
     const data2 = [
         {
             facultyName: data1.totalFaculty,
@@ -47,7 +47,7 @@ const ExcelExportHelper = (result) => {
     ]
     const createDownLoadData = () => {
         handleExport().then((url) => {
-            console.log(url)
+            // console.log(url)
             const downloadAnchorNode = document.createElement("a")
             downloadAnchorNode.setAttribute("href", url)
             downloadAnchorNode.setAttribute("download", "summary_report.xlsx")
@@ -80,12 +80,12 @@ const ExcelExportHelper = (result) => {
         // create an ArrayBuffer with a size in bytes
         const buf = new ArrayBuffer(s.length)
 
-        console.log(buf)
+        // console.log(buf)
 
         //create a 8 bit integer array
         const view = new Uint8Array(buf)
 
-        console.log(view)
+        // console.log(view)
         //charCodeAt The charCodeAt() method returns an integer between 0 and 65535 representing the UTF-16 code
         for (let i = 0; i !== s.length; ++i) {
             //console.log(s.charCodeAt(i))
@@ -141,7 +141,7 @@ const ExcelExportHelper = (result) => {
                 D: row.name,
             })
         })
-        console.log(table1)
+        // console.log(table1)
         table1 = [{ A: "" }]
             .concat(table1)
             .concat([""])
@@ -150,7 +150,7 @@ const ExcelExportHelper = (result) => {
 
         const finalData = [...title, ...table1]
 
-        console.log(finalData)
+        // console.log(finalData)
 
         //create a new workbook
         const wb = XLSX.utils.book_new()
@@ -173,7 +173,7 @@ const ExcelExportHelper = (result) => {
         finalData.forEach((data, index) =>
             data["A"] === "No." ? headerIndexes.push(index) : null
         )
-        console.log("headerIndexes", headerIndexes)
+        // console.log("headerIndexes", headerIndexes)
         const totalRecords = data.length
 
         const dataInfo = {

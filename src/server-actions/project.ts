@@ -1,11 +1,12 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { xprisma } from "@/prisma-extension/extension";
 import { ProjectStatus, ProjectType } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export const createProject = async (state: any, formData: FormData) => {
-  const res = await prisma.project.create({
+  const res = await xprisma.project.create({
     data: {
       title: formData.get("title") as string,
       extensionProjectId: formData.get("extensionProjectId") as string,
@@ -44,7 +45,7 @@ export const updateProject = async (
   state: any,
   formData: FormData
 ) => {
-  const res = await prisma.project.update({
+  const res = await xprisma.project.update({
     where: {
       id: id,
     },
@@ -85,7 +86,7 @@ export const updateProject = async (
 };
 
 export const deleteProject = async (state: any, formData: FormData) => {
-  const res = await prisma.project.delete({
+  const res = await xprisma.project.delete({
     where: {
       id: formData.get("id") as string,
     },

@@ -1,11 +1,11 @@
 "use server";
 
-import prisma from "@/lib/prisma";
+import { xprisma } from "@/prisma-extension/extension";
 import { AwardType } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export const createAward = async (state: any, formData: FormData) => {
-  const res = await prisma.award.create({
+  const res = await xprisma.award.create({
     data: {
       projectId: formData.get("projectId") as string,
       researchers: formData.get("researchers") as string,
@@ -28,7 +28,7 @@ export const updateAward = async (
   state: any,
   formData: FormData
 ) => {
-  const res = await prisma.award.update({
+  const res = await xprisma.award.update({
     where: {
       id: id,
     },
@@ -53,7 +53,7 @@ export const updateAward = async (
 };
 
 export const deleteAward = async (state: any, formData: FormData) => {
-  const res = await prisma.award.delete({
+  const res = await xprisma.award.delete({
     where: {
       id: formData.get("id") as string,
     },
