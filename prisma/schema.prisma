@@ -23,6 +23,7 @@ model User {
   firstname     String
   lastname      String
   middleInitial String?
+  suffix        String?
   email         String     @unique
   image         String?
   role          roles?

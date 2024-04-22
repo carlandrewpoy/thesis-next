@@ -24,6 +24,9 @@ const AddForm = ({ close }: {
     }
 
 
+
+
+
     return (
         <form className="grid gap-4 p-4" action={formAction}>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -34,25 +37,35 @@ const AddForm = ({ close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
 
                 <Input required name="firstname" className="col-span-3" />
-                <Input name="middleInitial" className="col-span-3" />
+                <Input name="middleInitial" className="col-span-3"
+                    maxLength={1}
+                />
                 <Input required name="lastname" className="col-span-3" />
 
             </div>
 
             <div className="grid grid-cols-12 items-center gap-4 -mb-3">
-                <Label className="col-span-6 text-xs font-extralight">Email</Label>
+                <Label className="col-span-6 text-xs font-extralight">Suffix</Label>
                 <Label className="col-span-6 text-xs font-extralight">Role</Label>
             </div>
             <div className="grid grid-cols-12 items-center gap-4 ">
 
                 <div className="col-span-6">
-                    <Input required name="email" className="col-span-3" />
-                    {state?.error && <p className="text-red-500 text-xs">{state?.error}</p>}
+                    <Input required name="suffix" className="col-span-3" />
                 </div>
                 <div className="col-span-6">
                     <RolesSelect />
                 </div>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-4 -mb-3">
+                <Label className="col-span-12 text-xs font-extralight">Email</Label>
+            </div>
+            <div className="grid grid-cols-12 items-center gap-4 ">
 
+                <div className="col-span-12">
+                    <Input required name="email" className="col-span-3" />
+                    {state?.email?.error && <p className="text-red-500 text-xs">{state?.email?.error}</p>}
+                </div>
             </div>
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
                 <Label className="col-span-6 text-xs font-extralight">Password</Label>

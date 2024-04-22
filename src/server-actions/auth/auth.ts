@@ -35,7 +35,9 @@ export const createUser = async (state: any, formData: FormData) => {
 
   if (user) {
     return {
-      error: "User already exists",
+      email: {
+        error: "Email already exists",
+      }
     };
   }
 
@@ -43,6 +45,8 @@ export const createUser = async (state: any, formData: FormData) => {
     data: {
       firstname: formData.get("firstname") as string,
       lastname: formData.get("lastname") as string,
+      middleInitial: formData.get("middleInitial") as string,
+      suffix: formData.get("suffix") as string,
       email: formData.get("email") as string,
       role: formData.get("role") as roles,
       password: hashedPassword as string,
@@ -86,7 +90,7 @@ export const updateUser = async (
     };
   }
 
-  const res = await prisma.user.update({
+  const res = await xprisma.user.update({
     where: {
       id: id,
     },
@@ -94,6 +98,7 @@ export const updateUser = async (
       firstname: formData.get("firstname") as string,
       middleInitial: formData.get("middleInitial") as string,
       lastname: formData.get("lastname") as string,
+      suffix: formData.get("suffix") as string,
       role: formData.get("role") as roles,
     },
   });
@@ -119,7 +124,7 @@ export const deleteUser = async (state: any, formData: FormData) => {
       error: "Cannot delete super admin",
     };
   }
-  const res = await prisma.user.delete({
+  const res = await xprisma.user.delete({
     where: {
       id: formData.get("id") as string,
     },

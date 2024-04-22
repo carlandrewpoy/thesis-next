@@ -49,17 +49,15 @@ const EditForm = ({ row, close }: {
             </div>
 
             <div className="grid grid-cols-12 items-center gap-4 -mb-3">
-                {/*                 <Label className="col-span-6 text-xs font-extralight">Email</Label>
- */}
+                <Label className="col-span-6 text-xs font-extralight">Suffix</Label>
                 <Label className="col-span-6 text-xs font-extralight">Role</Label>
             </div>
             <div className="grid grid-cols-12 items-center gap-4 ">
 
-                {/*  <div className="col-span-6">
-                    <Input defaultValue={row.original.email ?? ''} required name="email" className="col-span-3" />
-                    {state?.error && <p className="text-red-500 text-xs">{state?.error}</p>}
-                </div> */}
-                <div className="col-span-12">
+                <div className="col-span-6">
+                    <Input defaultValue={row.original.suffix ?? ''} required name="suffix" className="col-span-3" />
+                </div>
+                <div className="col-span-6">
                     <RolesSelect defaultValue={row.original.role ?? ''} />
                 </div>
 
