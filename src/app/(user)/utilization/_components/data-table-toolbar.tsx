@@ -14,6 +14,7 @@ import { CenterSelect } from "./select/center-select"
 import { YearSelect } from "./select/year-select"
 import { CenterCombobox } from "@/components/combobox/filter/center-select"
 import { UtilizationWithOther } from "./columns"
+import ExportDialog from "../exportDialog/ExportDialog"
 
 
 interface DataTableToolbarProps<TData> {
@@ -69,9 +70,7 @@ export function DataTableToolbar<TData>({
         >Add</Button> */}
         <AddDialog />
         <DataTableViewOptions table={table} />
-        <Button className="h-8" variant={"outline"}>
-          Export
-        </Button>
+        <ExportDialog />
       </div>
     </div>
   )

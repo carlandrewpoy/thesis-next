@@ -54,7 +54,7 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
       console.log(newResearchersArray)
       return <div className="w-64">
         {newResearchersArray.map((researcher, index) => {
-          return <h1 key={index}>{researcher}</h1>
+          return <h1 key={index}>{researcher.toLocaleUpperCase()}</h1>
         })}
       </div>
     }
@@ -71,7 +71,7 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
     accessorKey: "completedDate",
     header: "Completed Date",
     cell: ({ row }) => {
-      return <h1 className="w-24">{dateFormatterName(row.original.completedDate)}</h1>
+      return <h1 className="w-28">{dateFormatterName(row.original.completedDate)}</h1>
     }
   },
 
@@ -80,7 +80,7 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
     header: "Article/Title",
     cell: ({ row }) => {
       return (
-        <div className="w-52">
+        <div className="w-60">
           <h1 >{row.original.articleTitle}</h1>
 
         </div>
@@ -91,6 +91,13 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
   {
     accessorKey: "keywords",
     header: "Keywords",
+    cell: ({ row }) => {
+      return (
+        <div className="w-60">
+          <h1 >{row.original.keywords}</h1>
+        </div>
+      )
+    }
   },
 
   // {
@@ -107,10 +114,24 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
   {
     accessorKey: "forumTitle",
     header: "Forum Title",
+    cell: ({ row }) => {
+      return (
+        <div className="w-60">
+          <h1 >{row.original.forumTitle}</h1>
+        </div>
+      )
+    }
   },
   {
     accessorKey: "venue",
     header: "Venue",
+    cell: ({ row }) => {
+      return (
+        <div className="w-52">
+          <h1 >{row.original.venue}</h1>
+        </div>
+      )
+    }
   },
   {
     accessorKey: "date",
@@ -122,7 +143,7 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
 
   {
     accessorKey: "movMoa",
-    header: "MOVS",
+    header: "MOVs",
     cell: ({ row }) => {
       return <div className="flex flex-col w-52">
 

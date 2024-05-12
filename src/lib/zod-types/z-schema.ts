@@ -7,7 +7,7 @@ export const UtilizationSchema = z.object({
     year: z.string().min(1, { message: "Year is required" }).length(4, { message: "Invalid year" }),
     proof: z.string().min(1, { message: "Proof is required" }),
     benificiary: z.string().min(1, { message: "Benificiary is required" }),
-    supportingDocs: z.string().startsWith("https://drive.google.com/", { message: "Must provide secure URL" }),
+    supportingDocs: z.string().startsWith("https://drive.google.com/", { message: "Must provide valid URL" }),
     movMoa: z.boolean(),
     movReport: z.boolean(),
     movUtilization: z.boolean(),

@@ -160,7 +160,7 @@ const EditForm = ({ row, close }: {
                 <Label className="col-span-6 text-xs font-extralight">Scopus</Label>
             </div>
             <div className="grid grid-cols-12 items-center gap-2 ">
-                <Input name="scopus" className="col-span-10" />
+                <Input defaultValue={row.original.scopus} name="scopus" className="col-span-10" />
 
             </div>
 

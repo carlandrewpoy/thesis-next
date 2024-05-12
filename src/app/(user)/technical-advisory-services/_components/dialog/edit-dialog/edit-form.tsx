@@ -10,6 +10,7 @@ import { ProjectSelect } from '@/components/select/project-select'
 import { TechnicalServiceWithOther } from '../../columns'
 import { updateTechnicalServices } from '@/server-actions/technical-advisory-services'
 import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
 
 const EditForm = ({ row, close }: {
     row: Row<TechnicalServiceWithOther>
@@ -44,7 +45,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectSelect defaultValue={row.original.projectId} />
+                    <ResearchProjectCombobox columnName='projectId' defaultValue={row.original.project?.title ?? ''} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

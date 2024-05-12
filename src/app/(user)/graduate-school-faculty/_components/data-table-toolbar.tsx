@@ -15,6 +15,7 @@ import { SemesterSelect } from "./select/semester-select"
 import { GradSchoolFaculty } from "@prisma/client"
 import ExcelExportHelper from "@/components/export-helper"
 import { CollegeCombobox } from "../../../../components/combobox/filter/college-select"
+import ExportDialog from "../exportDialog/ExportDialog"
 
 
 interface DataTableToolbarProps<TData> {
@@ -65,7 +66,7 @@ export function DataTableToolbar<TData>({
         {/* <Button variant="outline" className="h-8 px-2 lg:px-3">
           Summary
         </Button> */}
-        <ExcelExportHelper result={results} />
+        <ExportDialog />
         {/* <Link
           href={{
             pathname: '/graduate-school-faculty/summary',

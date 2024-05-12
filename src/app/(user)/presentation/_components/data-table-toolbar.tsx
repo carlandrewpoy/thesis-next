@@ -15,6 +15,7 @@ import { PresentationStatusSelect } from "./select/presentation-status-select"
 import { CenterCombobox } from "@/components/combobox/filter/center-select"
 import { FacultyCombobox } from "@/components/combobox/filter/faculty"
 import { RegionTypeSelect } from "@/components/select/filter/region-type-select"
+import ExportDialog from "../exportDialog/ExportDialog"
 
 
 interface DataTableToolbarProps<TData> {
@@ -71,9 +72,7 @@ export function DataTableToolbar<TData>({
         >Add</Button> */}
         <AddDialog />
         <DataTableViewOptions table={table} />
-        <Button className="h-8" variant={"outline"}>
-          Export
-        </Button>
+        <ExportDialog />
       </div>
     </div>
   )

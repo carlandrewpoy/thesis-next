@@ -153,11 +153,11 @@ const EditForm = ({ row, close }: {
                 <Label className="col-span-10 text-center text-xs font-extralight">Number of clients who rate the training as </Label>
             </div>
             <div className="grid grid-cols-10 items-center gap-4 -mb-3">
-                <Label className="col-span-2 text-xs font-extralight">Rate 1</Label>
-                <Label className="col-span-2 text-xs font-extralight">Rate 2</Label>
-                <Label className="col-span-2 text-xs font-extralight">Rate 3</Label>
-                <Label className="col-span-2 text-xs font-extralight">Rate 4</Label>
-                <Label className="col-span-2 text-xs font-extralight">Rate 5</Label>
+                <Label className="col-span-2 text-xs font-extralight">Poor</Label>
+                <Label className="col-span-2 text-xs font-extralight">Fair</Label>
+                <Label className="col-span-2 text-xs font-extralight">Satisfactory</Label>
+                <Label className="col-span-2 text-xs font-extralight">Very satisfactory</Label>
+                <Label className="col-span-2 text-xs font-extralight">Excellent</Label>
             </div>
             <div className="grid grid-cols-10 items-center gap-4 ">
 
@@ -171,11 +171,11 @@ const EditForm = ({ row, close }: {
                 <Label className="col-span-10 text-center text-xs font-extralight">Number of clients trained who rate TIMELINESS of training as</Label>
             </div>
             <div className="grid grid-cols-10 items-center gap-4 -mb-3">
-                <Label className="col-span-2 text-xs font-extralight">Rate 1</Label>
-                <Label className="col-span-2 text-xs font-extralight">Rate 2</Label>
-                <Label className="col-span-2 text-xs font-extralight">Rate 3</Label>
-                <Label className="col-span-2 text-xs font-extralight">Rate 4</Label>
-                <Label className="col-span-2 text-xs font-extralight">Rate 5</Label>
+                <Label className="col-span-2 text-xs font-extralight">Poor</Label>
+                <Label className="col-span-2 text-xs font-extralight">Fair</Label>
+                <Label className="col-span-2 text-xs font-extralight">Satisfactory</Label>
+                <Label className="col-span-2 text-xs font-extralight">Very satisfactory</Label>
+                <Label className="col-span-2 text-xs font-extralight">Excellent</Label>
             </div>
             <div className="grid grid-cols-10 items-center gap-4 ">
 

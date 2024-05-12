@@ -15,6 +15,7 @@ import { updateCitation } from '@/server-actions/citations'
 import { FacultyCombobox } from '@/components/combobox/mutation/faculty'
 import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
 import { CitationWithOther } from '../../columns'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
 
 const EditForm = ({ row, close }: {
     row: Row<CitationWithOther>
@@ -48,7 +49,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectSelect defaultValue={row.original.projectId} />
+                    <ResearchProjectCombobox columnName='projectId' defaultValue={row.original.project?.title ?? ''} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

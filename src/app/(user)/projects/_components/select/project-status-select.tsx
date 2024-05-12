@@ -11,7 +11,7 @@ import {
 import { Project } from "@prisma/client"
 import { Table } from "@tanstack/react-table"
 
-export function ProjectStatusSelect({ table }: { table: Table<Project> }) {
+export function ProjectStatusSelect({ table }: { table: Table<any> }) {
     const data = [
         {
             name: 'Ongoing',

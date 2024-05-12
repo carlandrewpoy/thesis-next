@@ -9,9 +9,15 @@ import { DeleteDialog } from "./dialog/delete-dialog/delete-dialog";
 
 export type ProjectWithOthers = Prisma.ProjectGetPayload<{
   include: {
-    extensionProject: true
+    extensionProject: true,
+    projectLeader: true,
+    researchWorkers: true,
+    center: true
   }
-}>
+}> & {
+  newResearchWorkers: string,
+  newTitle: string
+}
 
 export const columns: ColumnDef<ProjectWithOthers>[] = [
   {
@@ -19,17 +25,34 @@ export const columns: ColumnDef<ProjectWithOthers>[] = [
     header: "Type",
   },
   {
-    accessorKey: "title",
+    accessorKey: "newTitle",
     header: "Title",
     cell: ({ row }) => {
       return <div className="w-72">
-        {row.original.extensionProjectId === null ? row.original.title : row.original.extensionProject?.title}
+        {row.original.newTitle}
       </div>;
     }
   },
   {
     accessorKey: "status",
     header: "Status",
+  },
+  {
+    accessorKey: "newResearchWorkers",
+    header: "Researchers",
+    cell: ({ row }) => {
+      const newResearchersArray = row.original.newResearchWorkers.split(':');
+      console.log(newResearchersArray)
+      return <div className="w-52">
+        {newResearchersArray.map((researcher, index) => {
+          return <h1 key={index}>{researcher.toLocaleUpperCase()}</h1>
+        })}
+      </div>
+    }
+  },
+  {
+    accessorKey: "center.name",
+    header: "Center",
   },
   {
     accessorKey: "dateStart",
@@ -80,20 +103,12 @@ export const columns: ColumnDef<ProjectWithOthers>[] = [
     accessorKey: "projectLeader",
     header: "Project Leader",
     cell: ({ row }) => {
-      return <div className="w-48">
-        {row.original.projectLeader}
+      return <div className="w-64">
+        {`${row.original.projectLeader.lastname}, ${row.original.projectLeader.firstname} ${row.original.projectLeader.middleInitial === null ? '' : `${row.original.projectLeader?.middleInitial}.`} ${row.original.projectLeader.suffix === null ? '' : `${row.original.projectLeader?.suffix}`}`}
       </div>;
     }
   },
-  {
-    accessorKey: "researchWorkers",
-    header: "Research Workers",
-    cell: ({ row }) => {
-      return <div className="w-48">
-        {row.original.researchWorkers}
-      </div>;
-    }
-  },
+
   {
     accessorKey: "approvedProjectCost",
     header: "Approved Project Cost",

@@ -4,11 +4,13 @@ import { xprisma } from "@/prisma-extension/extension";
 import { AwardType } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-export const createAward = async (state: any, formData: FormData) => {
+export const createAward = async (selectedResearchers: string[], state: any, formData: FormData) => {
   const res = await xprisma.award.create({
     data: {
       projectId: formData.get("projectId") as string,
-      researchers: formData.get("researchers") as string,
+      researchers: {
+        connect: selectedResearchers.map((item) => ({ id: item }))
+      },
       publisher: formData.get("publisher") as string,
       certOrProgram: formData.get("certOrProgram") as string,
       type: formData.get("type") as AwardType,
@@ -25,6 +27,7 @@ export const createAward = async (state: any, formData: FormData) => {
 
 export const updateAward = async (
   id: string,
+  selectedResearchers: string[],
   state: any,
   formData: FormData
 ) => {
@@ -34,8 +37,9 @@ export const updateAward = async (
     },
     data: {
       projectId: formData.get("projectId") as string,
-      researchers: formData.get("researchers") as string,
-      publisher: formData.get("publisher") as string,
+researchers: {
+        set: selectedResearchers.map((item) => ({ id: item }))
+      },      publisher: formData.get("publisher") as string,
       certOrProgram: formData.get("certOrProgram") as string,
       type: formData.get("type") as AwardType,
       yearPublished: formData.get("yearPublished") as string,

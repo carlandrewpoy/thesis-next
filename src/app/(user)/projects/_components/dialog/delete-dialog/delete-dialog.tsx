@@ -15,11 +15,12 @@ import { Row } from "@tanstack/react-table"
 import { Trash } from "lucide-react"
 import DeleteForm from "./delete-form"
 import { Center, Project } from "@prisma/client"
+import { ProjectWithOthers } from "../../columns"
 
 export function DeleteDialog({
     row,
 }: {
-    row: Row<Project>
+    row: Row<ProjectWithOthers>
 }) {
     const [openDialog, setOpenDialog] = useState(false)
     const handleChange = () => {

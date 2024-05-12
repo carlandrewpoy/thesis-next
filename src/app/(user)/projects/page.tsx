@@ -14,12 +14,20 @@ const Project = async () => {
             updatedAt: 'desc'
         },
         include: {
-            extensionProject: true
+            extensionProject: true,
+            researchWorkers: true,
+            projectLeader: true,
+            center: true
         }
     });
-    console.log(data)
+    const transformedData = data.map(item => ({
+        ...item,
+        newResearchWorkers: `${item.researchWorkers.map(researcher => `${researcher.lastname}, ${researcher.firstname} ${researcher.middleInitial === null ? '' : `${researcher?.middleInitial}.`} ${researcher.suffix === null ? '' : `${researcher?.suffix}`}`).join(':')}`,
+        newTitle: item.extensionProjectId === null ? item.title as string : item.extensionProject?.title as string
+    }));
+    console.log({ transformedData })
     return <div className='mx-5'>
-        <DataTable data={data} columns={columns} />
+        <DataTable data={transformedData} columns={columns} />
     </div>
 }
 export default Project

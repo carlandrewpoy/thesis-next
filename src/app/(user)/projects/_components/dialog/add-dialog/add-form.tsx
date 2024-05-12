@@ -17,14 +17,19 @@ import { ResearchProjectCombobox } from '@/components/combobox/mutation/research
 import { AutoFill } from '@/server-state-management/autofill'
 import { dateFormatterNumber } from '@/lib/utils'
 import { ReloadIcon } from '@radix-ui/react-icons'
+import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
+import { FacultyCombobox } from '@/components/combobox/mutation/faculty'
+import { CenterCombobox } from '@/components/combobox/mutation/center'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
 }
 ) => {
+    const [selectedResearchers, setSelectedResearchers] = useState<string[]>([])
+    const createWithOthers = createProject.bind(null, selectedResearchers)
     const [projectToggle, setprojectToggle] = useState(false)
     const handleProjectToggle = () => { setprojectToggle(!projectToggle) }
-    const [state, formAction] = useFormState(createProject, null)
+    const [state, formAction] = useFormState(createWithOthers, null)
     if (state?.message) {
         close(false)
         toast({
@@ -128,18 +133,17 @@ const AddForm = ({ close }: {
                 <Label className="col-span-3 text-xs font-extralight">Research Workers</Label>
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
-                <Input name="researchWorkers" className="col-span-6" />
+                <MultiSelectFacultyCombobox selected={selectedResearchers} setSelected={setSelectedResearchers} />
             </div>
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
-                {/* <Label className="col-span-3 text-xs font-extralight">Project Type</Label> */}
-                <Label className="col-span-6 text-xs font-extralight">Status</Label>
+                <Label className="col-span-3 text-xs font-extralight">Center</Label>
+                <Label className="col-span-3 text-xs font-extralight">Status</Label>
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
-
-                {/* <div className="col-span-3">
-                    <ProjectTypeSelect />
-                </div> */}
-                <div className="col-span-6">
+                <div className="col-span-3">
+                    <CenterCombobox />
+                </div>
+                <div className="col-span-3">
                     <ProjectStatusSelect />
                 </div>
             </div>
@@ -169,7 +173,9 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
 
-                <Input name="projectLeader" className="col-span-3" />
+                <div className='col-span-3'>
+                    <FacultyCombobox columnName='projectLeaderId' />
+                </div>
                 <Input type='number' name="approvedProjectCost" className="col-span-3" />
             </div>
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">

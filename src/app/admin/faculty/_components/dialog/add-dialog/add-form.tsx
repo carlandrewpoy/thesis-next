@@ -26,13 +26,13 @@ const AddForm = ({ close }: {
         <form className="grid gap-4 p-4" action={formAction}>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
                 <Label className="col-span-3 text-xs font-extralight">Firstname</Label>
-                <Label className="col-span-3 text-xs font-extralight">Middlename/intial</Label>
+                <Label className="col-span-3 text-xs font-extralight">Middle Initial</Label>
                 <Label className="col-span-3 text-xs font-extralight">Lastname</Label>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
 
                 <Input required name="firstname" className="col-span-3" />
-                <Input name="middleInitial" className="col-span-3" />
+                <Input maxLength={1} name="middleInitial" className="col-span-3" />
                 <Input required name="lastname" className="col-span-3" />
 
             </div>
@@ -43,7 +43,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-12 items-center gap-4 ">
 
-                <Input required name="suffix" className="col-span-6" />
+                <Input name="suffix" className="col-span-6" />
                 <Input required name="position" className="col-span-6" />
 
             </div>

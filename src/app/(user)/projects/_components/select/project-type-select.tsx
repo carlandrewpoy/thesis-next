@@ -11,7 +11,7 @@ import {
 import { Table } from "@tanstack/react-table"
 import { Project } from "@prisma/client"
 
-export function ProjectTypeSelect({ table, }: { table: Table<Project> }) {
+export function ProjectTypeSelect({ table, }: { table: Table<any> }) {
     const data = [
         {
             name: 'Research',

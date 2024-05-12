@@ -44,7 +44,7 @@ export const columns: ColumnDef<PartnershipWithOthers>[] = [
   },
   {
     accessorKey: "partner",
-    header: "PARTNER LGU /COMMUNITY / INDUSTRY / SMEs / PRIVATE OF PUBLIC AGENCIES /NGOs",
+    header: "Partner",
     cell: ({ row }) => {
       return <h1 className="w-96">{row.original.partner}</h1>
     }
@@ -65,7 +65,7 @@ export const columns: ColumnDef<PartnershipWithOthers>[] = [
   },
   {
     accessorKey: "implementor",
-    header: "Implementors/ Delivery Units/Bureaus",
+    header: "Implementors",
     cell: ({ row }) => {
       return <h1 className="w-52">{row.original.implementor}</h1>
     }
@@ -78,7 +78,7 @@ export const columns: ColumnDef<PartnershipWithOthers>[] = [
 
   {
     accessorKey: "movMoa",
-    header: "Movs",
+    header: "MOVs",
     cell: ({ row }) => {
       return <div className="flex flex-col w-52">
 

@@ -15,11 +15,12 @@ import EditForm from "./edit-form"
 import { Row } from "@tanstack/react-table"
 import { Center, College, Project, User } from "@prisma/client"
 import { Edit } from "lucide-react"
+import { ProjectWithOthers } from "../../columns"
 
 export function EditDialog({
     row,
 }: {
-    row: Row<Project>
+    row: Row<ProjectWithOthers>
 }) {
     const [openDialog, setOpenDialog] = useState(false)
     const handleChange = () => {
@@ -35,7 +36,7 @@ export function EditDialog({
                     <Edit className="h-4 w-4" />
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-h-[80%] overflow-y-auto ">
+            <DialogContent className="max-h-[95%] overflow-y-auto ">
                 {/* <ScrollArea className="max-h-screen"> */}
                 {/* <div className="bg-slate-600 h-[80%]"> */}
                 <DialogHeader>

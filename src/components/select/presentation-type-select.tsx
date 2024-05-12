@@ -12,6 +12,10 @@ import {
 export function PresentationTypeSelect({ defaultValue }: { defaultValue?: string }) {
     const data = [
         {
+            name: 'Local',
+            value: 'LOCAL'
+        },
+        {
             name: 'National',
             value: 'NATIONAL'
         },

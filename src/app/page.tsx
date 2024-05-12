@@ -26,7 +26,7 @@ export default function Home() {
               The Office of the Vice President for Research, Innovation, and Extension (OVPRIE) is the driving force behind the research, innovation, and extension endeavors of the university. Led by the VPRIE, it advises the University President on policies, strategies, and budgetary matters in these domains.
             </p>
           </section>
-          <section className="flex max-w-6xl mx-auto mt-16 gap-10">
+          {/* <section className="flex max-w-6xl mx-auto mt-16 gap-10">
             <Card >
               <CardContent className="p-10">
                 <h4 className="scroll-m-20 text-xl font-semibold tracking-tight ">
@@ -41,7 +41,7 @@ export default function Home() {
                 </h4>
               </CardContent>
             </Card>
-          </section>
+          </section> */}
         </main>
       </div>
     </main>

@@ -23,14 +23,23 @@ export const columns: ColumnDef<GradSchoolFacultyWithOwner>[] = [
   {
     accessorKey: "faculty.firstname",
     header: "Firstname",
+    cell: ({ row }) => {
+      return <div>{row.original.faculty.firstname.toLocaleUpperCase()}</div>
+    }
   },
   {
     accessorKey: "faculty.middleInitial",
     header: "Middle Initial",
+    cell: ({ row }) => {
+      return <div>{row.original.faculty.middleInitial?.toLocaleUpperCase()}</div>
+    }
   },
   {
     accessorKey: "faculty.lastname",
     header: "Lastname",
+    cell: ({ row }) => {
+      return <div>{row.original.faculty.lastname?.toLocaleUpperCase()}</div>
+    }
   },
   {
     accessorKey: "faculty.position",

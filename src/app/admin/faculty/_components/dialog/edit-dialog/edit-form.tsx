@@ -38,13 +38,13 @@ const EditForm = ({ row, close }: {
         <form className="grid gap-4 p-4" action={formAction}>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
                 <Label className="col-span-3 text-xs font-extralight">Firstname</Label>
-                <Label className="col-span-3 text-xs font-extralight">Middlename/intial</Label>
+                <Label className="col-span-3 text-xs font-extralight">Middle Initial</Label>
                 <Label className="col-span-3 text-xs font-extralight">Lastname</Label>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
 
                 <Input defaultValue={row.original.firstname} required name="firstname" className="col-span-3" />
-                <Input defaultValue={row.original.middleInitial ?? ''} name="middleInitial" className="col-span-3" />
+                <Input maxLength={1} defaultValue={row.original.middleInitial ?? ''} name="middleInitial" className="col-span-3" />
                 <Input defaultValue={row.original.lastname} required name="lastname" className="col-span-3" />
 
             </div>
@@ -55,7 +55,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-12 items-center gap-4 ">
 
-                <Input defaultValue={row.original.suffix ?? ''} required name="suffix" className="col-span-6" />
+                <Input defaultValue={row.original.suffix ?? ''} name="suffix" className="col-span-6" />
                 <Input defaultValue={row.original.position} required name="position" className="col-span-6" />
 
             </div>

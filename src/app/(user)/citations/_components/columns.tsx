@@ -35,7 +35,7 @@ export const columns: ColumnDef<CitationWithOther>[] = [
     accessorKey: "keywords",
     header: "Keywords",
     cell: ({ row }) => {
-      return <div className="w-20">
+      return <div className="w-52">
         {row.original.keywords}
       </div>;
     }
@@ -60,6 +60,11 @@ export const columns: ColumnDef<CitationWithOther>[] = [
   {
     accessorKey: "index",
     header: "Index",
+    cell: ({ row }) => {
+      return <div className="w-20">
+        {row.original.index}
+      </div>;
+    }
   },
   {
     accessorKey: "researchers",
@@ -88,7 +93,7 @@ export const columns: ColumnDef<CitationWithOther>[] = [
     accessorKey: "journalTitle",
     header: "Journal Title",
     cell: ({ row }) => {
-      return <div className="w-40">
+      return <div className="w-52">
         {row.original.journalTitle}
       </div>;
     }

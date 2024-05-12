@@ -8,6 +8,14 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// generator erd {
+//   provider                  = "prisma-erd-generator"
+//   output                    = "../ERD.svg"
+//   theme                     = "default"
+//   ignoreEnums               = true
+//   includeRelationFromFields = true
+// }
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
@@ -55,6 +63,7 @@ model Center {
   Publications Publication[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
+  Project      Project[]
 }
 
 model Faculty {
@@ -71,8 +80,11 @@ model Faculty {
   TechnicalServicesInvitedFaculty TechnicalService[]  @relation("InvitedFaculty")
   Citations                       Citation[]
   CitationResearcher              Citation[]          @relation(name: "CitationResearchers")
+  AwardResearchers                Award[]
   createdAt                       DateTime            @default(now())
   updatedAt                       DateTime            @updatedAt
+  ProjectLeader                   Project[]           @relation("ProjectLeader")
+  ProjectWorkers                  Project[]
 }
 
 model Presentation {
@@ -177,6 +189,8 @@ model Project {
   title                     String?
   extensionProject          Project?           @relation("ExtensionProject", fields: [extensionProjectId], references: [id])
   extensionProjectId        String?
+  center                    Center             @relation(fields: [centerId], references: [id])
+  centerId                  String
   extensionProjects         Project[]          @relation("ExtensionProject")
   dateStart                 String?
   dateCompleted             String?
@@ -184,8 +198,9 @@ model Project {
   status                    ProjectStatus
   fundingAgency             String
   coopAgency                String
-  projectLeader             String
-  researchWorkers           String
+  projectLeader             Faculty            @relation("ProjectLeader", fields: [projectLeaderId], references: [id])
+  projectLeaderId           String
+  researchWorkers           Faculty[]
   approvedProjectCost       String
   supportingDocs            String
   projectReport             String
@@ -231,6 +246,7 @@ model Project {
 // }
 
 enum AwardType {
+  LOCAL
   NATIONAL
   INTERNATIONAL
   REGIONAL
@@ -238,7 +254,7 @@ enum AwardType {
 
 model Award {
   id            String    @id @default(cuid())
-  researchers   String
+  researchers   Faculty[]
   projectId     String
   project       Project   @relation(fields: [projectId], references: [id])
   yearPublished String

@@ -41,7 +41,7 @@ export const columns: ColumnDef<UtilizationWithOther>[] = [
   },
   {
     accessorKey: "proof",
-    header: "PROOF/DESCRIPTION/DOCUMENTATION",
+    header: "Proof/Description/Documnetation",
   },
   {
     accessorKey: "benificiary",
@@ -56,7 +56,7 @@ export const columns: ColumnDef<UtilizationWithOther>[] = [
   },
   {
     accessorKey: "movMoa",
-    header: "MOVS",
+    header: "MOVs",
     cell: ({ row }) => {
       return <div className="flex flex-col w-52">
 

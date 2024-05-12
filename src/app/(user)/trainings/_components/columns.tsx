@@ -4,6 +4,9 @@ import { EditDialog } from "./dialog/edit-dialog/edit-dialog";
 import { DeleteDialog } from "./dialog/delete-dialog/delete-dialog";
 import { FacultyEngagement, GradSchoolFaculty, Prisma } from "@prisma/client";
 import { CircleHelp, Octagon, OctagonX } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -80,20 +83,20 @@ export const columns: ColumnDef<TrainingWithOther>[] = [
   },
   {
     accessorKey: "traineesCount",
-    header: "NO. OF TRAINEES",
+    header: "No. of Trainees",
   },
   {
     accessorKey: "traineesWeighted",
-    header: "TRAINEES WEIGHTED BY THE LENGTH OF TRAINING",
+    header: "Trainees Weighted by the lenght of training",
     cell: ({ row }) => {
       return <div className="w-52">
-        {row.original.venue}
+        {row.original.traineesWeighted}
       </div>;
     }
   },
   {
     accessorKey: "traineesSurveyedCount",
-    header: "TRAINEES SURVEYED",
+    header: "Trainees Surveyed",
     cell: ({ row }) => {
       return <div className="w-20">
         {row.original.traineesSurveyedCount}
@@ -102,44 +105,164 @@ export const columns: ColumnDef<TrainingWithOther>[] = [
   },
   {
     accessorKey: "ratePoor",
-    header: "Rate 1",
+    header: () => {
+      return <div className="w-20 flex items-center gap-x-1">
+        <span>Rate 1</span>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <InfoCircledIcon />
+            </TooltipTrigger>
+            <TooltipContent side="right">Number of clients who rate the training as Poor</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>;
+    },
   },
   {
     accessorKey: "rateFair",
-    header: "Rate 2",
+    header: () => {
+      return <div className="w-20 flex items-center gap-x-1">
+        <span>Rate 2</span>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <InfoCircledIcon />
+            </TooltipTrigger>
+            <TooltipContent side="right">Number of clients who rate the training as Fair</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>;
+    },
   },
   {
     accessorKey: "rateSatisfactory",
-    header: "Rate 3",
+    header: () => {
+      return <div className="w-20 flex items-center gap-x-1">
+        <span>Rate 3</span>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <InfoCircledIcon />
+            </TooltipTrigger>
+            <TooltipContent side="right">Number of clients who rate the training as Satisfactory</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>;
+    },
   },
 
   {
     accessorKey: "rateVerySatisfactory",
-    header: "Rate 4",
+    header: () => {
+      return <div className="w-20 flex items-center gap-x-1">
+        <span>Rate 4</span>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <InfoCircledIcon />
+            </TooltipTrigger>
+            <TooltipContent side="right">Number of clients who rate the training as Very Satisfactory</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>;
+    },
   },
   {
     accessorKey: "rateExcellent",
-    header: "Rate 5",
+    header: () => {
+      return <div className="w-20 flex items-center gap-x-1">
+        <span>Rate 5</span>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <InfoCircledIcon />
+            </TooltipTrigger>
+            <TooltipContent side="right">Number of clients who rate the training as Excellent</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>;
+    },
   },
   {
     accessorKey: "rateTimelinessPoor",
-    header: "Timeless Rate 1",
+    header: () => {
+      return <div className="w-20 flex items-center gap-x-1">
+        <span>Rate 1</span>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <InfoCircledIcon />
+            </TooltipTrigger>
+            <TooltipContent side="right">Number of clients trained who rate TIMELINESS of training as Poor</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>;
+    },
   },
   {
     accessorKey: "rateTimelinessFair",
-    header: "Timeless Rate 2",
+    header: () => {
+      return <div className="w-20 flex items-center gap-x-1">
+        <span>Rate 2</span>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <InfoCircledIcon />
+            </TooltipTrigger>
+            <TooltipContent side="right">Number of clients trained who rate TIMELINESS of training as Fair</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>;
+    },
   },
   {
     accessorKey: "rateTimelinessSatisfactory",
-    header: "Timeless Rate 3",
+    header: () => {
+      return <div className="w-20 flex items-center gap-x-1">
+        <span>Rate 3</span>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <InfoCircledIcon />
+            </TooltipTrigger>
+            <TooltipContent side="right">Number of clients trained who rate TIMELINESS of training as Satisfactory</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>;
+    },
   },
   {
     accessorKey: "rateTimelinessVerySatisfactory",
-    header: "Timeless Rate 4",
+    header: () => {
+      return <div className="w-20 flex items-center gap-x-1">
+        <span>Rate 4</span>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <InfoCircledIcon />
+            </TooltipTrigger>
+            <TooltipContent side="right">Number of clients trained who rate TIMELINESS of training as Very Satisfactory</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>;
+    },
   },
   {
     accessorKey: "rateTimelinessExcellent",
-    header: "Timeless Rate 5",
+    header: () => {
+      return <div className="w-20 flex items-center gap-x-1">
+        <span>Rate 5</span>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <InfoCircledIcon />
+            </TooltipTrigger>
+            <TooltipContent side="right">Number of clients trained who rate TIMELINESS of training as Excellent</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>;
+    },
   },
   {
     accessorKey: "supportingDocs",
@@ -147,7 +270,7 @@ export const columns: ColumnDef<TrainingWithOther>[] = [
   },
   {
     accessorKey: "movMoa",
-    header: "Movs",
+    header: "MOVs",
     cell: ({ row }) => {
       return <div className="flex flex-col w-52">
 

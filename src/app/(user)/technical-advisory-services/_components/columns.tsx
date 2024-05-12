@@ -36,7 +36,7 @@ export const columns: ColumnDef<TechnicalServiceWithOther>[] = [
     accessorKey: "venue",
     header: "Venue/Place",
     cell: ({ row }) => {
-      return <div className="w-20">
+      return <div className="w-52">
         {row.original.venue}
       </div>;
     }
@@ -67,7 +67,7 @@ export const columns: ColumnDef<TechnicalServiceWithOther>[] = [
       console.log(newResearchersArray)
       return <div className="w-64">
         {newResearchersArray.map((item, index) => {
-          return <h1 key={index}>{item}</h1>
+          return <h1 key={index}>{item.toLocaleUpperCase()}</h1>
         })}
       </div>
     }
@@ -80,7 +80,7 @@ export const columns: ColumnDef<TechnicalServiceWithOther>[] = [
       console.log(newResearchersArray)
       return <div className="w-64">
         {newResearchersArray.map((item, index) => {
-          return <h1 key={index}>{item}</h1>
+          return <h1 key={index}>{item.toLocaleUpperCase()}</h1>
         })}
       </div>
     }
@@ -89,11 +89,11 @@ export const columns: ColumnDef<TechnicalServiceWithOther>[] = [
   {
     accessorKey: "proofLink",
     header: "Certificate/Invitation/Program/Evaluation",
-    cell: ({ row }) => {
-      return <div className="w-52">
-        {row.original.proofLink}
-      </div>;
-    }
+    // cell: ({ row }) => {
+    //   return <div className="w-52">
+    //     {row.original.proofLink}
+    //   </div>;
+    // }
   },
   {
     id: "actions",

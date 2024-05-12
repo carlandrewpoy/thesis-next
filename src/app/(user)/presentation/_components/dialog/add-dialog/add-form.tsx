@@ -12,6 +12,7 @@ import { PresentationTypeSelect } from '@/components/select/presentation-type-se
 import { ProjectCombobox } from '@/components/combobox/mutation/project'
 import { CenterCombobox } from '@/components/combobox/mutation/center'
 import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
@@ -37,7 +38,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectCombobox columnName='projectId' />
+                    <ResearchProjectCombobox columnName='projectId' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

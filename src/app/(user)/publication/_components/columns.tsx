@@ -65,10 +65,20 @@ export const columns: ColumnDef<PublicationWithOther>[] = [
   {
     accessorKey: "article",
     header: "Article",
+    cell: ({ row }) => {
+      return <div className="w-52">
+        {row.original.article}
+      </div>;
+    }
   },
   {
     accessorKey: "keywords",
     header: "Keywords",
+    cell: ({ row }) => {
+      return <div className="w-52">
+        {row.original.keywords}
+      </div>;
+    }
   },
   {
     accessorKey: "newAuthors",
@@ -86,7 +96,7 @@ export const columns: ColumnDef<PublicationWithOther>[] = [
     accessorKey: "publicationDate",
     header: "Publication Date",
     cell: ({ row }) => {
-      return <div className="w-20">
+      return <div className="w-32">
         {row.original.publicationDate}
       </div>;
     }
@@ -94,21 +104,26 @@ export const columns: ColumnDef<PublicationWithOther>[] = [
   {
     accessorKey: "journalTitle",
     header: "Journal Title",
+    cell: ({ row }) => {
+      return <div className="w-52">
+        {row.original.issueNo}
+      </div>;
+    }
   },
   {
     accessorKey: "issueNo",
-    header: "VOL. NO. & ISSUE NO.",
+    header: "Vol. No. & Issue No.",
     cell: ({ row }) => {
-      return <div className="w-20">
+      return <div className="w-36">
         {row.original.issueNo}
       </div>;
     }
   },
   {
     accessorKey: "issnOrIsbn",
-    header: "ISSN / ISBN",
+    header: "Issn/Isbn",
     cell: ({ row }) => {
-      return <div className="w-20">
+      return <div className="w-36">
         {row.original.issnOrIsbn}
       </div>;
     }
@@ -117,6 +132,11 @@ export const columns: ColumnDef<PublicationWithOther>[] = [
   {
     accessorKey: "index",
     header: "Index",
+    cell: ({ row }) => {
+      return <div className="w-36">
+        {row.original.index}
+      </div>;
+    }
   },
   {
     accessorKey: "supportingDocs",
@@ -129,7 +149,7 @@ export const columns: ColumnDef<PublicationWithOther>[] = [
 
   {
     accessorKey: "movMoa",
-    header: "Movs",
+    header: "MOVs",
     cell: ({ row }) => {
       return <div className="flex flex-col w-52">
 

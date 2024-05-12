@@ -27,7 +27,7 @@ export function CenterCombobox({
     table
 }: {
     defaultValue?: string | undefined
-    table: Table<Presentation>
+    table: Table<any>
 }) {
     const [open, setOpen] = React.useState(false)
     console.log({ defaultValue })

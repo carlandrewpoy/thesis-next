@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { AddDialog } from "./dialog/add-dialog/add-dialog"
 import { DataTableViewOptions } from "@/components/table/data-table-view-options"
+import ExportButton from "../exportDialog/ExportButton"
+import { FacultyCombobox } from "@/components/combobox/filter/faculty"
 
 
 interface DataTableToolbarProps<TData> {
@@ -31,6 +33,9 @@ export function DataTableToolbar<TData>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
+        <FacultyCombobox filterName="Organizer" columnName="newOrganizers" table={table} />
+        <FacultyCombobox filterName="Invited Faculty" columnName="newInvitedFaculty" table={table} />
+
         {/* {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
@@ -61,9 +66,7 @@ export function DataTableToolbar<TData>({
         >Add</Button> */}
         <AddDialog />
         <DataTableViewOptions table={table} />
-        <Button className="h-8" variant={"outline"}>
-          Export
-        </Button>
+        <ExportButton />
       </div>
     </div>
   )

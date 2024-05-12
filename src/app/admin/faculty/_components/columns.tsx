@@ -17,7 +17,7 @@ export const columns: ColumnDef<Faculty>[] = [
   },
   {
     accessorKey: "middleInitial",
-    header: "Middle Initial/Name",
+    header: "Middle Initial",
     cell: ({ row }) => {
       return <div>{row.original.middleInitial?.toLocaleUpperCase()}</div>;
     }

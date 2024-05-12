@@ -19,13 +19,17 @@ import { CollegeSelect } from '@/components/select/college-select'
 import { AwardTypeSelect } from '@/components/select/award-type-select'
 import { createAward } from '@/server-actions/award'
 import { ResearchProjectSelect } from '@/components/select/research-project-select'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
+import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
 }
 ) => {
+    const [selectedResearchers, setSelectedResearchers] = useState<string[]>([])
+    const createWithOthers = createAward.bind(null, selectedResearchers)
 
-    const [state, formAction] = useFormState(createAward, null)
+    const [state, formAction] = useFormState(createWithOthers, null)
     if (state?.message) {
         close(false)
         toast({
@@ -33,23 +37,6 @@ const AddForm = ({ close }: {
             description: state?.message,
         })
     }
-
-
-    const { mutateAsync: createPost, isPending } = AutoFill();
-    console.log(isPending)
-    const [autoFillData, setautoFillData] = useState<ApiResponse>()
-    const [link, setlink] = useState('')
-    const params = {
-        "link": link,
-        "table": "TRAINING"
-    }
-    !isPending && console.log(autoFillData)
-
-    const handleClick = async () => {
-        const res = await createPost(params as any)
-        setautoFillData(res.data as any)
-    }
-
     return (
         <form className="grid gap-4" action={formAction} >
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -57,7 +44,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ResearchProjectSelect />
+                    <ResearchProjectCombobox columnName='projectId' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -65,7 +52,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='researchers' />
+                    <MultiSelectFacultyCombobox selected={selectedResearchers} setSelected={setSelectedResearchers} />
                 </div>
             </div>
             <div className="grid grid-cols-6 items-center gap-2 -mb-3">
@@ -93,15 +80,7 @@ const AddForm = ({ close }: {
                 <Label className="col-span-6 text-xs font-extralight">Certificate and Program</Label>
             </div>
             <div className="grid grid-cols-12 items-center gap-2 ">
-                <Input onChange={(e) => setlink(e.target.value)} name="certOrProgram" className="col-span-10" />
-                <div className='col-span-2'>
-                    {/* <Button type='button' variant={'secondary'}>Read</Button> */}
-                    <Button type='button' onClick={handleClick} disabled={isPending}>
-                        {isPending ? <div className='flex items-center justify-center w-10'>
-                            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                        </div> : 'Read'}
-                    </Button>
-                </div>
+                <Input name="certOrProgram" className="col-span-10" />
             </div>
             <div className='flex justify-end'>
                 <SubmitButton />

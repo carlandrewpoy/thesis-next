@@ -65,3 +65,20 @@ export function getSingleYearsArray() {
 export function formattedDistance(date: any) {
       return formatDistanceToNow(date, { addSuffix: true });
   }
+
+  export function getYearsRange() {
+  const currentYear = new Date().getFullYear()
+  const displayYears = []
+
+  for (let i = currentYear; i >= 2015; i--) {
+    const yearList = []
+    const lastYear = i - 2
+    const rangeYear = `${i}-${lastYear}`
+    for (i; i >= lastYear; i--) {
+      yearList.push(i)
+    }
+    displayYears.push({ rangeYear, yearList })
+  }
+
+  return displayYears
+}

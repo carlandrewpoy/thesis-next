@@ -5,12 +5,15 @@ import { xprisma } from "@/prisma-extension/extension";
 import { ProjectStatus, ProjectType } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-export const createProject = async (state: any, formData: FormData) => {
+export const createProject = async (selectedResearchers: string[], state: any, formData: FormData) => {
   const res = await xprisma.project.create({
     data: {
       title: formData.get("title") as string,
       extensionProjectId: formData.get("extensionProjectId") as string,
-      researchWorkers: formData.get("researchWorkers") as string,
+      researchWorkers: {
+        connect: selectedResearchers.map((item) => ({ id: item }))
+      },
+      centerId:  formData.get("centerId") as string,
       type: formData.get("type") ? 'EXTENSION':'RESEARCH',
       status: formData.get("status") as ProjectStatus,
       dateStart: formData.get("dateStart") as string,
@@ -18,7 +21,7 @@ export const createProject = async (state: any, formData: FormData) => {
       dateExtension: formData.get("dateExtension") as string,
       fundingAgency: formData.get("fundingAgency") as string,
       coopAgency: formData.get("coopAgency") as string,
-      projectLeader: formData.get("projectLeader") as string,
+      projectLeaderId: formData.get("projectLeaderId") as string,
       approvedProjectCost: formData.get("approvedProjectCost") as string,
       beneficiaries: formData.get("beneficiaries") as string,
       mandatedProgram: formData.get("mandatedProgram") as string,
@@ -42,6 +45,7 @@ export const createProject = async (state: any, formData: FormData) => {
 
 export const updateProject = async (
   id: string,
+  selectedResearchers: string[],
   state: any,
   formData: FormData
 ) => {
@@ -51,16 +55,18 @@ export const updateProject = async (
     },
     data: {
       title: formData.get("title") as string,
-      researchWorkers: formData.get("researchWorkers") as string,
-      extensionProjectId: formData.get("extensionProjectId") as string,
+      researchWorkers: {
+        connect: selectedResearchers.map((item) => ({ id: item }))
+      },      extensionProjectId: formData.get("extensionProjectId") as string,
       type: formData.get("type") as ProjectType,
+      centerId:  formData.get("centerId") as string,
       status: formData.get("status") as ProjectStatus,
       dateStart: formData.get("dateStart") as string,
       dateCompleted: formData.get("dateCompleted") as string,
       dateExtension: formData.get("dateExtension") as string,
       fundingAgency: formData.get("fundingAgency") as string,
       coopAgency: formData.get("coopAgency") as string,
-      projectLeader: formData.get("projectLeader") as string,
+      projectLeaderId: formData.get("projectLeaderId") as string,
       approvedProjectCost: formData.get("approvedProjectCost") as string,
       beneficiaries: formData.get("beneficiaries") as string,
       mandatedProgram: formData.get("mandatedProgram") as string,

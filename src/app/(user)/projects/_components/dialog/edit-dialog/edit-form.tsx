@@ -19,13 +19,18 @@ import { ProjectCombobox } from '@/components/combobox/mutation/project'
 import { ExtensionProjectCombobox } from '@/components/combobox/mutation/extension-project'
 import { ProjectWithOthers } from '../../columns'
 import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
+import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
+import { FacultyCombobox } from '@/components/combobox/mutation/faculty'
+import { Badge } from '@/components/ui/badge'
+import { CenterCombobox } from '@/components/combobox/mutation/center'
 
 const EditForm = ({ row, close }: {
     row: Row<ProjectWithOthers>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
-    const updateWithId = updateProject.bind(null, row.original.id)
-    const [state, formAction] = useFormState(updateWithId, null)
+    const [selectedResearchers, setSelectedResearchers] = useState<string[]>(row.original.researchWorkers.map((item) => item.id))
+    const createWithOthers = updateProject.bind(null, row.original.id, selectedResearchers)
+    const [state, formAction] = useFormState(createWithOthers, null)
     const [mov1, setmov1] = useState(row.original.movSignedBudgetAllocation)
     const [mov2, setmov2] = useState(row.original.movSingedReports)
     const [mov3, setmov3] = useState(row.original.movNotarizedMoa)
@@ -65,6 +70,11 @@ const EditForm = ({ row, close }: {
     }
     return (
         <form className="grid gap-4 " action={formAction}>
+            <div>
+                <Badge>{row.original.type ?? ''}</Badge>
+            </div>
+            <input className='hidden' type="text" defaultValue={row.original.type ?? ''} name='type' />
+
             {row.original.extensionProjectId ?
                 <>
                     <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -93,14 +103,18 @@ const EditForm = ({ row, close }: {
                 <Label className="col-span-3 text-xs font-extralight">Research Workers</Label>
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
-                <Input defaultValue={row.original.researchWorkers} name="researchWorkers" className="col-span-6" />
+                <MultiSelectFacultyCombobox selected={selectedResearchers} setSelected={setSelectedResearchers} />
             </div>
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
-                <Label className="col-span-6 text-xs font-extralight">Status</Label>
+
+                <Label className="col-span-3 text-xs font-extralight">Center</Label>
+                <Label className="col-span-3 text-xs font-extralight">Status</Label>
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
-
-                <div className="col-span-6">
+                <div className="col-span-3">
+                    <CenterCombobox defaultValue={row.original.center.name} />
+                </div>
+                <div className="col-span-3">
                     <ProjectStatusSelect defaultValue={row.original.status} />
                 </div>
             </div>
@@ -130,7 +144,9 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-6 items-center gap-4 ">
 
-                <Input defaultValue={row.original.projectLeader} name="projectLeader" className="col-span-3" />
+                <div className='col-span-3'>
+                    <FacultyCombobox columnName='projectLeaderId' defaultValue={row.original.projectLeader} />
+                </div>
                 <Input defaultValue={row.original.approvedProjectCost.toString()} type='number' name="approvedProjectCost" className="col-span-3" />
             </div>
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">

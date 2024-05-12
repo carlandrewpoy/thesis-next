@@ -16,6 +16,7 @@ import { createPublication } from '@/server-actions/publication'
 import { ExtensionProjectSelect } from '@/components/select/extension-project-select'
 import { createPartnership } from '@/server-actions/partnerships'
 import { CollegeSelect } from '@/components/select/college-select'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
 
 const AddForm = ({ close }: {
     close: Dispatch<SetStateAction<boolean>>
@@ -96,7 +97,7 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ExtensionProjectSelect />
+                    <ResearchProjectCombobox columnName='projectId' />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

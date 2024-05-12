@@ -12,6 +12,10 @@ import {
 export function AwardTypeSelect({ defaultValue }: { defaultValue?: string }) {
     const data = [
         {
+            name: 'Local',
+            value: 'LOCAL'
+        },
+        {
             name: 'National',
             value: 'NATIONAL'
         },

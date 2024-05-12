@@ -10,6 +10,7 @@ import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { AddDialog } from "./dialog/add-dialog/add-dialog"
 import { DataTableViewOptions } from "@/components/table/data-table-view-options"
 import { DurationSelect } from "@/components/select/filter/duration-type"
+import ExportButton from "../exportDialog/ExportButton"
 
 
 interface DataTableToolbarProps<TData> {
@@ -63,9 +64,7 @@ export function DataTableToolbar<TData>({
         >Add</Button> */}
         <AddDialog />
         <DataTableViewOptions table={table} />
-        <Button className="h-8" variant={"outline"}>
-          Export
-        </Button>
+        <ExportButton />
       </div>
     </div>
   )

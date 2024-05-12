@@ -20,6 +20,7 @@ import { Combobox } from '@/components/combobox/demo'
 import { ProjectCombobox } from '@/components/combobox/mutation/project'
 import { CenterCombobox } from '@/components/combobox/mutation/center'
 import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
 
 const EditForm = ({ row, close }: {
     row: Row<PresentationWithOthers>
@@ -69,7 +70,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ProjectCombobox columnName='projectId' defaultValue={row.original.project.title ?? ''} />
+                    <ResearchProjectCombobox columnName='projectId' defaultValue={row.original.project.title ?? ''} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">

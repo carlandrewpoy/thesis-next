@@ -16,10 +16,15 @@ const Awards = async () => {
                     title: true
                 }
             },
+            researchers: true
         }
     });
+    const transformedData = data.map(item => ({
+        ...item,
+        newResearchers: `${item.researchers.map(mappedItem => `${mappedItem.lastname}, ${mappedItem.firstname} ${mappedItem.middleInitial === null ? '' : `${mappedItem?.middleInitial}.`} ${mappedItem.suffix === null ? '' : `${mappedItem?.suffix}`}`).join(':')}`,
+    }));
     return <div className='mx-5'>
-        <DataTable data={data} columns={columns} />
+        <DataTable data={transformedData} columns={columns} />
     </div>
 }
 export default Awards

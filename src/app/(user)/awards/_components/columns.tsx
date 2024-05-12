@@ -14,8 +14,11 @@ export type AwardWithOthers = Prisma.AwardGetPayload<{
         title: true
       }
     },
+    researchers: true
   }
-}>
+}> & {
+  newResearchers: string
+}
 
 export const columns: ColumnDef<AwardWithOthers>[] = [
   {
@@ -32,12 +35,16 @@ export const columns: ColumnDef<AwardWithOthers>[] = [
     header: "Type",
   },
   {
-    accessorKey: "researchers",
+    accessorKey: "newResearchers",
     header: "Researchers",
     cell: ({ row }) => {
-      return <div className="w-52">
-        {row.original.researchers}
-      </div>;
+      const newResearchersArray = row.original.newResearchers.split(':');
+      console.log(newResearchersArray)
+      return <div className="w-64">
+        {newResearchersArray.map((item, index) => {
+          return <h1 key={index}>{item.toLocaleUpperCase()}</h1>
+        })}
+      </div>
     }
   },
   {
@@ -49,13 +56,13 @@ export const columns: ColumnDef<AwardWithOthers>[] = [
     header: "Publisher/Conference Organizer/Conferring Body",
   },
   {
-    accessorKey: "supportingDocs",
+    accessorKey: "certOrProgram",
     header: "Certificate and Program",
-    cell: ({ row }) => {
-      return <div className="w-20">
-        {row.original.certOrProgram}
-      </div>;
-    }
+    // cell: ({ row }) => {
+    //   return <div className="w-20">
+    //     {row.original.certOrProgram}
+    //   </div>;
+    // }
   },
   {
     id: "actions",

@@ -23,13 +23,16 @@ import { AwardTypeSelect } from '@/components/select/award-type-select'
 import { updateAward } from '@/server-actions/award'
 import { ResearchProjectSelect } from '@/components/select/research-project-select'
 import { AwardWithOthers } from '../../columns'
+import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
+import { MultiSelectFacultyCombobox } from '@/components/combobox/mutation/multi-select-faculty'
 
 const EditForm = ({ row, close }: {
     row: Row<AwardWithOthers>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
-    const updateWithId = updateAward.bind(null, row.original.id)
-    const [state, formAction] = useFormState(updateWithId, null)
+    const [selectedResearchers, setSelectedResearchers] = useState<string[]>(row.original.researchers.map((item) => item.id))
+    const updateWithOthers = updateAward.bind(null, row.original.id, selectedResearchers)
+    const [state, formAction] = useFormState(updateWithOthers, null)
 
 
     if (state?.message) {
@@ -57,7 +60,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <ResearchProjectSelect defaultValue={row.original.projectId} />
+                    <ResearchProjectCombobox columnName='projectId' defaultValue={row.original.project?.title ?? ''} />
                 </div>
             </div>
             <div className="grid grid-cols-9 items-center gap-4 -mb-3">
@@ -65,7 +68,7 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={row.original.researchers} name='researchers' />
+                    <MultiSelectFacultyCombobox selected={selectedResearchers} setSelected={setSelectedResearchers} />
                 </div>
             </div>
             <div className="grid grid-cols-6 items-center gap-2 -mb-3">
