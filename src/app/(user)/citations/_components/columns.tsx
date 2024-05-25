@@ -3,6 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { EditDialog } from "./dialog/edit-dialog/edit-dialog";
 import { DeleteDialog } from "./dialog/delete-dialog/delete-dialog";
 import { FacultyEngagement, GradSchoolFaculty, Prisma } from "@prisma/client";
+import OpenLink from "@/components/open-link";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -14,7 +15,6 @@ export type CitationWithOther = Prisma.CitationGetPayload<{
         title: true
       }
     },
-    publisherName: true,
     researchers: true
   }
 }> & {
@@ -121,13 +121,18 @@ export const columns: ColumnDef<CitationWithOther>[] = [
     header: "Publisher Name",
     cell: ({ row }) => {
       return <div className="w-64">
-        {`${row.original.publisherName.lastname}, ${row.original.publisherName.firstname} ${row.original.publisherName.middleInitial === null ? '' : `${row.original.publisherName?.middleInitial}.`} ${row.original.publisherName.suffix === null ? '' : `${row.original.publisherName?.suffix}`}`}
+        {row.original.publisherName}
       </div>;
     }
   },
   {
     accessorKey: "scholarLink",
     header: "Scholarly Link",
+    cell: ({ row }) => {
+      return <div className="w-64">
+        <OpenLink link={row.original.scholarLink} />
+      </div>;
+    }
   },
 
   {

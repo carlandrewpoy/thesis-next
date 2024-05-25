@@ -21,7 +21,7 @@ export function ProjectStatusSelect({ defaultValue }: { defaultValue?: string })
         }
     ]
     return (
-        <Select name="status" defaultValue={defaultValue}>
+        <Select name="status" required defaultValue={defaultValue}>
             <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a status" />
             </SelectTrigger>

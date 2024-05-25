@@ -4,6 +4,7 @@ import { EditDialog } from "./dialog/edit-dialog/edit-dialog";
 import { DeleteDialog } from "./dialog/delete-dialog/delete-dialog";
 import { FacultyEngagement, GradSchoolFaculty, Presentation, Prisma } from "@prisma/client";
 import { dateFormatterName } from "@/lib/utils";
+import OpenLink from "@/components/open-link";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -140,7 +141,13 @@ export const columns: ColumnDef<PresentationWithOthers>[] = [
       return <h1 className="w-24">{dateFormatterName(row.original.date)}</h1>
     }
   },
-
+  {
+    accessorKey: "supportingDocs",
+    header: "Supporting Docs",
+    cell: ({ row }) => {
+      return <OpenLink link={row.original.supportingDocs} />
+    }
+  },
   {
     accessorKey: "movMoa",
     header: "MOVs",

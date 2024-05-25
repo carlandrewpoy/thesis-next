@@ -34,7 +34,7 @@ export function ResearchProjectCombobox({
 
     return (
         <>
-            <input value={valueObject?.[0]?.id ?? ''} name={columnName} className="hidden" />
+            <input required value={valueObject?.[0]?.id ?? ''} name={columnName} className="hidden" />
             <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
                     <Button

@@ -13,7 +13,7 @@ import { getSchoolYears } from "@/lib/utils";
 export function SchoolYearSelect({ defaultValue }: { defaultValue?: string }) {
     const data = getSchoolYears()
     return (
-        <Select name="schoolYear" defaultValue={defaultValue}>
+        <Select required name="schoolYear" defaultValue={defaultValue}>
             <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a year" />
             </SelectTrigger>

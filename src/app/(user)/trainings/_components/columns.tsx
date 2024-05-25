@@ -7,6 +7,7 @@ import { CircleHelp, Octagon, OctagonX } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import OpenLink from "@/components/open-link";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -267,6 +268,9 @@ export const columns: ColumnDef<TrainingWithOther>[] = [
   {
     accessorKey: "supportingDocs",
     header: "Supporting Docs",
+    cell: ({ row }) => {
+      return <OpenLink link={row.original.supportingDocs} />
+    }
   },
   {
     accessorKey: "movMoa",

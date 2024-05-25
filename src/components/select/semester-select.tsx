@@ -21,7 +21,7 @@ export function SemesterSelect({ defaultValue }: { defaultValue?: string }) {
         }
     ]
     return (
-        <Select name="semester" defaultValue={defaultValue}>
+        <Select required name="semester" defaultValue={defaultValue}>
             <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a semester" />
             </SelectTrigger>

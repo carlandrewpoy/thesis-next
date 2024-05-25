@@ -66,7 +66,7 @@ const AddForm = ({ close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
                     <ResearchProjectCombobox columnName='projectId' />
-                    {state?.error?.projectId && <p className="text-red-500 text-xs">{state?.error?.projectId[0]}</p>}
+                    {/* {state?.error?.projectId && <p className="text-red-500 text-xs">{state?.error?.projectId[0]}</p>} */}
 
                 </div>
             </div>
@@ -77,11 +77,11 @@ const AddForm = ({ close }: {
             <div className="grid grid-cols-12 items-center gap-4 ">
                 <div className='col-span-6'>
                     <CenterCombobox />
-                    {state?.error?.centerId && <p className="text-red-500 text-xs">{state?.error?.centerId[0]}</p>}
+                    {/* {state?.error?.centerId && <p className="text-red-500 text-xs">{state?.error?.centerId[0]}</p>} */}
                 </div>
                 <div className="col-span-6" >
-                    <Input name='year' type='number' />
-                    {state?.error?.year && <p className="text-red-500 text-xs">{state?.error?.year[0]}</p>}
+                    <Input required name='year' type='number' />
+                    {/* {state?.error?.year && <p className="text-red-500 text-xs">{state?.error?.year[0]}</p>} */}
 
                 </div>
 
@@ -91,8 +91,8 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='proof' />
-                    {state?.error?.proof && <p className="text-red-500 text-xs">{state?.error?.proof[0]}</p>}
+                    <Input required name='proof' />
+                    {/* {state?.error?.proof && <p className="text-red-500 text-xs">{state?.error?.proof[0]}</p>} */}
 
                 </div>
             </div>
@@ -101,8 +101,8 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='benificiary' />
-                    {state?.error?.benificiary && <p className="text-red-500 text-xs">{state?.error?.benificiary[0]}</p>}
+                    <Input required name='benificiary' />
+                    {/* {state?.error?.benificiary && <p className="text-red-500 text-xs">{state?.error?.benificiary[0]}</p>} */}
 
                 </div>
             </div>
@@ -111,8 +111,8 @@ const AddForm = ({ close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input name='supportingDocs' />
-                    {state?.error?.supportingDocs && <p className="text-red-500 text-xs">{state?.error?.supportingDocs[0]}</p>}
+                    <Input required name='supportingDocs' />
+                    {/* {state?.error?.supportingDocs && <p className="text-red-500 text-xs">{state?.error?.supportingDocs[0]}</p>} */}
 
                 </div>
             </div>
@@ -127,9 +127,9 @@ const AddForm = ({ close }: {
                 <Checkbox name="movReport" className="col-span-2" />
                 <Checkbox name="movUtilization" className="col-span-2" />
                 <Checkbox name="movPhotos" className="col-span-2" />
-                <div className='col-span-8'>
+                {/* <div className='col-span-8'>
                     {state?.error?.movMoa && <p className="text-red-500 text-xs">{state?.error?.movMoa[0]}</p>}
-                </div>
+                </div> */}
 
             </div>
 

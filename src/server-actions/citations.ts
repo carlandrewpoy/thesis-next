@@ -12,7 +12,7 @@ export const createCitation = async (selected: string[],state: any, formData: Fo
       journalTitle: formData.get("journalTitle") as string,
       keywords: formData.get("keywords") as string,
       vol: formData.get("vol") as string,
-      publisherNameId: formData.get("publisherNameId") as string,
+      publisherName: formData.get("publisherName") as string,
       researchers: {
         connect: selected.map((item) => ({ id: item }))
       },
@@ -45,7 +45,7 @@ export const updateCitation = async (
       journalTitle: formData.get("journalTitle") as string,
       keywords: formData.get("keywords") as string,
       vol: formData.get("vol") as string,
-      publisherNameId: formData.get("publisherNameId") as string,
+      publisherName: formData.get("publisherName") as string,
       researchers: {
                 set: selected.map((item) => ({ id: item }))
       },

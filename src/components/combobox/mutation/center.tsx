@@ -31,7 +31,7 @@ export function CenterCombobox({
     const valueObject = data?.filter((item) => item.name.toLocaleLowerCase() === value.toLocaleLowerCase())
     return (
         <>
-            <input defaultValue={valueObject?.[0]?.id ?? ''} name="centerId" className="hidden" />
+            <input required defaultValue={valueObject?.[0]?.id ?? ''} name="centerId" className="hidden" />
             <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
                     <Button

@@ -17,7 +17,6 @@ const Citations = async () => {
                 }
             },
             researchers: true,
-            publisherName: true
         }
     });
     const transformedData = data.map(item => ({

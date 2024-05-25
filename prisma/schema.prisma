@@ -78,7 +78,6 @@ model Faculty {
   Publications                    Publication[]
   TechnicalServicesOrganizers     TechnicalService[]  @relation("Organizers")
   TechnicalServicesInvitedFaculty TechnicalService[]  @relation("InvitedFaculty")
-  Citations                       Citation[]
   CitationResearcher              Citation[]          @relation(name: "CitationResearchers")
   AwardResearchers                Award[]
   createdAt                       DateTime            @default(now())
@@ -396,8 +395,7 @@ model Citation {
   journalTitle     String
   vol              String
   yearPublishedTwo String
-  publisherName    Faculty   @relation(fields: [publisherNameId], references: [id])
-  publisherNameId  String
+  publisherName    String
   scholarLink      String
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt

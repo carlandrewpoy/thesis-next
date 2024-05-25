@@ -17,21 +17,24 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { GetCollege } from "@/server-state-management/state-data"
+import { GetExtensionProject, GetResearchProject } from "@/server-state-management/state-data"
 
-export function CollegeCombobox({
+export function ResearchProjectComboboxTraining({
     defaultValue,
+    columnName
 }: {
-    defaultValue?: string | undefined
+    defaultValue?: string
+    columnName: string
 }) {
     const [open, setOpen] = React.useState(false)
-    console.log({ defaultValue })
-    const [value, setValue] = React.useState(defaultValue ?? '')
-    const { data } = GetCollege()
-    const valueObject = data?.filter((item) => item.name.toLocaleLowerCase() === value.toLocaleLowerCase())
+    const [value, setValue] = React.useState(defaultValue)
+    const { data } = GetResearchProject()
+    const valueObject = data?.filter((item) => item.title?.toLocaleLowerCase() === value?.toLocaleLowerCase())
+    console.log(value)
+
     return (
         <>
-            <input defaultValue={valueObject?.[0]?.id ?? ''} name="collegeId" className="hidden" />
+            <input value={valueObject?.[0]?.id ?? ''} name={columnName} className="hidden" />
             <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
                     <Button
@@ -42,26 +45,26 @@ export function CollegeCombobox({
                         className="w-full justify-between"
                     >
                         {value
-                            ? data?.find((item) => item?.name.toLocaleLowerCase() === value.toLocaleLowerCase())?.name
-                            : "Select college..."}
+                            ? data?.find((item) => item.title?.toLocaleLowerCase() === value.toLocaleLowerCase())?.title
+                            : "Select project..."}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent className="p-0" >
                     <Command >
-                        <CommandInput required placeholder="Search framework..." className="h-9" />
+                        <CommandInput placeholder="Search project..." className="h-9" />
                         <CommandEmpty>No framework found.</CommandEmpty>
                         <CommandGroup>
                             {data?.map((item) => (
                                 <CommandItem
                                     key={item.id}
-                                    value={item.name}
+                                    value={item?.title as any}
                                     onSelect={(currentValue) => {
                                         setValue(currentValue === value ? "" : currentValue)
                                         setOpen(false)
                                     }}
                                 >
-                                    {item.name}
+                                    {item.title}
                                     <CheckIcon
                                         className={cn(
                                             "ml-auto h-4 w-4",

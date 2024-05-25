@@ -40,30 +40,22 @@ const durations = [
     }
 ]
 
-export function DurationSelect({ defaultValue, set }: { defaultValue?: string, set?: React.Dispatch<React.SetStateAction<string>> }) {
-    const [value, setvalue] = React.useState('')
-    React.useEffect(() => {
-        setvalue(defaultValue ?? '')
-    }, [defaultValue])
-
+export function DurationSelectTwo({ defaultValue }: {
+    defaultValue?: string
+}) {
     return (
-        <Select name="duration" defaultValue={value} onValueChange={(value) => {
-            setvalue(value)
-            set?.(durations.find((item) => item.value === value)?.weight ?? '')
-        }}>
-            <SelectTrigger className="w-full">
+        <Select defaultValue={defaultValue} name="duration">
+            <SelectTrigger>
                 <SelectValue placeholder="Duration" />
             </SelectTrigger>
             <SelectContent>
-                <SelectGroup>
-                    {durations?.map((item: {
-                        name: string,
-                        value: string
+                {durations?.map((item: {
+                    name: string,
+                    value: string
 
-                    }) => (
-                        <SelectItem key={item.value} value={item.value}>{item.name}</SelectItem>
-                    ))}
-                </SelectGroup>
+                }) => (
+                    <SelectItem key={item.value} value={item.value}>{item.name}</SelectItem>
+                ))}
             </SelectContent>
         </Select>
     )

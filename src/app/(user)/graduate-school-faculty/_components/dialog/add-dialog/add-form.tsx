@@ -40,7 +40,7 @@ const AddForm = ({ close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
                     <FacultyCombobox columnName='faculty' />
-                    {state?.error?.facultyId && <p className="text-red-500 text-xs">{state?.error?.facultyId[0]}</p>}
+                    {/* {state?.error?.facultyId && <p className="text-red-500 text-xs">{state?.error?.facultyId[0]}</p>} */}
 
                 </div>
             </div>
@@ -50,7 +50,7 @@ const AddForm = ({ close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
                     <CollegeCombobox />
-                    {state?.error?.collegeId && <p className="text-red-500 text-xs">{state?.error?.collegeId[0]}</p>}
+                    {/* {state?.error?.collegeId && <p className="text-red-500 text-xs">{state?.error?.collegeId[0]}</p>} */}
 
                 </div>
             </div>
@@ -60,7 +60,7 @@ const AddForm = ({ close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
                     <EngagementSelect />
-                    {state?.error?.facultyEngagementId && <p className="text-red-500 text-xs">{state?.error?.facultyEngagementId[0]}</p>}
+                    {/* {state?.error?.facultyEngagementId && <p className="text-red-500 text-xs">{state?.error?.facultyEngagementId[0]}</p>} */}
 
                 </div>
             </div>
@@ -71,12 +71,12 @@ const AddForm = ({ close }: {
             <div className="grid grid-cols-12 items-center gap-4 ">
                 <div className='col-span-6'>
                     <SchoolYearSelect />
-                    {state?.error?.schoolYear && <p className="text-red-500 text-xs">{state?.error?.schoolYear[0]}</p>}
+                    {/* {state?.error?.schoolYear && <p className="text-red-500 text-xs">{state?.error?.schoolYear[0]}</p>} */}
 
                 </div>
                 <div className='col-span-6'>
                     <SemesterSelect />
-                    {state?.error?.semester && <p className="text-red-500 text-xs">{state?.error?.semester[0]}</p>}
+                    {/* {state?.error?.semester && <p className="text-red-500 text-xs">{state?.error?.semester[0]}</p>} */}
                 </div>
             </div>
             <div className='flex justify-end'>

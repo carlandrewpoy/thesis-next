@@ -3,6 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { EditDialog } from "./dialog/edit-dialog/edit-dialog";
 import { DeleteDialog } from "./dialog/delete-dialog/delete-dialog";
 import { FacultyEngagement, GradSchoolFaculty, Prisma } from "@prisma/client";
+import OpenLink from "@/components/open-link";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -85,15 +86,12 @@ export const columns: ColumnDef<TechnicalServiceWithOther>[] = [
       </div>
     }
   },
-
   {
     accessorKey: "proofLink",
     header: "Certificate/Invitation/Program/Evaluation",
-    // cell: ({ row }) => {
-    //   return <div className="w-52">
-    //     {row.original.proofLink}
-    //   </div>;
-    // }
+    cell: ({ row }) => {
+      return <OpenLink link={row.original.proofLink} />
+    }
   },
   {
     id: "actions",

@@ -39,7 +39,7 @@ export function FacultyCombobox({
     const valueObject = data?.filter((item) => handleFullName(item).toLocaleLowerCase() === value.toLocaleLowerCase())
     return (
         <>
-            <input value={valueObject?.[0]?.id ?? ''} name={columnName} className="hidden" />
+            <input required value={valueObject?.[0]?.id ?? ''} name={columnName} className="hidden" />
             <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
                     <Button
@@ -56,8 +56,8 @@ export function FacultyCombobox({
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent className="p-0" >
-                    <Command >
-                        <CommandInput placeholder="Search faculty..." className="h-9" />
+                    <Command>
+                        <CommandInput required placeholder="Search faculty..." className="h-9" />
                         <CommandEmpty>No framework found.</CommandEmpty>
                         <CommandGroup>
                             {data?.map((item) => (

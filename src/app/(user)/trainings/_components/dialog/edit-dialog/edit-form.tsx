@@ -13,11 +13,13 @@ import { DurationSelect } from '@/components/select/duration-select'
 import { updateTraining } from '@/server-actions/trainings'
 import { ResearchProjectCombobox } from '@/components/combobox/mutation/research-project'
 import { TrainingWithOther } from '../../columns'
+import { DurationSelectTwo } from '@/components/select/duration-select-two'
 
 const EditForm = ({ row, close }: {
     row: Row<TrainingWithOther>
     close: Dispatch<SetStateAction<boolean>>
 }) => {
+    console.log(row.original.duration)
     const updateWithId = updateTraining.bind(null, row.original.id)
     const [state, formAction] = useFormState(updateWithId, null)
     const [mov1, setmov1] = useState(row.original.movReportAndActivityProgram)
@@ -66,7 +68,7 @@ const EditForm = ({ row, close }: {
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
                     <Input defaultValue={row.original.trainingTitle} name='trainingTitle' />
-                    {state?.error?.trainingTitle && <p className="text-red-500 text-xs">{state?.error?.trainingTitle[0]}</p>}
+                    {/* {state?.error?.trainingTitle && <p className="text-red-500 text-xs">{state?.error?.trainingTitle[0]}</p>} */}
 
                 </div>
             </div>
@@ -75,8 +77,8 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={row.original.venue} name='venue' />
-                    {state?.error?.venue && <p className="text-red-500 text-xs">{state?.error?.venue[0]}</p>}
+                    <Input required defaultValue={row.original.venue} name='venue' />
+                    {/* {state?.error?.venue && <p className="text-red-500 text-xs">{state?.error?.venue[0]}</p>} */}
 
                 </div>
             </div>
@@ -85,8 +87,8 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-9 items-center gap-4 ">
                 <div className='col-span-9'>
-                    <Input defaultValue={row.original.beneficiary} name='beneficiary' />
-                    {state?.error?.beneficiary && <p className="text-red-500 text-xs">{state?.error?.beneficiary[0]}</p>}
+                    <Input required defaultValue={row.original.beneficiary} name='beneficiary' />
+                    {/* {state?.error?.beneficiary && <p className="text-red-500 text-xs">{state?.error?.beneficiary[0]}</p>} */}
 
                 </div>
             </div>
@@ -112,17 +114,17 @@ const EditForm = ({ row, close }: {
             <div className="grid grid-cols-6 items-center gap-4 ">
                 <div className="col-span-2">
                     <Input defaultValue={row.original.dateStarted ?? ''} type='date' name="dateStarted" />
-                    {state?.error?.dateStarted && <p className="text-red-500 text-xs">{state?.error?.dateStarted[0]}</p>}
+                    {/* {state?.error?.dateStarted && <p className="text-red-500 text-xs">{state?.error?.dateStarted[0]}</p>} */}
 
                 </div>
                 <div className="col-span-2">
                     <Input defaultValue={row.original.dateEnded ?? ''} type='date' name="dateEnded" />
-                    {state?.error?.dateEnded && <p className="text-red-500 text-xs">{state?.error?.dateEnded[0]}</p>}
+                    {/* {state?.error?.dateEnded && <p className="text-red-500 text-xs">{state?.error?.dateEnded[0]}</p>} */}
 
                 </div>
                 <div className="col-span-2">
-                    <DurationSelect defaultValue={row.original.duration ?? ''} />
-                    {state?.error?.duration && <p className="text-red-500 text-xs">{state?.error?.duration[0]}</p>}
+                    <DurationSelectTwo defaultValue={row.original.duration ?? ''} />
+                    {/* {state?.error?.duration && <p className="text-red-500 text-xs">{state?.error?.duration[0]}</p>} */}
                 </div>
             </div>
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">
@@ -134,18 +136,18 @@ const EditForm = ({ row, close }: {
 
                 <div className="col-span-2">
 
-                    <Input defaultValue={row.original.traineesCount} type='number' name="traineesCount" />
-                    {state?.error?.traineesCount && <p className="text-red-500 text-xs">{state?.error?.traineesCount[0]}</p>}
+                    <Input required defaultValue={row.original.traineesCount} type='number' name="traineesCount" />
+                    {/* {state?.error?.traineesCount && <p className="text-red-500 text-xs">{state?.error?.traineesCount[0]}</p>} */}
 
                 </div>
                 <div className="col-span-2">
                     <Input defaultValue={row.original.traineesWeighted} type='number' name="traineesWeighted" className="col-span-2" />
-                    {state?.error?.traineesWeighted && <p className="text-red-500 text-xs">{state?.error?.traineesWeighted[0]}</p>}
+                    {/* {state?.error?.traineesWeighted && <p className="text-red-500 text-xs">{state?.error?.traineesWeighted[0]}</p>} */}
 
                 </div>
                 <div className="col-span-2">
-                    <Input defaultValue={row.original.traineesSurveyedCount} type='number' name="traineesSurveyedCount" className="col-span-2" />
-                    {state?.error?.traineesSurveyedCount && <p className="text-red-500 text-xs">{state?.error?.traineesSurveyedCount[0]}</p>}
+                    <Input required defaultValue={row.original.traineesSurveyedCount} type='number' name="traineesSurveyedCount" className="col-span-2" />
+                    {/* {state?.error?.traineesSurveyedCount && <p className="text-red-500 text-xs">{state?.error?.traineesSurveyedCount[0]}</p>} */}
 
                 </div>
             </div>
@@ -161,11 +163,11 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-10 items-center gap-4 ">
 
-                <Input defaultValue={row.original.ratePoor} type='number' name="ratePoor" className="col-span-2" />
-                <Input defaultValue={row.original.rateFair} type='number' name="rateFair" className="col-span-2" />
-                <Input defaultValue={row.original.rateSatisfactory} type='number' name="rateSatisfactory" className="col-span-2" />
-                <Input defaultValue={row.original.rateVerySatisfactory} type='number' name="rateVerySatisfactory" className="col-span-2" />
-                <Input defaultValue={row.original.rateExcellent} type='number' name="rateExcellent" className="col-span-2" />
+                <Input required defaultValue={row.original.ratePoor} type='number' name="ratePoor" className="col-span-2" />
+                <Input required defaultValue={row.original.rateFair} type='number' name="rateFair" className="col-span-2" />
+                <Input required defaultValue={row.original.rateSatisfactory} type='number' name="rateSatisfactory" className="col-span-2" />
+                <Input required defaultValue={row.original.rateVerySatisfactory} type='number' name="rateVerySatisfactory" className="col-span-2" />
+                <Input required defaultValue={row.original.rateExcellent} type='number' name="rateExcellent" className="col-span-2" />
             </div>
             <div className="grid grid-cols-10 items-center gap-4 -mb-3">
                 <Label className="col-span-10 text-center text-xs font-extralight">Number of clients trained who rate TIMELINESS of training as</Label>
@@ -179,11 +181,11 @@ const EditForm = ({ row, close }: {
             </div>
             <div className="grid grid-cols-10 items-center gap-4 ">
 
-                <Input defaultValue={row.original.rateTimelinessPoor} type='number' name="rateTimelinessPoor" className="col-span-2" />
-                <Input defaultValue={row.original.rateTimelinessFair} type='number' name="rateTimelinessFair" className="col-span-2" />
-                <Input defaultValue={row.original.rateTimelinessSatisfactory} type='number' name="rateTimelinessSatisfactory" className="col-span-2" />
-                <Input defaultValue={row.original.rateTimelinessVerySatisfactory} type='number' name="rateTimelinessVerySatisfactory" className="col-span-2" />
-                <Input defaultValue={row.original.rateTimelinessExcellent} type='number' name="rateTimelinessExcellent" className="col-span-2" />
+                <Input required defaultValue={row.original.rateTimelinessPoor} type='number' name="rateTimelinessPoor" className="col-span-2" />
+                <Input required defaultValue={row.original.rateTimelinessFair} type='number' name="rateTimelinessFair" className="col-span-2" />
+                <Input required defaultValue={row.original.rateTimelinessSatisfactory} type='number' name="rateTimelinessSatisfactory" className="col-span-2" />
+                <Input required defaultValue={row.original.rateTimelinessVerySatisfactory} type='number' name="rateTimelinessVerySatisfactory" className="col-span-2" />
+                <Input required defaultValue={row.original.rateTimelinessExcellent} type='number' name="rateTimelinessExcellent" className="col-span-2" />
             </div>
 
             <div className="grid grid-cols-6 items-center gap-4 -mb-3">

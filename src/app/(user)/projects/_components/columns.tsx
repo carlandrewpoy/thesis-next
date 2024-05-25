@@ -3,6 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Center, College, Prisma, Project, User } from "@prisma/client";
 import { EditDialog } from "./dialog/edit-dialog/edit-dialog";
 import { DeleteDialog } from "./dialog/delete-dialog/delete-dialog";
+import OpenLink from "@/components/open-link";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -139,15 +140,13 @@ export const columns: ColumnDef<ProjectWithOthers>[] = [
   {
     accessorKey: "supportingDocs",
     header: "Supporting Docs",
-    // cell: ({ row }) => {
-    //   return <div className="w-96">
-    //     {row.original.supportingDocs}
-    //   </div>;
-    // }
+    cell: ({ row }) => {
+      return <OpenLink link={row.original.supportingDocs} />
+    }
   },
   {
     accessorKey: "projectReport",
-    header: "MOVS",
+    header: "MOVs",
     cell: ({ row }) => {
       return <div className="flex flex-col w-52">
 
