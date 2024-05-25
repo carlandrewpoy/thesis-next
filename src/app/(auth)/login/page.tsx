@@ -1,25 +1,25 @@
-'use client'
 import Image from "next/image"
 import Link from "next/link"
-
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import React from "react"
-import { signIn } from "next-auth/react"
-
+import { Metadata } from "next"
+import LoginForm from "./login.form"
+export const metadata: Metadata = {
+  title: "Login",
+  description: "A task and issue tracker build using Tanstack Table.",
+}
 export default function Login() {
-  const emailRef = React.useRef<HTMLInputElement>(null);
-  const passwordRef = React.useRef<HTMLInputElement>(null);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const res = signIn("credentials", {
-      email: emailRef.current?.value,
-      password: passwordRef.current?.value,
-      callbackUrl: "http://localhost:3000",
-    });
-    console.log({ res });
-  };
+
+
+  // if(!res?.error) {
+  //   router.push('/')
+  // }
+
+  // if (res === undefined) {
+  //   toast({
+  //     duration: 1500,
+  //     title: "Account not found!",
+  //   })
+  // }
+
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
       <div className="flex items-center justify-center py-12">
@@ -30,28 +30,7 @@ export default function Login() {
               Enter your email below to login to your account
             </p>
           </div>
-          <form className="grid gap-4" onSubmit={handleSubmit}>
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                ref={emailRef}
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-
-              </div>
-              <Input ref={passwordRef} id="password" type="password" required />
-            </div>
-            <Button type="submit" className="w-full">
-              Login
-            </Button>
-          </form>
+          <LoginForm />
 
         </div>
       </div>

@@ -1,37 +1,61 @@
 "use server";
 
+import { GradSchoolSchema } from "@/lib/zod-types/z-schema";
 import { xprisma } from "@/prisma-extension/extension";
 import { Semester } from "@prisma/client";
-import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 
 export const createGradSchoolFaculty = async (
   state: any,
   formData: FormData
 ) => {
-  const user = await getServerSession()
-  const res = await xprisma.gradSchoolFaculty.create({
+   const values = {
+        collegeId: formData.get("collegeId"),
+        facultyEngagementId: formData.get("facultyEngagement"),
+        facultyId: formData.get("faculty"),
+        schoolYear: formData.get("schoolYear"),
+        semester: formData.get("semester") as Semester,
+      }
+      const result = GradSchoolSchema.safeParse(values)
+      if (!result.success) {
+          return {
+              error: result.error.flatten().fieldErrors
+          }
+      }
+
+      const res = await xprisma.gradSchoolFaculty.create({
+          data: result.data
+      })
+
+      if (res.id) {
+          revalidatePath("/graduate-school-faculty");
+          return {
+              message: "Added successfully",
+          };
+      }
+      
+  // const res = await xprisma.gradSchoolFaculty.create({
     
-    data: {
-      collegeId: formData.get("collegeId") as string,
-      facultyEngagementId: formData.get("facultyEngagement") as string,
-      facultyId: formData.get("faculty") as string,
-      schoolYear: formData.get("schoolYear") as string,
-      semester: formData.get("semester") as Semester,
-    },
-  });
-  if (res.id) {
-    revalidatePath("/admin/graduate-school-faculty");
-    // await xprisma.center.create({
-    //   data: {
-    //    name: 'Graduate School Faculty',
-    //     collegeId: 'cluuyi60g0001ec2thbshwbm4',
-    //   },
-    // })
-    return {
-      message: "Added successfully",
-    };
-  }
+  //   data: {
+  //     collegeId: formData.get("collegeId") as string,
+  //     facultyEngagementId: formData.get("facultyEngagement") as string,
+  //     facultyId: formData.get("faculty") as string,
+  //     schoolYear: formData.get("schoolYear") as string,
+  //     semester: formData.get("semester") as Semester,
+  //   },
+  // });
+  // if (res.id) {
+  //   revalidatePath("/admin/graduate-school-faculty");
+  //   // await xprisma.center.create({
+  //   //   data: {
+  //   //    name: 'Graduate School Faculty',
+  //   //     collegeId: 'cluuyi60g0001ec2thbshwbm4',
+  //   //   },
+  //   // })
+  //   return {
+  //     message: "Added successfully",
+  //   };
+  // }
 };
 
 export const updateGradSchoolFaculty = async (
@@ -56,7 +80,7 @@ export const updateGradSchoolFaculty = async (
       error: "Error updating",
     };
   }
-  revalidatePath("/admin/center");
+  revalidatePath("/graduate-school-faculty");
   return {
     message: "Updated successfully",
   };
@@ -76,7 +100,7 @@ export const deleteGradSchoolFaculty = async (
       error: "Error deleting",
     };
   }
-  revalidatePath("/admin/center");
+  revalidatePath("/graduate-school-faculty");
   return {
     message: "Deleted successfully",
   };

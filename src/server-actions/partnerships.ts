@@ -22,7 +22,7 @@ export const createPartnership = async (state: any, formData: FormData) => {
     },
   });
   if (res.id) {
-    revalidatePath("/admin/user");
+    revalidatePath("/partnership");
     return {
       message: "Added successfully",
     };
@@ -58,7 +58,7 @@ export const updatePartnership = async (
       error: "Error updating",
     };
   }
-  revalidatePath("/admin/user");
+  revalidatePath("/partnership");
   return {
     message: "Updated successfully",
   };
@@ -75,7 +75,7 @@ export const deletePartnership = async (state: any, formData: FormData) => {
       error: "Error deleting",
     };
   }
-  revalidatePath("/admin/user");
+  revalidatePath("/partnership");
   return {
     message: "Deleted successfully",
   };

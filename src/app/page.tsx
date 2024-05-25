@@ -18,7 +18,7 @@ export default function Home() {
         <Header />
         <main>
           <section className="text-center mt-10">
-            <Badge>Carara State University</Badge>
+            <Badge className="px-5 py-2 text-base">Caraga State University</Badge>
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mt-2">
               OVPRIE MANAGEMENT SYSTEM
             </h1>

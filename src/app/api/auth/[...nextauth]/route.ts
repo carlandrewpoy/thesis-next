@@ -27,20 +27,34 @@ const handler = NextAuth({
           },
         });
 
+         if (!user) {
+          return null;
+        }
+
         const isValid = await bcrypt.compare(
           credentials?.password,
           user?.password
         );
 
-        if (!isValid) {
+        if (!isValid ) {
           return null;
+        } else {
+          return user;
         }
-
-        return user;
       },
     }),
   ],
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+    if (user) {
+      return true
+    } else {
+      // Return false to display a default error message
+      return false
+      // Or you can return a URL to redirect to:
+      // return '/unauthorized'
+    }
+  },
     async jwt({ token, user }) {
       return { ...token, ...user };
     },

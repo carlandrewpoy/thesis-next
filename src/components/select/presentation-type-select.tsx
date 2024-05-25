@@ -29,7 +29,7 @@ export function PresentationTypeSelect({ defaultValue }: { defaultValue?: string
         }
     ]
     return (
-        <Select name="type" required defaultValue={defaultValue}>
+        <Select name="type" defaultValue={defaultValue}>
             <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select type" />
             </SelectTrigger>

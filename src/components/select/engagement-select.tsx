@@ -21,7 +21,7 @@ export function EngagementSelect({ defaultValue }: { defaultValue?: string }) {
         fetchData();
     }, [])
     return (
-        <Select name="facultyEngagement" required defaultValue={defaultValue}>
+        <Select name="facultyEngagement" defaultValue={defaultValue}>
             <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select engagement" />
             </SelectTrigger>
