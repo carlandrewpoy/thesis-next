@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Link from "next/link";
-import { Home, LineChart, Package, Package2, PanelLeft, Search, Settings, ShoppingCart, Users2 } from "lucide-react";
+import { Home, LibraryBig, LineChart, Package, Package2, PanelLeft, Search, Settings, ShoppingCart, Users2 } from "lucide-react";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { usePathname } from 'next/navigation';
 import { capitalizeFirstLetter } from '@/lib/utils';
-import { adminSideNavLinks, headerLinks, userSideNavLinks } from '@/constants/links';
+import { adminSideNavLinks, userSideNavLinks } from '@/constants/links';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Icons } from './icons';
 import { useTheme } from 'next-themes';
@@ -36,7 +36,7 @@ const Header = () => {
                             href="#"
                             className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                         >
-                            <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
+                            <LibraryBig className="h-5 w-5 transition-all group-hover:scale-110" />
                             <span className="sr-only">Acme Inc</span>
                         </Link>
 

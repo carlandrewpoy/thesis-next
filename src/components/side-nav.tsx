@@ -7,7 +7,7 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import Link from 'next/link'
-import { Home, LineChart, Package, Package2, PanelLeft, Scroll, Settings, ShoppingCart, Users2 } from 'lucide-react'
+import { Home, LibraryBig, LineChart, Package, Package2, PanelLeft, Scroll, Settings, ShoppingCart, Users2 } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { adminSideNavLinks, headerLinks, userSideNavLinks } from '@/constants/links'
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from './ui/sheet'
@@ -36,7 +36,7 @@ const SideNav = () => {
                     <Sheet>
                         <SheetTrigger asChild>
                             <Button size="icon" variant="outline" className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base">
-                                <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
+                                <LibraryBig className="h-4 w-4 transition-all group-hover:scale-110" />
                                 <span className="sr-only">Acme Inc</span>
                             </Button>
                         </SheetTrigger>
@@ -48,7 +48,7 @@ const SideNav = () => {
                                             href="#"
                                             className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                                         >
-                                            <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
+                                            <LibraryBig className="h-5 w-5 transition-all group-hover:scale-110" />
                                             <span className="sr-only">Acme Inc</span>
                                         </Link>
                                     </SheetClose>

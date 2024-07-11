@@ -4,7 +4,7 @@ import { DataTable } from "./_components/data-table"
 import prisma from "@/lib/prisma";
 
 export const metadata: Metadata = {
-    title: "User",
+    title: "Audit Trails",
     description: "A task and issue tracker build using Tanstack Table.",
 }
 
